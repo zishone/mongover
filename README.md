@@ -17,21 +17,23 @@ $ mongover <command> [<args>]
 | init [&lt;path>]  | initializes a new Mongover Repository                            |
 | apply [&lt;path>] | applies the current Mongover Specification to the MongoDB Server |
 
----
-After initializing a repository:
+<br/>
+
+**Initializing a repository:**
 ```shell
 $ mongover init myFirstMongover
 $ cd myFirstMongover
 ```
 
-Modify the specification file `mongover.json` according to the schema of your database.
-
-After your modifications, you can apply the specification file to your server:
+**Applying specification to server:**
 ```shell
 $ mongover apply
 ```
 
-## Mongover Specification JSON Example
+## Mongover Specification File
+Inside a Mongover Repositry there is a Specification File named `mongover.json`. Modify this file according to the needs of your databases.
+
+**Specifcation File Example:**
 ```json5
 {
   "databases": {
