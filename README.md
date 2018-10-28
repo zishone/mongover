@@ -39,7 +39,7 @@ mongover <command> [<args>]
             "fieldName",
             // ...
           ],
-          "persistId": false,
+          "preserveObjectId": false,
           "dropIndexesFirst": false,
           "indexes": {
             "indexName": {
