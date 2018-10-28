@@ -62,11 +62,11 @@ Located inside a Mongover Repositry is the Mongover Specification File named `mo
           },
           "options": {},
           "upsertFields": [
-            "fieldName",
+            "fieldNameStr",
             // ...
           ],
           "ignoreFields": [
-            "fieldName",
+            "fieldNameStr",
             // ...
           ],
           "preserveObjectId": false,
@@ -74,7 +74,7 @@ Located inside a Mongover Repositry is the Mongover Specification File named `mo
           "indexes": {
             "indexName": {
               "keys": {
-                "fieldName": 1
+                "fieldNameStr": 1
               },
               "options": {},
               "dropFirst": false
