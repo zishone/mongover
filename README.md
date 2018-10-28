@@ -31,7 +31,7 @@ $ mongover apply
 ```
 
 ## Mongover Specification File
-Located inside a Mongover Repositry is the Mongover Specification File named `mongover.json`. Modify this file according to the needs of your databases.
+Located inside a Mongover Repository is the Mongover Specification File named `mongover.json`. Modify this file according to the needs of your databases.
 
 **Mongover Specification File Example:**
 ```json5
