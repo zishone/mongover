@@ -1,5 +1,5 @@
 # mongover
-A MongoDB Server Database Specification Tool
+A MongoDB Server Database Migration Tool
 
 ## Installation
 ```shell
@@ -8,14 +8,27 @@ npm i -g mongover
 
 ## Usage
 ```shell
-mongover <command> [<args>]
+$ mongover <command> [<args>]
 ```
 
-| Commands          | Descriptions                                                 |
-| ----------------- | ------------------------------------------------------------ |
-| help              | shows usage                                                  |
-| init [&lt;path>]  | initializes a new Mongover Repository                        |
-| apply [&lt;path>] | applies current Mongover Specification to the MongoDB Server |
+| Commands          | Descriptions                                                     |
+| ----------------- | ---------------------------------------------------------------- |
+| help              | shows usage                                                      |
+| init [&lt;path>]  | initializes a new Mongover Repository                            |
+| apply [&lt;path>] | applies the current Mongover Specification to the MongoDB Server |
+
+After initializing a repository:
+```shell
+$ mongover init myFirstMongover
+$ cd myFirstMongover
+```
+
+Modify the specification file `mongover.json` according to the schema of your database.
+
+After your modifications, you can apply the specification file to your server:
+```shell
+$ mongover apply
+```
 
 ## Mongover Specification JSON Example
 ```json5
@@ -25,8 +38,22 @@ mongover <command> [<args>]
       "collections": {
         "collectionName": {
           "fields": {
-            "fieldName": {
+            "fieldNameStr": {
               "type": "string"
+            },
+            "fieldNameObj": {
+              "type": "object",
+              "fields": {
+                "fieldNameBool": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "fieldNameArr": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
             },
             // ...
           },
