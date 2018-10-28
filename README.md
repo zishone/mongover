@@ -26,7 +26,7 @@ $ mongover init myFirstMongover
 $ cd myFirstMongover
 ```
 
-**Applying a Mongover Specification to the server:**
+**Applying a Mongover Specification to the MongoDB Server:**
 ```shell
 $ mongover apply
 ```
