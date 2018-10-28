@@ -1,5 +1,5 @@
 # mongover
-A MongoDB Server Database Migration Tool
+A MongoDB Server Database Specification Tool
 
 ## Installation
 ```shell
