@@ -3,8 +3,9 @@ A MongoDB Server Database Migration Tool
 
 ## Installation
 ```shell
-npm i -g mongover
+$ npm i -g mongover
 ```
+Or use [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) instead which comes with npm 5.2+ and higher.
 
 ## Usage
 ```shell
