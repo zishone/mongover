@@ -19,21 +19,21 @@ $ mongover <command> [<args>]
 
 <br/>
 
-**Initializing a repository:**
+**Initializing a Mongover Repository:**
 ```shell
 $ mongover init myFirstMongover
 $ cd myFirstMongover
 ```
 
-**Applying specification to server:**
+**Applying a Mongover Specification to the server:**
 ```shell
 $ mongover apply
 ```
 
 ## Mongover Specification File
-Inside a Mongover Repositry there is a Specification File named `mongover.json`. Modify this file according to the needs of your databases.
+Located inside a Mongover Repositry is the Mongover Specification File named `mongover.json`. Modify this file according to the needs of your databases.
 
-**Specifcation File Example:**
+**Mongover Specification File Example:**
 ```json5
 {
   "databases": {
