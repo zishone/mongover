@@ -17,6 +17,7 @@ $ mongover <command> [<args>]
 | init [&lt;path>]  | initializes a new Mongover Repository                            |
 | apply [&lt;path>] | applies the current Mongover Specification to the MongoDB Server |
 
+---
 After initializing a repository:
 ```shell
 $ mongover init myFirstMongover
