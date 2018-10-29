@@ -22,8 +22,8 @@ $ mongover <command> [<args>]
 
 **Initializing a Mongover Repository:**
 ```shell
-$ mongover init myFirstMongover
-$ cd myFirstMongover
+$ mongover init myMongoverRepo
+$ cd myMongoverRepo
 ```
 
 **Applying a Mongover Specification to the MongoDB Server:**
@@ -31,58 +31,31 @@ $ cd myFirstMongover
 $ mongover apply
 ```
 
-## Mongover Specification File
-Located inside a Mongover Repository is the Mongover Specification File named `mongover.json`. Modify this file according to the needs of your databases.
+## Mongover Repository
+    .
+    ├── data                    # Data Directory
+    │   ├── dbName              # Export files to be upserted to dbName
+    │   │   ├── colName.jsonl   # Export file to be upserted to colName (alternatively `json|csv`)
+    │   │   └── ...
+    │   └── ...
+    └── mongover.json           # Mongover Specification JSON
+### Data Directory
+Structured as previewed above. 
 
-**Mongover Specification File Example:**
+Can be populated using [mongoexport](https://docs.mongodb.com/manual/reference/program/mongoexport/).
+```shell
+$ mongoexport --db dbName --collection colName --out <path-to-mongover-repo>/data/dbName/colName.jsonl
+```
+Or by writing a [jsonl](http://jsonlines.org/) file manually.
+
+### Mongover Specification JSON
+Modify this file according to the needs of your databases.
 ```json5
 {
   "databases": {
     "dbName": {
       "collections": {
         "collectionName": {
-          "fields": {
-            "fieldNameStr": {
-              "type": "string"
-            },
-            "fieldNameNum": {
-              "type": "number"
-            },
-            "fieldNameBool": {
-              "type": "boolean"
-            },
-            "fieldNameObj": {
-              "type": "object",
-              "fields": {}
-            },
-            "fieldNameStrNumBoolObjArrNull": {
-              "type": [
-                "string",
-                "number",
-                "boolean",
-                "object",
-                "array",
-                "null"
-              ],
-              "fields": {},
-              "items": {
-                "type": "any"
-              }
-            },
-            "fieldNameAny": {
-              "type": "any"
-            },
-            "fieldNameNull": {
-              "type": "null"
-            },
-            "fieldNameArr": {
-              "type": "array",
-              "items": {
-                "type": "any"
-              }
-            },
-            ...
-          },
           "options": {},
           "upsertFields": [
             "fieldNameStr"
@@ -112,7 +85,7 @@ Located inside a Mongover Repository is the Mongover Specification File named `m
   },
   "servers": {
     "serverName": {
-      "mongoUri": "mongodb://user:password@127.0.0.1:27017/?authSource=admin",
+      "mongoUri": "mongodb://27.0.0.1:27017/",
       "databases": [
         "dbName"
       ]
