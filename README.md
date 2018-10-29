@@ -85,12 +85,10 @@ Located inside a Mongover Repository is the Mongover Specification File named `m
           },
           "options": {},
           "upsertFields": [
-            "fieldNameStr",
-            ...
+            "fieldNameStr"
           ],
           "ignoreFields": [
-            "fieldNameStr",
-            ...
+            "fieldNameStr"
           ],
           "preserveObjectId": false,
           "dropIndexesFirst": false,
@@ -116,8 +114,7 @@ Located inside a Mongover Repository is the Mongover Specification File named `m
     "serverName": {
       "mongoUri": "mongodb://user:password@127.0.0.1:27017/?authSource=admin",
       "databases": [
-        "dbName",
-        ...
+        "dbName"
       ]
     },
     ...
