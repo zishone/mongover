@@ -53,9 +53,7 @@ Located inside a Mongover Repository is the Mongover Specification File named `m
             },
             "fieldNameObj": {
               "type": "object",
-              "fields": {
-                ...
-              }
+              "fields": {}
             },
             "fieldNameStrNumBoolObjArrNull": {
               "type": [
@@ -66,9 +64,7 @@ Located inside a Mongover Repository is the Mongover Specification File named `m
                 "array",
                 "null"
               ],
-              "fields": {
-                ...
-              },
+              "fields": {},
               "items": {
                 "type": "any"
               }
