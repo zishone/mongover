@@ -5,7 +5,7 @@ A MongoDB Server Database Migration Tool
 ```shell
 $ npm i -g mongover
 ```
-Or use [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) instead which comes with npm 5.2+ and higher.
+Or use [npx](https://medium.com/@ma1ybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) (comes with npm 5.2+ and higher) instead.
 
 ## Usage
 ```shell
@@ -45,30 +45,56 @@ Located inside a Mongover Repository is the Mongover Specification File named `m
             "fieldNameStr": {
               "type": "string"
             },
+            "fieldNameNum": {
+              "type": "number"
+            },
+            "fieldNameBool": {
+              "type": "boolean"
+            },
             "fieldNameObj": {
               "type": "object",
               "fields": {
-                "fieldNameBool": {
-                  "type": "boolean"
-                }
+                ...
               }
+            },
+            "fieldNameStrNumBoolObjArrNull": {
+              "type": [
+                "string",
+                "number",
+                "boolean",
+                "object",
+                "array",
+                "null"
+              ],
+              "fields": {
+                ...
+              },
+              "items": {
+                "type": "any"
+              }
+            },
+            "fieldNameAny": {
+              "type": "any"
+            },
+            "fieldNameNull": {
+              "type": "null"
             },
             "fieldNameArr": {
               "type": "array",
               "items": {
-                "type": "number"
+                "type": "any"
               }
             },
-            // ...
+            ...
           },
           "options": {},
           "upsertFields": [
             "fieldNameStr",
-            // ...
+            ...
           ],
           "ignoreFields": [
             "fieldNameStr",
-            // ...
+            ...
           ],
           "preserveObjectId": false,
           "dropIndexesFirst": false,
@@ -80,25 +106,25 @@ Located inside a Mongover Repository is the Mongover Specification File named `m
               "options": {},
               "dropFirst": false
             },
-            // ...
+            ...
           },
           "dropFirst": false
         },
-        // ...
+        ...
       },
       "dropFirst": false
     },
-    // ...
+    ...
   },
   "servers": {
     "serverName": {
       "mongoUri": "mongodb://user:password@127.0.0.1:27017/?authSource=admin",
       "databases": [
         "dbName",
-        // ...
+        ...
       ]
     },
-    // ...
+    ...
   }
 }
 ```

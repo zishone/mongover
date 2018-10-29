@@ -1,6 +1,6 @@
 {
   "name": "mongover",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "A MongoDB Server Database Migration Tool",
   "main": "index.js",
   "preferGlobal": true,
