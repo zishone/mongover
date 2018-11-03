@@ -22,8 +22,9 @@ $ mongover <command> [<args>]
 
 **Initializing a Mongover Repository:**
 ```shell
-$ mongover init myMongoverRepo
+$ mkdir myMongoverRepo
 $ cd myMongoverRepo
+$ mongover init [--spec json|dir]
 ```
 
 **Applying a Mongover Specification to the MongoDB Server:**
@@ -32,13 +33,33 @@ $ mongover apply
 ```
 
 ## Mongover Repository
+With `mongover init --spec json`:
+
     .
-    ├── data                    # Data Directory
-    │   ├── dbName              # Export files to be upserted to dbName
-    │   │   ├── colName.jsonl   # Export file to be upserted to colName (alternatively `json|csv`)
+    ├── data/                       # Data Directory
+    │   ├── dbName/             
+    │   │   ├── colName.jsonl       # Export file to be upserted to colName (alternatively `json|csv`)
     │   │   └── ...
     │   └── ...
-    └── mongover.json           # Mongover Specification JSON
+    └── mongover.json               # Mongover Specification JSON
+
+With `mongover init --spec dir`:
+
+    .
+    ├── data/                       # Data Directory
+    │   ├── dbName/             
+    │   │   ├── colName.jsonl       # Export file to be upserted to colName (alternatively `json|csv`)
+    │   │   └── ...
+    │   └── ...
+    └── mongover/                   # Mongover Specification Directory
+        ├── databases/
+        │   ├── dbName/
+        │   │   ├── colName.json    # Collection Specification JSON
+        │   │   └── ...
+        │   └── ...
+        └── servers/
+            ├── serverName.json     # Server Specification JSON
+            └── ...
 ### Data Directory
 Structured as previewed above. 
 
