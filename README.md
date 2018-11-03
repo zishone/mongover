@@ -12,11 +12,12 @@ Or use [npx](https://medium.com/@ma1ybekatz/introducing-npx-an-npm-package-runne
 $ mongover <command> [<args>]
 ```
 
-| Commands          | Descriptions                                                     |
-| ----------------- | ---------------------------------------------------------------- |
-| help              | shows usage                                                      |
-| init [&lt;path>]  | initializes a new Mongover Repository                            |
-| apply [&lt;path>] | applies the current Mongover Specification to the MongoDB Server |
+| Commands          | Descriptions                                                      |
+| ----------------- | ----------------------------------------------------------------- |
+| help              | shows usage                                                       |
+| init [&lt;path>]  | initializes a new Mongover Repository                             |
+| extract           | extracts the Mongover Specification of an existing MongoDB Server |
+| apply [&lt;path>] | applies the current Mongover Specification to the MongoDB Server  |
 
 <br/>
 
