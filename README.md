@@ -108,7 +108,11 @@ Modify this file according to the needs of your databases.
     "serverName": {
       "mongoUri": "mongodb://127.0.0.1:27017/",
       "databases": [
-        "dbName"
+        "dbName",
+        {
+          "db": "dbName",
+          "as": "dbNameTwo"
+        }
       ]
     },
     ...
