@@ -24,27 +24,33 @@ $ mongover <command> [<args>] [<options>]
 * **init**: initializes a new Mongover Repository
   
   #### SYNOPSIS
+
   ```shell
   $ mongover init [<path>] [--spec json|--spec dir]
   ```
 
   #### ARGUMENTS
+
       <path>            path to mongover repository. Defaults to current working directory.
 
   #### OPTIONS
+  
       --spec            specifies Mongover Specification format, choose between `json` and `dir`. Default: `json`.
 
 * **extract**: extracts the Mongover Specification of an existing MongoDB Server and initializes a new Mongover Repository with it.
   
   #### SYNOPSIS
+
   ```shell
   $ mongover extract [<path>] [[--host <host>] --username <username> --password <password> --authsource <authsource>] --db <dbName>[,...] [--collection <collectionName>[,...]] [--spec json|--spec dir] [--data yes|--data no]
   ```
 
   #### ARGUMENTS
+
       <path>            path to mongover repository. Defaults to current working directory.
 
   #### OPTIONS
+
       --host            specifies the host of the host machine where the mongod or mongos is running. Default: `127.0.0.1:27017`.
 
       --username        specifies a username with which to authenticate to a MongoDB database that uses authentication.
@@ -64,14 +70,17 @@ $ mongover <command> [<args>] [<options>]
 * **apply**: applies the current Mongover Specification to the MongoDB Server.
   
   #### SYNOPSIS
+
   ```shell
   $ mongover apply [<path>] [--host <host> [--username <username> --password <password> --authsource <authsource>]|--server <serverName>[,...]] [--db <dbName>[,...] [--as <asDbName>[,...]]] [--collection <collectionName>[,...]]
   ```
 
   #### ARGUMENTS
+
       <path>            path to mongover repository. Defaults to current working directory.
 
   #### OPTIONS
+
       --host            specifies the host of the host machine where the mongod or mongos is running. Defaults to all servers in Mongover Specification.
 
       --username        specifies a username with which to authenticate to a MongoDB database that uses authentication.
