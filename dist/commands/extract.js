@@ -4,6 +4,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+const _ = require('lodash');
+
 const EJSON = require('mongodb-extended-json');
 
 const fs = require('fs-extra');
@@ -124,15 +126,11 @@ function () {
                   let index = _step3.value;
 
                   if (index.name !== '_id_') {
-                    const indexName = index.name;
-                    spec.databases[dbName].collections[collection.name].indexes[indexName] = {};
-                    spec.databases[dbName].collections[collection.name].indexes[indexName].keys = index.key;
-                    delete index.name;
-                    delete index.key;
-                    delete index.v;
-                    delete index.ns;
-                    spec.databases[dbName].collections[collection.name].indexes[indexName].options = index;
-                    spec.databases[dbName].collections[collection.name].indexes[indexName].dropFirst = false;
+                    spec.databases[dbName].collections[collection.name].indexes[index.name] = {
+                      keys: index.key,
+                      options: _.omit(index, ['key', 'v', 'name', 'ns']),
+                      dropFirst: false
+                    };
                   }
                 }
               } catch (err) {

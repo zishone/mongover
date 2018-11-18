@@ -4,6 +4,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+const _ = require('lodash');
+
 const chalk = require('chalk');
 
 const EJSON = require('mongodb-extended-json');
@@ -185,9 +187,7 @@ const getSpec = args => {
     let collections = args.collection.split(',');
 
     for (let dbName in temp.databases) {
-      for (let collection in collections) {
-        temp.databases[dbName].collections[collection] = temp.databases[dbName].collections[collection];
-      }
+      temp.databases[dbName].collections = _.pick(temp.databases[dbName].collections, collections);
     }
   }
 

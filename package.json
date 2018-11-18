@@ -1,6 +1,6 @@
 {
   "name": "mongover",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "A MongoDB Server Database Migration Tool",
   "main": "index.js",
   "preferGlobal": true,
@@ -24,6 +24,7 @@
   "dependencies": {
     "chalk": "^2.4.1",
     "fs-extra": "^7.0.0",
+    "lodash": "^4.17.11",
     "minimist": "^1.2.0",
     "mongodb": "^3.1.6",
     "mongodb-extended-json": "^1.10.0",
