@@ -6,8 +6,7 @@ A MongoDB Server Database Migration Tool
 
 ## Getting Started
 ### Prerequisites
-* Node 8.x or higher
-* NPM 5.5.x or higher.
+* Node 6.x or higher
 
 ### Installation
 ```shell

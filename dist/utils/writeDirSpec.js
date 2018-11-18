@@ -1,17 +1,23 @@
+"use strict";
+
 const fs = require('fs-extra');
+
 const path = require('path');
 
 const writeDirSpec = (repo, spec) => {
-  for(let dbName in spec.databases) {
+  for (let dbName in spec.databases) {
     fs.ensureDirSync(path.join(repo, 'mongover', 'databases', dbName));
-    for(let colName in spec.databases[dbName].collections) {
+
+    for (let colName in spec.databases[dbName].collections) {
       fs.writeJsonSync(path.join(repo, 'mongover', 'databases', dbName, `${colName}.json`), spec.databases[dbName].collections[colName], {
         spaces: 2
       });
     }
   }
+
   fs.ensureDirSync(path.join(repo, 'mongover', 'servers'));
-  for(let serverName in spec.servers) {
+
+  for (let serverName in spec.servers) {
     fs.writeJSONSync(path.join(repo, 'mongover', 'servers', `${serverName}.json`), spec.servers[serverName], {
       spaces: 2
     });
