@@ -238,11 +238,14 @@ const importData = (stream, collection, col) => {
           for(let upsertField of collection.upsertFields) {
             filterObj[upsertField] = dataDotNotatedObj[upsertField];
           }
-          if(!collection.preserveObjectId) {
+          if(!collection.preservePrimaryKey) {
             delete dataDotNotatedObj._id;
             delete dataObj._id;
           }
-          let existingCount = await col.countDocuments(filterObj);
+          let existingCount = 0;
+          if(Object.keys(filterObj).length > 0) {
+            existingCount = await col.countDocuments(filterObj);
+          }
           if(existingCount > 0) {
             for(let ignoreField of collection.ignoreFields) {
               for(let dataDotNotatedKey in dataDotNotatedObj) {

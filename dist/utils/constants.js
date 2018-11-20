@@ -81,7 +81,7 @@ const spec = {
           options: {},
           upsertFields: ['fieldNameStr'],
           ignoreFields: ['fieldNameStr'],
-          preserveObjectId: false,
+          preservePrimaryKey: false,
           dropIndexesFirst: false,
           indexes: {
             indexName: {

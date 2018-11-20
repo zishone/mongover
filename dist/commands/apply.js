@@ -441,12 +441,16 @@ const importData = (stream, collection, col) => {
             }
           }
 
-          if (!collection.preserveObjectId) {
+          if (!collection.preservePrimaryKey) {
             delete dataDotNotatedObj._id;
             delete dataObj._id;
           }
 
-          let existingCount = yield col.countDocuments(filterObj);
+          let existingCount = 0;
+
+          if (Object.keys(filterObj).length > 0) {
+            existingCount = yield col.countDocuments(filterObj);
+          }
 
           if (existingCount > 0) {
             var _iteratorNormalCompletion6 = true;

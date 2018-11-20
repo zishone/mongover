@@ -84,7 +84,7 @@ const spec = {
           ignoreFields: [
             'fieldNameStr'
           ],
-          preserveObjectId: false,
+          preservePrimaryKey: false,
           dropIndexesFirst: false,
           indexes: {
             indexName: {

@@ -1,11 +1,11 @@
 {
   "name": "mongover",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "A MongoDB Server Database Migration Tool",
   "main": "index.js",
   "preferGlobal": true,
   "scripts": {
-    "build": "babel ./lib --out-dir ./dist",
+    "build": "babel ./src --out-dir ./dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
