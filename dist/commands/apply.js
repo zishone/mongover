@@ -441,7 +441,7 @@ const importData = (stream, collection, col) => {
             }
           }
 
-          if (!collection.preservePrimaryKey) {
+          if (!collection.preserveId) {
             delete dataDotNotatedObj._id;
             delete dataObj._id;
           }

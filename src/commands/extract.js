@@ -71,7 +71,7 @@ const extract = async (args) => {
           options: collection.options,
           upsertFields: [],
           ignoreFields: [],
-          preservePrimaryKey: false,
+          preserveId: false,
           dropIndexesFirst: false,
           indexes: {},
           dropFirst: false

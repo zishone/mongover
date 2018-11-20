@@ -238,7 +238,7 @@ const importData = (stream, collection, col) => {
           for(let upsertField of collection.upsertFields) {
             filterObj[upsertField] = dataDotNotatedObj[upsertField];
           }
-          if(!collection.preservePrimaryKey) {
+          if(!collection.preserveId) {
             delete dataDotNotatedObj._id;
             delete dataObj._id;
           }
