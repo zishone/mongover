@@ -218,12 +218,12 @@ function () {
 const connectServer =
 /*#__PURE__*/
 function () {
-  var _ref3 = _asyncToGenerator(function* (serverName, server) {
+  var _ref3 = _asyncToGenerator(function* (serverName, serverSpec) {
     let conn;
 
     try {
       console.log(`Connecting to ${chalk.cyan(serverName)} server`);
-      conn = yield MongoClient.connect(server.mongoUri, {
+      conn = yield MongoClient.connect(serverSpec.mongoUri, {
         useNewUrlParser: true
       });
       var _iteratorNormalCompletion3 = true;
@@ -231,21 +231,12 @@ function () {
       var _iteratorError3 = undefined;
 
       try {
-        for (var _iterator3 = server.databases[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-          let serverDatabase = _step3.value;
-          let dbName, database, dbDataPath;
-
-          if (typeof serverDatabase === 'object') {
-            dbName = serverDatabase.as || serverDatabase.db;
-            database = spec.databases[serverDatabase.db];
-            dbDataPath = path.join(repo, 'data', serverDatabase.db);
-          } else {
-            dbName = serverDatabase;
-            database = spec.databases[serverDatabase];
-            dbDataPath = path.join(repo, 'data', serverDatabase);
-          }
-
-          yield structureDatabase(dbName, database, conn.db(dbName), dbDataPath);
+        for (var _iterator3 = serverSpec.databases[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+          let database = _step3.value;
+          const dbName = database.as || database.db;
+          const databaseSpec = spec.databases[database.db];
+          const dbDataPath = path.join(repo, 'data', database.db);
+          yield structureDatabase(dbName, databaseSpec, conn.db(dbName), dbDataPath);
         }
       } catch (err) {
         _didIteratorError3 = true;
@@ -281,20 +272,20 @@ function () {
 const structureDatabase =
 /*#__PURE__*/
 function () {
-  var _ref4 = _asyncToGenerator(function* (dbName, database, db, dbDataPath) {
+  var _ref4 = _asyncToGenerator(function* (dbName, databaseSpec, db, dbDataPath) {
     try {
-      console.log(`  Structuring ${chalk.cyan(dbName)} database`);
+      console.log(`- Structuring ${chalk.cyan(dbName)} database`);
 
-      if (database.dropFirst) {
+      if (databaseSpec.dropFirst) {
         yield db.dropDatabase();
       }
 
-      if (Object.keys(database.collections).length === 0) {
+      if (Object.keys(databaseSpec.collections).length === 0) {
         console.log(chalk.yellow(`Warning: ${dbName} does not contain any collection`));
       }
 
-      for (let colName in database.collections) {
-        yield createCollection(colName, database.collections[colName], db, dbDataPath);
+      for (let colName in databaseSpec.collections) {
+        yield createCollection(colName, dbName, databaseSpec.collections[colName], db, dbDataPath);
       }
 
       return Promise.resolve();
@@ -311,54 +302,55 @@ function () {
 const createCollection =
 /*#__PURE__*/
 function () {
-  var _ref5 = _asyncToGenerator(function* (colName, collection, db, dbDataPath) {
+  var _ref5 = _asyncToGenerator(function* (colName, dbName, collectionSpec, db, dbDataPath) {
     try {
-      console.log(`    Creating ${chalk.cyan(colName)} collection`);
+      console.log(`--- Creating ${chalk.cyan(colName)} collection`);
       const col = db.collection(colName);
       const existing = yield db.listCollections({
         name: colName
       }).toArray();
 
-      if (collection.dropFirst && existing[0]) {
+      if (collectionSpec.dropFirst && existing[0]) {
         yield db.dropCollection(colName);
-      } else if (collection.dropIndexesFirst && existing[0]) {
+      } else if (collectionSpec.dropIndexesFirst && existing[0]) {
         yield col.dropIndexes();
       }
 
-      yield db.createCollection(colName, collection.options || {});
+      yield db.createCollection(colName, collectionSpec.options || {});
 
-      for (let indexName in collection.indexes) {
-        yield buildIndex(indexName, collection.indexes[indexName], col);
+      for (let indexName in collectionSpec.indexes) {
+        yield buildIndex(indexName, collectionSpec.indexes[indexName], col);
       }
 
-      console.log(`      Importing collection data`);
-      var _iteratorNormalCompletion4 = true;
-      var _didIteratorError4 = false;
-      var _iteratorError4 = undefined;
+      if (fs.existsSync(dbDataPath)) {
+        var _iteratorNormalCompletion4 = true;
+        var _didIteratorError4 = false;
+        var _iteratorError4 = undefined;
 
-      try {
-        for (var _iterator4 = fs.readdirSync(dbDataPath)[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-          let dataFile = _step4.value;
-
-          if (dataFile.split('.')[0] === colName) {
-            const stream = readline.createInterface({
-              input: fs.createReadStream(path.join(dbDataPath, dataFile))
-            });
-            yield importData(stream, collection, col);
-            break;
-          }
-        }
-      } catch (err) {
-        _didIteratorError4 = true;
-        _iteratorError4 = err;
-      } finally {
         try {
-          if (!_iteratorNormalCompletion4 && _iterator4.return != null) {
-            _iterator4.return();
+          for (var _iterator4 = fs.readdirSync(dbDataPath)[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+            let dataFile = _step4.value;
+
+            if (dataFile.split('.')[0] === colName) {
+              const stream = readline.createInterface({
+                input: fs.createReadStream(path.join(dbDataPath, dataFile))
+              });
+              yield importData(stream, dbName + '.' + colName, collectionSpec, col);
+              break;
+            }
           }
+        } catch (err) {
+          _didIteratorError4 = true;
+          _iteratorError4 = err;
         } finally {
-          if (_didIteratorError4) {
-            throw _iteratorError4;
+          try {
+            if (!_iteratorNormalCompletion4 && _iterator4.return != null) {
+              _iterator4.return();
+            }
+          } finally {
+            if (_didIteratorError4) {
+              throw _iteratorError4;
+            }
           }
         }
       }
@@ -369,7 +361,7 @@ function () {
     }
   });
 
-  return function createCollection(_x8, _x9, _x10, _x11) {
+  return function createCollection(_x8, _x9, _x10, _x11, _x12) {
     return _ref5.apply(this, arguments);
   };
 }();
@@ -377,19 +369,19 @@ function () {
 const buildIndex =
 /*#__PURE__*/
 function () {
-  var _ref6 = _asyncToGenerator(function* (indexName, index, col) {
+  var _ref6 = _asyncToGenerator(function* (indexName, indexSpec, col) {
     try {
-      console.log(`      Building ${chalk.cyan(indexName)} index`);
+      console.log(`----- Building ${chalk.cyan(indexName)} index`);
       const existing = yield col.indexExists(indexName);
 
-      if (index.dropFirst && existing) {
+      if (indexSpec.dropFirst && existing) {
         yield col.dropIndex(indexName);
       }
 
-      index.options.name = indexName;
+      indexSpec.options.name = indexName;
 
       try {
-        yield col.createIndex(index.keys, index.options);
+        yield col.createIndex(indexSpec.keys, indexSpec.options);
       } catch (error) {
         console.log(chalk.yellow(`Warning: ${error.message}`));
       }
@@ -400,13 +392,14 @@ function () {
     }
   });
 
-  return function buildIndex(_x12, _x13, _x14) {
+  return function buildIndex(_x13, _x14, _x15) {
     return _ref6.apply(this, arguments);
   };
 }();
 
-const importData = (stream, collection, col) => {
+const importData = (stream, ns, collectionSpec, col) => {
   return new Promise((resolve, reject) => {
+    console.log(`----- Importing ${chalk.cyan(ns)} data`);
     stream.on('line',
     /*#__PURE__*/
     function () {
@@ -422,7 +415,7 @@ const importData = (stream, collection, col) => {
           var _iteratorError5 = undefined;
 
           try {
-            for (var _iterator5 = collection.upsertFields[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+            for (var _iterator5 = collectionSpec.upsertFields[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
               let upsertField = _step5.value;
               filterObj[upsertField] = dataDotNotatedObj[upsertField];
             }
@@ -441,7 +434,7 @@ const importData = (stream, collection, col) => {
             }
           }
 
-          if (!collection.preserveId) {
+          if (!collectionSpec.preserveId) {
             delete dataDotNotatedObj._id;
             delete dataObj._id;
           }
@@ -458,7 +451,7 @@ const importData = (stream, collection, col) => {
             var _iteratorError6 = undefined;
 
             try {
-              for (var _iterator6 = collection.ignoreFields[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+              for (var _iterator6 = collectionSpec.ignoreFields[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
                 let ignoreField = _step6.value;
 
                 for (let dataDotNotatedKey in dataDotNotatedObj) {
@@ -509,7 +502,7 @@ const importData = (stream, collection, col) => {
         }
       });
 
-      return function (_x15) {
+      return function (_x16) {
         return _ref7.apply(this, arguments);
       };
     }()).on('close', () => {

@@ -130,23 +130,16 @@ const start = async () => {
   }
 };
 
-const connectServer = async (serverName, server) => {
+const connectServer = async (serverName, serverSpec) => {
   let conn;
   try {
     console.log(`Connecting to ${chalk.cyan(serverName)} server`);
-    conn = await MongoClient.connect(server.mongoUri, { useNewUrlParser: true });
-    for(let serverDatabase of server.databases) {
-      let dbName, database, dbDataPath;
-      if(typeof serverDatabase === 'object') {
-        dbName = serverDatabase.as || serverDatabase.db;
-        database = spec.databases[serverDatabase.db];
-        dbDataPath = path.join(repo, 'data', serverDatabase.db);
-      } else {
-        dbName = serverDatabase;
-        database = spec.databases[serverDatabase];
-        dbDataPath = path.join(repo, 'data', serverDatabase);
-      }
-      await structureDatabase(dbName, database, conn.db(dbName), dbDataPath);
+    conn = await MongoClient.connect(serverSpec.mongoUri, { useNewUrlParser: true });
+    for(let database of serverSpec.databases) {
+      const dbName = database.as || database.db;
+      const databaseSpec = spec.databases[database.db];
+      const dbDataPath = path.join(repo, 'data', database.db);
+      await structureDatabase(dbName, databaseSpec, conn.db(dbName), dbDataPath);
     }
     await conn.close();
     return Promise.resolve();
@@ -158,17 +151,17 @@ const connectServer = async (serverName, server) => {
   }
 };
 
-const structureDatabase = async (dbName, database, db, dbDataPath) => {
+const structureDatabase = async (dbName, databaseSpec, db, dbDataPath) => {
   try {
-    console.log(`  Structuring ${chalk.cyan(dbName)} database`);
-    if(database.dropFirst) {
+    console.log(`- Structuring ${chalk.cyan(dbName)} database`);
+    if(databaseSpec.dropFirst) {
       await db.dropDatabase();
     }
-    if(Object.keys(database.collections).length === 0) {
+    if(Object.keys(databaseSpec.collections).length === 0) {
       console.log(chalk.yellow(`Warning: ${dbName} does not contain any collection`));
     }
-    for(let colName in database.collections) {
-      await createCollection(colName, database.collections[colName], db, dbDataPath);
+    for(let colName in databaseSpec.collections) {
+      await createCollection(colName, dbName, databaseSpec.collections[colName], db, dbDataPath);
     }
     return Promise.resolve();
   } catch (error) {
@@ -176,28 +169,29 @@ const structureDatabase = async (dbName, database, db, dbDataPath) => {
   }
 };
 
-const createCollection = async (colName, collection, db, dbDataPath) => {
+const createCollection = async (colName, dbName, collectionSpec, db, dbDataPath) => {
   try {
-    console.log(`    Creating ${chalk.cyan(colName)} collection`);
+    console.log(`--- Creating ${chalk.cyan(colName)} collection`);
     const col = db.collection(colName);
     const existing = await db
         .listCollections({ name: colName })
         .toArray();
-    if(collection.dropFirst && existing[0]) {
+    if(collectionSpec.dropFirst && existing[0]) {
       await db.dropCollection(colName);
-    } else if(collection.dropIndexesFirst && existing[0]) {
+    } else if(collectionSpec.dropIndexesFirst && existing[0]) {
       await col.dropIndexes();
     }
-    await db.createCollection(colName, collection.options || {});
-    for(let indexName in collection.indexes) {
-      await buildIndex(indexName, collection.indexes[indexName], col);
+    await db.createCollection(colName, collectionSpec.options || {});
+    for(let indexName in collectionSpec.indexes) {
+      await buildIndex(indexName, collectionSpec.indexes[indexName], col);
     }
-    console.log(`      Importing collection data`);
-    for(let dataFile of fs.readdirSync(dbDataPath)) {
-      if(dataFile.split('.')[0] === colName) {
-        const stream = readline.createInterface({ input: fs.createReadStream(path.join(dbDataPath, dataFile)) });
-        await importData(stream, collection, col);
-        break;
+    if(fs.existsSync(dbDataPath)) {
+      for(let dataFile of fs.readdirSync(dbDataPath)) {
+        if(dataFile.split('.')[0] === colName) {
+          const stream = readline.createInterface({ input: fs.createReadStream(path.join(dbDataPath, dataFile)) });
+          await importData(stream, dbName + '.' + colName, collectionSpec, col);
+          break;
+        }
       }
     }
     return Promise.resolve();
@@ -206,16 +200,16 @@ const createCollection = async (colName, collection, db, dbDataPath) => {
   }
 };
 
-const buildIndex = async (indexName, index, col) => {
+const buildIndex = async (indexName, indexSpec, col) => {
   try {
-    console.log(`      Building ${chalk.cyan(indexName)} index`);
+    console.log(`----- Building ${chalk.cyan(indexName)} index`);
     const existing = await col.indexExists(indexName);
-    if(index.dropFirst && existing) {
+    if(indexSpec.dropFirst && existing) {
       await col.dropIndex(indexName);
     }
-    index.options.name = indexName;
+    indexSpec.options.name = indexName;
     try {
-      await col.createIndex(index.keys, index.options);
+      await col.createIndex(indexSpec.keys, indexSpec.options);
     } catch (error) {
       console.log(chalk.yellow(`Warning: ${error.message}`));
     }
@@ -225,8 +219,9 @@ const buildIndex = async (indexName, index, col) => {
   }
 };
 
-const importData = (stream, collection, col) => {
+const importData = (stream, ns, collectionSpec, col) => {
   return new Promise((resolve, reject) => {
+    console.log(`----- Importing ${chalk.cyan(ns)} data`);
     stream
       .on('line', async (data) => {
         try {
@@ -235,10 +230,10 @@ const importData = (stream, collection, col) => {
           const dataObj = EJSON.parse(data.toString());
           let dataDotNotatedObj = {};
           dotNotate(dataObj, dataDotNotatedObj);
-          for(let upsertField of collection.upsertFields) {
+          for(let upsertField of collectionSpec.upsertFields) {
             filterObj[upsertField] = dataDotNotatedObj[upsertField];
           }
-          if(!collection.preserveId) {
+          if(!collectionSpec.preserveId) {
             delete dataDotNotatedObj._id;
             delete dataObj._id;
           }
@@ -247,7 +242,7 @@ const importData = (stream, collection, col) => {
             existingCount = await col.countDocuments(filterObj);
           }
           if(existingCount > 0) {
-            for(let ignoreField of collection.ignoreFields) {
+            for(let ignoreField of collectionSpec.ignoreFields) {
               for(let dataDotNotatedKey in dataDotNotatedObj) {
                 if(dataDotNotatedKey.startsWith(ignoreField)) {
                   delete dataDotNotatedObj[dataDotNotatedKey];

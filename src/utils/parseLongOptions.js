@@ -11,6 +11,9 @@ const parseLongOptions = (args) => {
   if(args.p) {
     args.password = args.p;
   }
+  if(args.a) {
+    args.authsource = args.a;
+  }
   if(args.c) {
     args.collection = args.c;
   }

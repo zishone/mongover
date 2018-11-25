@@ -70,7 +70,7 @@ function () {
       const dbNames = args.db.split(',');
       spec.servers.server = {
         mongoUri: mongoUri,
-        databases: dbNames
+        databases: []
       };
       let colNames;
 
@@ -86,6 +86,9 @@ function () {
       try {
         for (var _iterator = dbNames[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           let dbName = _step.value;
+          spec.servers.server.databases.push({
+            db: dbName
+          });
           spec.databases[dbName] = {
             collections: {},
             dropFirst: false

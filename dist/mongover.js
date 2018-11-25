@@ -1,5 +1,9 @@
 "use strict";
 
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 const requireMany = require('./utils/requireMany');
 
 const constants = require('./utils/constants');
@@ -8,14 +12,22 @@ const minimist = require('minimist');
 
 const path = require('path');
 
-const mongover = args => {
-  const command = requireMany(path.join(__dirname, 'commands'))[args[2]];
+const mongover =
+/*#__PURE__*/
+function () {
+  var _ref = _asyncToGenerator(function* (args) {
+    const command = requireMany(path.join(__dirname, 'commands'))[args[2]];
 
-  if (typeof command === 'function') {
-    return command(minimist(args.slice(3)));
-  }
+    if (typeof command === 'function') {
+      process.exit((yield command(minimist(args.slice(3)))));
+    }
 
-  console.log(constants.help);
-};
+    console.log(constants.help);
+  });
+
+  return function mongover(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
 
 module.exports = mongover;

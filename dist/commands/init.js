@@ -59,10 +59,12 @@ const initSpec = (serverName, dbName, collectionName, fieldName, indexName) => {
   delete spec.databases[dbName].collections[collectionName].indexes[indexName].keys.fieldName;
   spec.servers[serverName] = spec.servers.serverName;
   delete spec.servers.serverName;
-  spec.servers[serverName].databases[0] = dbName;
+  spec.servers[serverName].databases[0] = {
+    db: dbName
+  };
   spec.servers[serverName].databases[1] = {
     db: dbName,
-    as: dbName + 'Two'
+    as: dbName + 'Alias'
   };
   return spec;
 };

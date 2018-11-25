@@ -46,7 +46,7 @@ const extract = async (args) => {
     const dbNames = args.db.split(',');
     spec.servers.server = {
       mongoUri: mongoUri,
-      databases: dbNames
+      databases: []
     };
     let colNames;
     if(args.collection) {
@@ -54,6 +54,7 @@ const extract = async (args) => {
     }
     let db, collections, indexes, data;
     for(let dbName of dbNames) {
+      spec.servers.server.databases.push({ db: dbName });
       spec.databases[dbName] = {
         collections: {},
         dropFirst: false

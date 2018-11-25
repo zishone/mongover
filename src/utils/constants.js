@@ -34,7 +34,7 @@ Commands:
 
         -p or --password    specifies a password with which to authenticate to a MongoDB database that uses authentication.
 
-        --authsource        specifies the database in which the user is created.
+        -a or --authsource  specifies the database in which the user is created.
 
         -d or --db          specifies which databases are to be extracted.
 
@@ -61,7 +61,7 @@ Commands:
 
         -p or --password     specifies a password with which to authenticate to a MongoDB database that uses authentication.
 
-        --authsource         specifies the database in which the user is created.
+        -a or --authsource   specifies the database in which the user is created.
 
         -s or --server       specifies which servers in the Mongover Specification to connect to. Defaults to all servers in Mongover Specification.
 
@@ -105,10 +105,12 @@ const spec = {
     serverName: {
       mongoUri: 'mongodb://127.0.0.1:27017/',
       databases: [
-        'dbName',
+        {
+          db: 'dbName'
+        },
         {
           db: 'dbName',
-          as: 'dbNameTwo'
+          as: 'dbNameAlias'
         }
       ]
     }

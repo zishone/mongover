@@ -3,10 +3,10 @@ const constants = require('./utils/constants');
 const minimist = require('minimist');
 const path = require('path');
 
-const mongover = (args) => {
+const mongover = async (args) => {
   const command = requireMany(path.join(__dirname, 'commands'))[args[2]];
   if(typeof command === 'function') {
-    return command(minimist(args.slice(3)));
+    process.exit(await command(minimist(args.slice(3))));
   }
   console.log(constants.help);
 };
