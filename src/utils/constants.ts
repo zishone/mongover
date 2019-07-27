@@ -38,6 +38,7 @@ Usage:
           -d or --dbs          specifies which databases to apply. Defaults to all databases in the Mongover Specification.
           -a or --alias        specifies the aliases of the specified databases to apply, a database will use the alias corresponding to its index separated by commas.
           -c or --collections  specifies which collections to apply. Defaults to all collections in specified databases.
+          -s or --seedOnly     specifies if mongover should only seed the database instead of migrating it when it already exists.
 `.trim();
 
 export const databaseSpecTemplate: DatabaseSpec = {

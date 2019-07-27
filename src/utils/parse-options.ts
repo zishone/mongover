@@ -72,6 +72,9 @@ export function parseOptions(args: any): MongoverOptions {
     if (!args.export) {
       args.export = 'no';
     }
+    if (typeof args.export === 'boolean') {
+      args.export = 'jsonl';
+    }
     if (args.f) {
       args.format = args.f;
     }
