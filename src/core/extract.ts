@@ -7,17 +7,17 @@ import { connectServer } from '../utils/connect-server';
 import { Args } from '../utils/parse-options';
 import EJSON = require('mongodb-extjson');
 import { UsageError } from '../utils/usage-error';
+import { exportData } from '../utils/export-data';
 
 const logger = getLogger(__filename);
 
-// TODO: Refine logging for cli.
-// TODO: Throw error when give --format is unknown
 export async function extract(options: Args, specPath: string): Promise<MongoClient> {
   try {
-    logger.debug('Extracting Mongover Specification from the Server: %s', specPath);
-    logger.cli('Extracting Mongover Specification from the Server: %s', specPath);
+    logger.debug('Creating Mongover Specification: %s', specPath);
+    logger.cli('Creating Mongover Specification:    %s', specPath);
     const client = await connectServer(options.uri, { useNewUrlParser: true });
     for (const dbName of options.dbs) {
+      logger.cli('--- Extracting Database:            %s', dbName);
       const db = client.db(dbName);
       const databaseSpecPath = join(specPath, dbName);
       const collectionSpecPath = join(databaseSpecPath, 'collections');
@@ -28,65 +28,39 @@ export async function extract(options: Args, specPath: string): Promise<MongoCli
         ensureDirSync(collectionSpecPath);
         delete databaseSpecTemplate.collections;
       }
-      const collections = await db.listCollections().toArray();
-      for (const collection of collections) {
-        if (options.collections.length === 0 || options.collections.includes(collection.name)) {
+      const collectionInfos = await db.listCollections().toArray();
+      for (const collectionInfo of collectionInfos) {
+        if (options.collections.length === 0 || options.collections.includes(collectionInfo.name)) {
+          logger.cli('----- Extracting Collection:        %s', collectionInfo.name);
+          const collection = db.collection(collectionInfo.name);
           collectionSpecTemplate.data.ignoreFields = [];
           collectionSpecTemplate.data.upsertFields = [];
-          collectionSpecTemplate.options = collection.options;
+          collectionSpecTemplate.options = collectionInfo.options;
           collectionSpecTemplate.indexes = [];
-          const indexes = await db
-            .collection(collection.name)
+          const indexInfos = await collection
             .listIndexes()
             .toArray();
-          for (const index of indexes) {
-            if (index.name !== '_id_') {
-              const indexOptions = JSON.parse(JSON.stringify(index));
+          for (const indexInfo of indexInfos) {
+            if (indexInfo.name !== '_id_') {
+              logger.cli('------- Extracting Index:           %s', indexInfo.name);
+              const indexOptions = JSON.parse(JSON.stringify(indexInfo));
               delete indexOptions.key;
               delete indexOptions.v;
               delete indexOptions.ns;
               collectionSpecTemplate.indexes.push({
                 dropFirst: false,
-                keys: index.key,
+                keys: indexInfo.key,
                 options: indexOptions
               });
             }
           }
           if (options.format === 'dir') {
-            writeJSONSync(join(collectionSpecPath, `${collection.name}.spec.json`), collectionSpecTemplate, { spaces: 2 });
+            writeJSONSync(join(collectionSpecPath, `${collectionInfo.name}.spec.json`), collectionSpecTemplate, { spaces: 2 });
           } else {
-            databaseSpecTemplate.collections[collection.name] = collectionSpecTemplate;
+            databaseSpecTemplate.collections[collectionInfo.name] = collectionSpecTemplate;
           }
-          const cursor = db
-            .collection(collection.name)
-            .find(options.query);
-          switch (options.export) {
-            case 'jsonl':
-              await new Promise((resolve, reject) => {
-                cursor
-                  .on('data', (d) => {
-                    try {
-                      appendFileSync(join(dataPath, `${collection.name}.jsonl`), EJSON.stringify(d, { relaxed: true }) + '\n');
-                    } catch (error) {
-                      cursor.emit('error', error);
-                    }
-                  })
-                  .on('end', () => {
-                    resolve();
-                  })
-                  .on('error', (error) => {
-                    reject(error);
-                  });
-              });
-              break;
-            case 'json':
-              const data = await cursor.toArray();
-              writeJSONSync(join(dataPath, `${collection.name}.json`), JSON.parse(EJSON.stringify(data, { relaxed: true })), { spaces: 2 });
-              break;
-            case 'no':
-              break;
-            default:
-                throw new UsageError(`Unrecognized Export type: ${options.export}.`);
+          if (options.export !== 'no') {
+            await exportData(collection, join(dataPath, collectionInfo.name), options.export, options.query);
           }
         }
       }

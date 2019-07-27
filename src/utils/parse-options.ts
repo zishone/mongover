@@ -68,13 +68,23 @@ export function parseOptions(args: any): Args {
     args.format = 'dir';
   }
   if (args.q) {
-    args.query = EJSON.parse(args.q, { relaxed: true });
+    args.query = EJSON.parse(args.q.replace(/(['"])?([a-zA-Z0-9_$.]+)(['"])?:/g, '"$2": '), { relaxed: true });
+  }
+  if (typeof args.query === 'string') {
+    args.query = EJSON.parse(args.query.replace(/(['"])?([a-zA-Z0-9_$.]+)(['"])?:/g, '"$2": '), { relaxed: true });
   }
   if (!args.query) {
     args.query = {};
   }
   if (args.alias.length !== 0 && args.alias.length !== args.dbs.length) {
     throw new UsageError('-d | --db and -a | --alias should have the same length.');
+  }
+  switch (args.format) {
+    case 'dir':
+    case 'json':
+      break;
+    default:
+      throw new UsageError('Unknown format specified.');
   }
   return args;
 }
