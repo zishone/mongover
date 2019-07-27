@@ -1,8 +1,10 @@
-import { lstatSync, readJSONSync, readdirSync, existsSync } from 'fs-extra';
+import {
+  existsSync,
+  lstatSync,
+  readdirSync,
+  readJSONSync,
+} from 'fs-extra';
 import { join } from 'path';
-import { getLogger } from './get-logger';
-
-const logger = getLogger(__filename);
 
 export function getSpec(specPath: string) {
   const segments = specPath.split('/');
@@ -20,7 +22,6 @@ export function getSpec(specPath: string) {
     dataPath = join('/', ...segments, name, 'data');
     specPath = join('/', ...segments, name);
   }
-  logger.cli('Using Mongover Specification:       %s', specPath);
   if (!spec.collections && existsSync(join(specPath, 'collections'))) {
     spec.collections = {};
     const collectionSpecsDir = join(specPath, 'collections');
@@ -34,6 +35,6 @@ export function getSpec(specPath: string) {
   return {
     name,
     spec,
-    dataPath
+    dataPath,
   };
 }

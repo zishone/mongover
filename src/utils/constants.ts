@@ -1,3 +1,5 @@
+import { DatabaseSpec } from './structure-database';
+
 export const usage = `
 Usage:
   mongover <command> [<args>] [<options>]
@@ -38,16 +40,11 @@ Usage:
           -c or --collections  specifies which collections to apply. Defaults to all collections in specified databases.
 `.trim();
 
-interface DatabaseSpecTemplate {
-  dropFirst: boolean;
-  alias: string;
-  collections: any;
-}
-
-export const databaseSpecTemplate: DatabaseSpecTemplate = {
+export const databaseSpecTemplate: DatabaseSpec = {
+  seedOnly: false,
   dropFirst: false,
   alias: 'dbName',
-  collections: {}
+  collections: {},
 };
 
 export const collectionSpecTemplate = {
@@ -57,26 +54,20 @@ export const collectionSpecTemplate = {
   indexes: [
     {
       dropFirst: false,
-      keys: {
-        fieldName: 1
-      },
-      options: {}
-    }
+      keys: { fieldName: 1 },
+      options: {},
+    },
   ],
   data: {
     preservePrimaryKey: true,
-    upsertFields: [
-      'fieldName'
-    ],
-    ignoreFields: [
-      'fieldName'
-    ]
-  }
+    upsertFields: [ 'fieldName' ],
+    ignoreFields: [ 'fieldName' ],
+  },
 };
 
 export const dataSample = '{"_id":{"$oid":"aaaaaaaaaaaaaaaaaaaaaaaa"},fieldName": 1}';
 
 export const exit = {
   success: 0,
-  error: 1
+  error: 1,
 };

@@ -15,6 +15,6 @@ export function getLogger(fileName: string): Logger {
     info: debug(`mongover:info:${component}`),
     warn: debug(`mongover:warn:${component}`),
     error: debug(`mongover:error:${component}`),
-    cli: debug(`mongover:cli`)
+    cli: debug(`cli:mongover`),
   };
 }

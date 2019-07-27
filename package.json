@@ -3,11 +3,13 @@
   "version": "0.2.10",
   "description": "A MongoDB Server Database Migration Tool",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "lint": "tslint --project \"./tsconfig.json\""
+    "lint": "tslint --project \"./tsconfig.json\"",
+    "prepublish": "npm run build"
   },
   "bin": {
     "mongover": "dist/cli/index.js"

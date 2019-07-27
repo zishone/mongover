@@ -1,15 +1,14 @@
-import EJSON = require('mongodb-extjson');
-import { getLogger } from './get-logger';
-import { Collection } from 'mongodb';
 import { appendFileSync } from 'fs';
 import { writeJSONSync } from 'fs-extra';
-import { UsageError } from './usage-error';
+import { Collection } from 'mongodb';
+import * as EJSON from 'mongodb-extjson';
+import { getLogger } from './get-logger';
 
 const logger = getLogger(__filename);
 
 export async function exportData(collection: Collection, dataFilePath: string, dataType: string, query: any): Promise<void> {
   try {
-    logger.cli('------- Exporting Data:             %s', `${dataFilePath}.${dataType}`);
+    logger.cli('------- Exporting Data:\t\t\t\t%s', `${dataFilePath.replace(process.cwd(), '.')}.${dataType}`);
     const cursor = collection.find(query);
     switch (dataType) {
       case 'jsonl':
@@ -35,10 +34,10 @@ export async function exportData(collection: Collection, dataFilePath: string, d
         writeJSONSync(`${dataFilePath}.json`, JSON.parse(EJSON.stringify(data, { relaxed: true })), { spaces: 2 });
         break;
       default:
-          throw new UsageError(`Unrecognized Export type: ${dataType}.`);
+          throw new Error(`Unrecognized Export type: ${dataType}.`);
     }
   } catch (error) {
-    logger.cli('------- Error exporting Data:       %s', `${dataFilePath}.${dataType}`);
+    logger.cli('------- Error exporting Data:\t\t\t%s', `${dataFilePath.replace(process.cwd(), '.')}.${dataType}`);
     throw error;
   }
 }

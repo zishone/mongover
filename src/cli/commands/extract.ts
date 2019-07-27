@@ -1,25 +1,27 @@
-import { getLogger } from '../utils/get-logger';
-import { writeJSONSync, ensureDirSync, appendFileSync } from 'fs-extra';
+import {
+  ensureDirSync,
+  writeJSONSync,
+} from 'fs-extra';
 import { join } from 'path';
-import { databaseSpecTemplate, collectionSpecTemplate } from '../utils/constants';
-import { MongoClient } from 'mongodb';
-import { connectServer } from '../utils/connect-server';
-import { Args } from '../utils/parse-options';
-import EJSON = require('mongodb-extjson');
-import { UsageError } from '../utils/usage-error';
-import { exportData } from '../utils/export-data';
+import { connectServer } from '../../utils/connect-server';
+import {
+  collectionSpecTemplate,
+  databaseSpecTemplate,
+} from '../../utils/constants';
+import { exportData } from '../../utils/export-data';
+import { getLogger } from '../../utils/get-logger';
+import { MongoverOptions } from '../../utils/parse-options';
 
 const logger = getLogger(__filename);
 
-export async function extract(options: Args, specPath: string): Promise<MongoClient> {
+export async function extract(options: MongoverOptions): Promise<void> {
   try {
-    logger.debug('Creating Mongover Specification: %s', specPath);
-    logger.cli('Creating Mongover Specification:    %s', specPath);
+    logger.cli('Extracting Mongover Specification:\t\t%s', options.specPath);
     const client = await connectServer(options.uri, { useNewUrlParser: true });
     for (const dbName of options.dbs) {
-      logger.cli('--- Extracting Database:            %s', dbName);
+      logger.cli('--- Extracting Database:\t\t\t\t%s', dbName);
       const db = client.db(dbName);
-      const databaseSpecPath = join(specPath, dbName);
+      const databaseSpecPath = join(options.specPath, dbName);
       const collectionSpecPath = join(databaseSpecPath, 'collections');
       const dataPath = join(databaseSpecPath, 'data');
       ensureDirSync(dataPath);
@@ -31,7 +33,7 @@ export async function extract(options: Args, specPath: string): Promise<MongoCli
       const collectionInfos = await db.listCollections().toArray();
       for (const collectionInfo of collectionInfos) {
         if (options.collections.length === 0 || options.collections.includes(collectionInfo.name)) {
-          logger.cli('----- Extracting Collection:        %s', collectionInfo.name);
+          logger.cli('----- Extracting Collection:\t\t\t%s', collectionInfo.name);
           const collection = db.collection(collectionInfo.name);
           collectionSpecTemplate.data.ignoreFields = [];
           collectionSpecTemplate.data.upsertFields = [];
@@ -42,7 +44,7 @@ export async function extract(options: Args, specPath: string): Promise<MongoCli
             .toArray();
           for (const indexInfo of indexInfos) {
             if (indexInfo.name !== '_id_') {
-              logger.cli('------- Extracting Index:           %s', indexInfo.name);
+              logger.cli('------- Extracting Index:\t\t\t%s', indexInfo.name);
               const indexOptions = JSON.parse(JSON.stringify(indexInfo));
               delete indexOptions.key;
               delete indexOptions.v;
@@ -50,7 +52,7 @@ export async function extract(options: Args, specPath: string): Promise<MongoCli
               collectionSpecTemplate.indexes.push({
                 dropFirst: false,
                 keys: indexInfo.key,
-                options: indexOptions
+                options: indexOptions,
               });
             }
           }
@@ -66,9 +68,10 @@ export async function extract(options: Args, specPath: string): Promise<MongoCli
       }
       writeJSONSync(join(databaseSpecPath, 'db.spec.json'), databaseSpecTemplate, { spaces: 2 });
     }
-    return client;
+    logger.cli('Done extracting Mongover Specification:\t\t%s', options.specPath);
+    await client.close();
   } catch (error) {
-    logger.error('Error extacting Mongover Specification from the Server: %O', error);
+    logger.cli('Error extracting Mongover Specification:\t\t%O', error);
     throw error;
   }
 }
