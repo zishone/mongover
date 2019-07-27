@@ -17,7 +17,7 @@ Usage:
     extract [<specPath>] [<options>]
       - Extracts the Mongover Specification of an existing MongoDB Server and initializes a new Mongover Specification with it.
         SYNOPSIS
-          $ mongover extract [<specPath>] [-u <mongoUri>] [-d <dbName>[,...] [-c <collectionName>[,...]]] [-f dir|-f json] [-e yes|-e no]
+          $ mongover extract [<specPath>] [-u "<uri>"] [-d <dbName>[,...] [-c <collectionName>[,...]]] [-f dir|-f json] [-e jsonl|-e json|-e no [-q "<query>"]]
         ARGUMENTS
           <specPath>          path to mongover specification. Defaults to current working directory.
         OPTIONS
@@ -26,11 +26,12 @@ Usage:
           -c or --collections specifies which collections are to be extracted. Defaults to all collections in specified databases.
           -f or --format      specifies Mongover Specification format, choose between 'dir' and 'json'. Defaults to 'dir'.
           -e or --export      specifies if data from the MongoDB Server should also be exported, choose between 'jsonl', 'json' and 'no'. Defaults to 'no'.
+          -q or --query       specifies a filter which data to be exported from the MongoDB Server.
 
     apply [<specPath>] [<options>]
       - applies the current Mongover Specification to the MongoDB Server.
         SYNOPSIS
-          $ mongover apply [<specPath>] [-u <mongoUri>] [-d <dbName>[,...] [-a <aliasName>[,...]]] [-c <collectionName>[,...]]
+          $ mongover apply [<specPath>] [-u "<uri>"] [-d <dbName>[,...] [-a <alias>[,...]]] [-c <collectionName>[,...]] [-s]
         ARGUMENTS
           <specPath>           path to mongover specification. Defaults to current working directory.
         OPTIONS
@@ -66,7 +67,7 @@ export const collectionSpecTemplate = {
   },
 };
 
-export const dataSample = '{"_id":{"$oid":"aaaaaaaaaaaaaaaaaaaaaaaa"},fieldName": 1}';
+export const dataSample = '{"_id":{"$oid":"aaaaaaaaaaaaaaaaaaaaaaaa"},"fieldName": 1}';
 
 export const exit = {
   success: 0,
