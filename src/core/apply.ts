@@ -16,7 +16,7 @@ import { structureDatabase } from '../utils/structure-database';
 
 const logger = getLogger(__filename);
 
-export async function apply(options: MongoverOptions = parseOptions({})): Promise<MongoClient> {
+export async function apply(options: MongoverOptions = parseOptions({})): Promise<void> {
   try {
     logger.debug('Applying Mongover Specification: %s', options.specPath);
     options = parseOptions(options);
@@ -64,7 +64,7 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
         }
       }
     }
-    return client;
+    await client.close();
   } catch (error) {
     logger.error('Error applying Mongover Specification to the Server: %O', error);
     throw error;
