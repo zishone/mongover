@@ -1,4 +1,4 @@
-# mongover [![NPM](https://img.shields.io/npm/v/mongover)](https://www.npmjs.com/package/mongover) [![License](https://img.shields.io/npm/l/mongover)](https://github.com/zishone/mongover/blob/master/LICENSE)
+# mongover [![NPM](https://img.shields.io/npm/v/mongover)](https://www.npmjs.com/package/mongover) [![Build Status](https://travis-ci.org/zishone/mongover.svg?branch=master)](https://travis-ci.org/zishone/mongover) [![Coverage Status](https://coveralls.io/repos/github/zishone/mongover/badge.svg?branch=master)](https://coveralls.io/github/zishone/mongover?branch=master) [![License](https://img.shields.io/npm/l/mongover)](https://github.com/zishone/mongover/blob/master/LICENSE)
 A MongoDB Database Server Seeder and Migration Tool.
 
 ## Introduction
@@ -27,6 +27,7 @@ const options = {
 | uri      	        | string  	| MongoDB Server connection string.                                              	| mongodb://127.0.0.1:27017/ 	|
 | specPath 	        | string  	| Path to Mongover Specification.                                                	| ./mongover                 	|
 | seedOnly      	| boolean 	| Specifies if mongover should only seed instead of migrating existing database. 	| false                      	|
+
 #### 3. Apply Mongover Specification
 ```javascript
 await apply(options);

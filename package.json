@@ -5,11 +5,13 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
+    "test": "mocha ./test/**/*.test.ts",
+    "coverage": "nyc --reporter=lcov --all npm run test",
+    "build": "rimraf dist && tsc",
     "build:watch": "tsc --watch",
     "lint": "tslint --project \"./tsconfig.json\"",
-    "prepublish": "npm run build"
+    "docs": "rimraf docs && typedoc --out ./docs --mode modules --tsconfig ./tsconfig.json ./src/",
+    "ci": "npm install && npm run lint && npm run docs && npm run build && npm run coverage"
   },
   "bin": {
     "mongover": "dist/cli/index.js"
@@ -46,7 +48,12 @@
     "@types/minimist": "^1.2.0",
     "@types/mongodb": "^3.1.28",
     "@types/node": "^12.6.8",
+    "chai": "^4.2.0",
+    "gh-pages": "^2.0.1",
+    "mocha": "^6.2.0",
+    "nyc": "^14.1.1",
     "tslint": "^5.18.0",
+    "typedoc": "^0.15.0",
     "typescript": "^3.5.3"
   }
 }

@@ -18,6 +18,7 @@ tmp
 public/css/main.css
 
 # Coverage reports
+.nyc_output
 coverage
 
 # API keys and secrets
@@ -37,6 +38,9 @@ Thumbs.db
 
 # Ignore built ts files
 dist/**/*
+
+# Ignore docs
+docs/**/*
 
 # ignore yarn.lock
 yarn.lock
