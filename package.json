@@ -5,13 +5,16 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "mocha ./test/**/*.test.ts",
-    "coverage": "nyc --reporter=lcov --all npm run test",
-    "build": "rimraf dist && tsc",
-    "build:watch": "tsc --watch",
+    "cleanup": "rimraf dist && rimraf coverage && rimraf .nyc_output && rimraf docs",
     "lint": "tslint --project \"./tsconfig.json\"",
-    "docs": "rimraf docs && typedoc --out ./docs --mode modules --tsconfig ./tsconfig.json ./src/",
-    "ci": "npm install && npm run lint && npm run docs && npm run build && npm run coverage"
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "docs": "typedoc --out ./docs --mode modules --tsconfig ./tsconfig.json ./src/",
+    "gh-pages": "gh-pages -d docs",
+    "test": "mocha -r ts-node/register ./test/**/*.test.ts",
+    "coverage": "nyc --reporter=lcov --all npm run test",
+    "coveralls": "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
+    "ci": "npm run cleanup && npm install && npm run lint && npm run build && npm run docs && npm run coverage"
   },
   "bin": {
     "mongover": "dist/cli/index.js"
@@ -43,15 +46,19 @@
     "seeding"
   ],
   "devDependencies": {
+    "@types/chai": "^4.1.7",
     "@types/debug": "^4.1.4",
     "@types/fs-extra": "^8.0.0",
     "@types/minimist": "^1.2.0",
+    "@types/mocha": "^5.2.7",
     "@types/mongodb": "^3.1.28",
     "@types/node": "^12.6.8",
     "chai": "^4.2.0",
+    "coveralls": "^3.0.5",
     "gh-pages": "^2.0.1",
     "mocha": "^6.2.0",
     "nyc": "^14.1.1",
+    "ts-node": "^8.3.0",
     "tslint": "^5.18.0",
     "typedoc": "^0.15.0",
     "typescript": "^3.5.3"
