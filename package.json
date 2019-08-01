@@ -1,6 +1,6 @@
 {
   "name": "mongover",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "A MongoDB Server Database Migration Tool",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -34,7 +34,7 @@
     "fs-extra": "^8.1.0",
     "minimist": "^1.2.0",
     "mongodb": "^3.2.1",
-    "mongodb-extjson": "^3.0.3"
+    "mongodb-extended-json": "^1.10.1"
   },
   "keywords": [
     "mongover",
@@ -58,6 +58,7 @@
     "gh-pages": "^2.0.1",
     "mocha": "^6.2.0",
     "nyc": "^14.1.1",
+    "rimraf": "^2.6.3",
     "ts-node": "^8.3.0",
     "tslint": "^5.18.0",
     "typedoc": "^0.15.0",

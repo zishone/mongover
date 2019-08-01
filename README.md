@@ -109,8 +109,8 @@ $ mongover <command> [<args>] [<options>]
 
       -s or --seedOnly     specifies if mongover should only seed the database instead of migrating it when it already exists.
 
-## Mongover Specification Formats
-### dir
+## Mongover Specification
+### **Format: `dir`**
 #### File Structure
     .
     ├── dbName/                           # Database Directory
@@ -123,45 +123,45 @@ $ mongover <command> [<args>] [<options>]
     │   └── db.spec.json                  # Database Migration/Seeding Specification file
     └── ...
 
-#### db.spec.json
-```jsonc
-{
-    "seedOnly": false,                  // Specifies if existing database should be migrated or only seeded.
-    "dropFirst": false,                 // Specifies if existing database should be dropped before specification is applied.
-    "alias": "dbName"                   // Alias/Name the database specification will be deployed as.
-}
-```
-
-#### collectionName.spec.json
-```jsonc
-{
-    "dropFirst": false,                  // Specifies if the Collection should be dropped before specification is applied.
-    "dropIndexesFirst": false,           // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
-    "options": {},                       // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
-    "indexes": [
-        {
-            "dropFirst": false,          // Specifies if Index with same name should  be dropped before specification is applied.
-            "keys": {                    // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
-                "fieldName": 1        
-            },
-            "options": {                 // Create Index Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createIndex
-                "name": "fieldName_1"
-            }
-        }
-    ],
-    "data": {
-        "preservePrimaryKey": true,      // Specifies if _id from export file should be preserved when applied.
-        "upsertFields": [                // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
-            "fieldName" 
-        ],
-        "ignoreFields": [                // Specify fields to be ignored when updating existing documents.
-            "fieldName"
-        ]
+* **db.spec.json**
+    ```json
+    {
+        "seedOnly": false,                  // Specifies if existing database should be migrated or only seeded.
+        "dropFirst": false,                 // Specifies if existing database should be dropped before specification is applied.
+        "alias": "dbName"                   // Alias/Name the database specification will be deployed as.
     }
-}
-```
+    ```
 
-### json
+* **collectionName.spec.json**
+    ```json
+    {
+        "dropFirst": false,                  // Specifies if the Collection should be dropped before specification is applied.
+        "dropIndexesFirst": false,           // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
+        "options": {},                       // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
+        "indexes": [
+            {
+                "dropFirst": false,          // Specifies if Index with same name should  be dropped before specification is applied.
+                "keys": {                    // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
+                    "fieldName": 1        
+                },
+                "options": {                 // Create Index Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createIndex
+                    "name": "fieldName_1"
+                }
+            }
+        ],
+        "data": {
+            "preservePrimaryKey": true,      // Specifies if _id from export file should be preserved when applied.
+            "upsertFields": [                // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
+                "fieldName" 
+            ],
+            "ignoreFields": [                // Specify fields to be ignored when updating existing documents.
+                "fieldName"
+            ]
+        }
+    }
+    ```
+
+### **Format: `json`**
 #### File Structure
     .
     ├── dbName/                           # Database Directory
@@ -171,69 +171,69 @@ $ mongover <command> [<args>] [<options>]
     │   └── db.spec.json                  # Database Migration/Seeding Specification file
     └── ...
 
-#### db.spec.json
-```jsonc
-{
-    "seedOnly": false,                    // Specifies if existing database should be migrated or only seeded.
-    "dropFirst": false,                   // Specifies if existing database should be dropped before specification is applied.
-    "alias": "dbName",                    // Alias/Name the database specification will be deployed as.
-    "collections": {
-        "dropFirst": false,               // Specifies if the Collection should be dropped before specification is applied.
-        "dropIndexesFirst": false,        // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
-        "options": {},                    // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
-        "indexes": [
-            {
-                "dropFirst": false,       // Specifies if Index with same name should  be dropped before specification is applied.
-                "keys": {                 // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
-                    "fieldName": 1        
-                },
-                "options": {              // Create Index Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createIndex
-                    "name": "fieldName_1"
+* **db.spec.json**
+    ```json
+    {
+        "seedOnly": false,                    // Specifies if existing database should be migrated or only seeded.
+        "dropFirst": false,                   // Specifies if existing database should be dropped before specification is applied.
+        "alias": "dbName",                    // Alias/Name the database specification will be deployed as.
+        "collections": {
+            "dropFirst": false,               // Specifies if the Collection should be dropped before specification is applied.
+            "dropIndexesFirst": false,        // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
+            "options": {},                    // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
+            "indexes": [
+                {
+                    "dropFirst": false,       // Specifies if Index with same name should  be dropped before specification is applied.
+                    "keys": {                 // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
+                        "fieldName": 1        
+                    },
+                    "options": {              // Create Index Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createIndex
+                        "name": "fieldName_1"
+                    }
                 }
-            }
-        ],
-        "data": {
-            "preservePrimaryKey": true,   // Specifies if _id from export file should be preserved when applied.
-            "upsertFields": [             // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
-                "fieldName" 
             ],
-            "ignoreFields": [             // Specify fields to be ignored when updating existing documents.
-                "fieldName"
-            ]
+            "data": {
+                "preservePrimaryKey": true,   // Specifies if _id from export file should be preserved when applied.
+                "upsertFields": [             // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
+                    "fieldName" 
+                ],
+                "ignoreFields": [             // Specify fields to be ignored when updating existing documents.
+                    "fieldName"
+                ]
+            }
         }
     }
-}
-```
+    ```
 
-### Data Export File
+## Data Export File
 * **jsonl**
-```jsonl
-{"_id":{"$oid":"aaaaaaaaaaaaaaaaaaaaaaaa"},"fieldName": 1}
-```
+    ```jsonl
+    {"_id":{"$oid":"aaaaaaaaaaaaaaaaaaaaaaaa"},"fieldName": 1}
+    ```
 
 * **json**
-```json
-[
-    {
-        "_id": {
-            "$oid": "aaaaaaaaaaaaaaaaaaaaaaaa"
-        },
-        "fieldName": 1
-    }
-]
-```
+    ```json
+    [
+        {
+            "_id": {
+                "$oid": "aaaaaaaaaaaaaaaaaaaaaaaa"
+            },
+            "fieldName": 1
+        }
+    ]
+    ```
 
 * **js**
-```javascript
-module.exports = [
-    {
-        _id: {
-            $oid: 'aaaaaaaaaaaaaaaaaaaaaaaa'
-        },
-        fieldName: 1
-    }
-];
-```
+    ```javascript
+    module.exports = [
+        {
+            _id: {
+                $oid: 'aaaaaaaaaaaaaaaaaaaaaaaa'
+            },
+            fieldName: 1
+        }
+    ];
+    ```
 
 ## Authors
 * **Zishran Julbert Garces**

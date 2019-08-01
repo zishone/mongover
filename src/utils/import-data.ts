@@ -1,6 +1,6 @@
 import { createReadStream } from 'fs-extra';
 import { Collection } from 'mongodb';
-import * as EJSON from 'mongodb-extjson';
+import * as EJSON from 'mongodb-extended-json';
 import {
   createInterface,
   Interface,
@@ -49,7 +49,9 @@ async function processDataArr(collection: Collection, dataSpec: DataSpec, dataAr
         try {
           if (count > 0) {
             delete dottedData._id;
-            await collection.updateMany(filter, { $set: dottedData });
+            if (Object.keys(dottedData).length > 0) {
+              await collection.updateMany(filter, { $set: dottedData });
+            }
           } else {
             await collection.insertOne(data);
           }

@@ -1,4 +1,4 @@
-import * as EJSON from 'mongodb-extjson';
+import * as EJSON from 'mongodb-extended-json';
 import { join } from 'path';
 import { usage } from './constants';
 
