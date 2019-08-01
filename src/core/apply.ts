@@ -3,7 +3,6 @@ import {
   lstatSync,
   readdirSync,
 } from 'fs-extra';
-import { MongoClient } from 'mongodb';
 import { join } from 'path';
 import { buildIndex } from '../utils/build-index';
 import { connectServer } from '../utils/connect-server';
@@ -26,9 +25,9 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
     } else if (lstatSync(options.specPath).isDirectory() && existsSync(join(options.specPath, 'db.spec.json'))) {
       databases.push(getSpec(options.specPath));
     } else {
-      readdirSync(options.specPath, { withFileTypes: true })
-        .filter((dirent) => dirent.isDirectory())
-        .forEach((dirent) => databases.push(getSpec(join(options.specPath, dirent.name))));
+      readdirSync(options.specPath)
+        .filter((dirent) => lstatSync(join(options.specPath, dirent)).isDirectory())
+        .forEach((dirent) => databases.push(getSpec(join(options.specPath, dirent))));
     }
     const client = await connectServer(options.uri, { useNewUrlParser: true });
     for (const database of databases) {
