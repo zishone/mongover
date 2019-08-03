@@ -1,6 +1,6 @@
 {
   "name": "mongover",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "description": "A MongoDB Server Database Migration Tool",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -20,7 +20,7 @@
     "test": "mocha --require ts-node/register test/**/*.test.ts",
     "test:coverage": "nyc --reporter=lcov --include dist npm run test",
     "test:coveralls": "cat coverage/lcov.info | coveralls",
-    "prepublish": "npm run build"
+    "prepare": "npm run build"
   },
   "dependencies": {
     "debug": "^4.1.1",

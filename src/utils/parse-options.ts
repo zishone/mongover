@@ -8,7 +8,7 @@ export function parseOptions(args: any): MongoverOptions {
     if (args._ && args._[0]) {
       args.specPath = join(process.cwd(), args._[0]);
     }
-    if (!args._ || !args._[0]) {
+    if ((!args._ || !args._[0]) && !args.specPath) {
       args.specPath = join(process.cwd(), 'mongover');
     }
     if (args.u) {
