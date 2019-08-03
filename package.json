@@ -1,34 +1,27 @@
 {
   "name": "mongover",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "description": "A MongoDB Server Database Migration Tool",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "scripts": {
-    "cleanup": "rimraf dist && rimraf coverage && rimraf .nyc_output && rimraf docs",
-    "lint": "tslint --project \"./tsconfig.json\"",
-    "build": "tsc",
-    "build:watch": "tsc --watch",
-    "docs": "typedoc --out ./docs --mode modules --tsconfig ./tsconfig.json ./src/",
-    "gh-pages": "gh-pages -d docs",
-    "test": "mocha -r ts-node/register ./test/**/*.test.ts",
-    "coverage": "nyc --reporter=lcov --all npm run test",
-    "coveralls": "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
-    "ci": "npm run cleanup && npm install && npm run lint && npm run build && npm run docs && npm run coverage"
-  },
   "bin": {
     "mongover": "dist/cli/index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/zishone/mongover.git"
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "cleanup": "rimraf dist && rimraf coverage && rimraf .nyc_output && rimraf docs",
+    "lint": "tslint --project tsconfig.json",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "docs": "typedoc --out docs --mode modules --tsconfig tsconfig.json src && touch docs/.nojekyll",
+    "docs:deploy": "npm run docs && gh-pages --dotfiles --dist docs",
+    "test": "mocha --require ts-node/register test/**/*.test.ts",
+    "test:coverage": "nyc --reporter=lcov --include dist npm run test",
+    "test:coveralls": "cat coverage/lcov.info | coveralls",
+    "prepublish": "npm run build"
   },
-  "author": "Zishran Julbert Garces <zishgarces@gmail.com> (https://github.com/zishone)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/zishone/mongover/issues"
-  },
-  "homepage": "https://github.com/zishone/mongover#readme",
   "dependencies": {
     "debug": "^4.1.1",
     "fs-extra": "^8.1.0",
@@ -36,15 +29,6 @@
     "mongodb": "^3.2.1",
     "mongodb-extended-json": "^1.10.1"
   },
-  "keywords": [
-    "mongover",
-    "mongodb",
-    "migration",
-    "versioning",
-    "database",
-    "seed",
-    "seeding"
-  ],
   "devDependencies": {
     "@types/chai": "^4.1.7",
     "@types/debug": "^4.1.4",
@@ -63,5 +47,24 @@
     "tslint": "^5.18.0",
     "typedoc": "^0.15.0",
     "typescript": "^3.5.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zishone/mongover.git"
+  },
+  "author": "Zishran Julbert Garces <zishgarces@gmail.com> (https://github.com/zishone)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zishone/mongover/issues"
+  },
+  "homepage": "https://zishone.github.io/mongover/",
+  "keywords": [
+    "mongover",
+    "mongodb",
+    "migration",
+    "versioning",
+    "database",
+    "seed",
+    "seeding"
+  ]
 }

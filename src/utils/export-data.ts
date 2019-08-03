@@ -1,7 +1,7 @@
 import { appendFileSync } from 'fs';
 import { writeJSONSync } from 'fs-extra';
 import { Collection } from 'mongodb';
-import * as EJSON from 'mongodb-extended-json';
+import EJSON = require('mongodb-extended-json');
 import { getLogger } from './get-logger';
 
 const logger = getLogger(__filename);

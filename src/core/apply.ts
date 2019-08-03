@@ -4,13 +4,14 @@ import {
   readdirSync,
 } from 'fs-extra';
 import { join } from 'path';
+import { MongoverOptions } from '../types/types';
 import { buildIndex } from '../utils/build-index';
 import { connectServer } from '../utils/connect-server';
 import { createCollection } from '../utils/create-collection';
 import { getLogger } from '../utils/get-logger';
 import { getSpec } from '../utils/get-spec';
 import { importData } from '../utils/import-data';
-import { MongoverOptions, parseOptions } from '../utils/parse-options';
+import { parseOptions } from '../utils/parse-options';
 import { structureDatabase } from '../utils/structure-database';
 
 const logger = getLogger(__filename);

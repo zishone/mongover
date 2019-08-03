@@ -1,6 +1,6 @@
 import { apply as coreApply } from '../../core/apply';
+import { MongoverOptions } from '../../types/types';
 import { getLogger } from '../../utils/get-logger';
-import { MongoverOptions } from '../../utils/parse-options';
 
 const logger = getLogger(__filename);
 

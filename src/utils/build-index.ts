@@ -1,16 +1,8 @@
-import {
-  Collection,
-  IndexOptions,
-} from 'mongodb';
+import { Collection } from 'mongodb';
+import { IndexSpec } from '../types/types';
 import { getLogger } from './get-logger';
 
 const logger = getLogger(__filename);
-
-interface IndexSpec {
-  keys: object;
-  options: IndexOptions;
-  dropFirst: boolean;
-}
 
 export async function buildIndex(collection: Collection, indexSpec: IndexSpec): Promise<void> {
   const indexName = indexSpec.options.name || JSON.stringify(indexSpec.keys).replace(/[:,]/g, '_').replace(/[{}"]/g, '');

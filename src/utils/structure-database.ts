@@ -2,16 +2,10 @@ import {
   Db,
   MongoClient,
 } from 'mongodb';
+import { DatabaseSpec } from '../types/types';
 import { getLogger } from './get-logger';
 
 const logger = getLogger(__filename);
-
-export interface DatabaseSpec {
-  seedOnly: boolean;
-  dropFirst: boolean;
-  alias: string | undefined;
-  collections: any;
-}
 
 export async function structureDatabase(client: MongoClient, databaseName: string, databaseSpec: DatabaseSpec): Promise<Db> {
   try {

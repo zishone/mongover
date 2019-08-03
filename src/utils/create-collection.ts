@@ -1,17 +1,11 @@
 import {
   Collection,
-  CollectionCreateOptions,
   Db,
 } from 'mongodb';
+import { CollectionSpec } from '../types/types';
 import { getLogger } from './get-logger';
 
 const logger = getLogger(__filename);
-
-interface CollectionSpec {
-  options: CollectionCreateOptions;
-  dropIndexesFirst: boolean;
-  dropFirst: boolean;
-}
 
 export async function createCollection(db: Db, collectionName: string, collectionSpec: CollectionSpec, existingCollection: any): Promise<Collection> {
   try {
