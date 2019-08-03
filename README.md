@@ -2,7 +2,7 @@
 A MongoDB Database Server Seeder and Migration Tool.
 
 ## Introduction
-`mongover` is a set of tools that allows specifying MongoDB Schema via a json format and apply it to the MongoDB Server(s) making MongoDB Database Versioning, Seeding, and Migration convenient.
+`mongover` is a set of tools that can be used as a module dependency for NodeJS applications or as a command line interface tool for the purpose of seeding and migrating MongoDB databases.
 
 ## API
 ### Installation
@@ -124,7 +124,7 @@ $ mongover <command> [<args>] [<options>]
     └── ...
 
 * **db.spec.json**
-    ```json
+    ```json5
     {
         "seedOnly": false,                  // Specifies if existing database should be migrated or only seeded.
         "dropFirst": false,                 // Specifies if existing database should be dropped before specification is applied.
@@ -133,7 +133,7 @@ $ mongover <command> [<args>] [<options>]
     ```
 
 * **collectionName.spec.json**
-    ```json
+    ```json5
     {
         "dropFirst": false,                  // Specifies if the Collection should be dropped before specification is applied.
         "dropIndexesFirst": false,           // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
@@ -172,7 +172,7 @@ $ mongover <command> [<args>] [<options>]
     └── ...
 
 * **db.spec.json**
-    ```json
+    ```json5
     {
         "seedOnly": false,                    // Specifies if existing database should be migrated or only seeded.
         "dropFirst": false,                   // Specifies if existing database should be dropped before specification is applied.
@@ -207,7 +207,7 @@ $ mongover <command> [<args>] [<options>]
 
 ## Data Export File
 * **jsonl**
-    ```jsonl
+    ```json
     {"_id":{"$oid":"aaaaaaaaaaaaaaaaaaaaaaaa"},"fieldName": 1}
     ```
 

@@ -1,29 +1,7 @@
-import * as EJSON from 'mongodb-extended-json';
+import EJSON = require('mongodb-extended-json');
 import { join } from 'path';
+import { MongoverOptions } from '../types/types';
 import { usage } from './constants';
-
-export interface MongoverOptions {
-  _: string[];
-  specPath: string;
-  u: string;
-  uri: string;
-  d: string;
-  dbs: string[];
-  c: string;
-  collections: string[];
-  a: string;
-  alias: string[];
-  e: string;
-  export: string;
-  f: string;
-  format: string;
-  t: string;
-  type: string;
-  q: string;
-  query: any;
-  s: boolean;
-  seedOnly: boolean;
-}
 
 export function parseOptions(args: any): MongoverOptions {
   try {

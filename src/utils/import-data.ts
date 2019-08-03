@@ -1,21 +1,16 @@
 import { createReadStream } from 'fs-extra';
 import { Collection } from 'mongodb';
-import * as EJSON from 'mongodb-extended-json';
+import EJSON = require('mongodb-extended-json');
 import {
   createInterface,
   Interface,
 } from 'readline';
+import { DataSpec } from '../types/types';
 import { dotNotate } from './dot-notate';
 import { getLogger } from './get-logger';
 import { getProperty } from './get-property';
 
 const logger = getLogger(__filename);
-
-interface DataSpec {
-  upsertFields: string[];
-  ignoreFields: string[];
-  preservePrimaryKey: boolean;
-}
 
 async function processDataArr(collection: Collection, dataSpec: DataSpec, dataArr: any[]): Promise<void> {
   try {

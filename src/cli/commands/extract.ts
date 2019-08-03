@@ -3,6 +3,7 @@ import {
   writeJSONSync,
 } from 'fs-extra';
 import { join } from 'path';
+import { MongoverOptions } from '../../types/types';
 import { connectServer } from '../../utils/connect-server';
 import {
   collectionSpecTemplate,
@@ -10,7 +11,6 @@ import {
 } from '../../utils/constants';
 import { exportData } from '../../utils/export-data';
 import { getLogger } from '../../utils/get-logger';
-import { MongoverOptions } from '../../utils/parse-options';
 
 const logger = getLogger(__filename);
 

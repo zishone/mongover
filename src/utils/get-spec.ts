@@ -25,9 +25,7 @@ export function getSpec(specPath: string) {
   if (!spec.collections && existsSync(join(specPath, 'collections'))) {
     spec.collections = {};
     const collectionSpecsDir = join(specPath, 'collections');
-    const collectionSpecs = readdirSync(collectionSpecsDir, { withFileTypes: true })
-      .filter((dirent) => !dirent.isDirectory())
-      .map((dirent) => dirent.name);
+    const collectionSpecs = readdirSync(collectionSpecsDir).filter((dirent) => !lstatSync(join(collectionSpecsDir, dirent)).isDirectory());
     for (const collectionSpec of collectionSpecs) {
       spec.collections[collectionSpec.split('.')[0]] = readJSONSync(join(collectionSpecsDir, collectionSpec));
     }

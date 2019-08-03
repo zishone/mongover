@@ -1,4 +1,4 @@
-import { DatabaseSpec } from './structure-database';
+import { DatabaseSpec } from '../types/types';
 
 export const usage = `
 Usage:

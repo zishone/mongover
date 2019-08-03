@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 import debug = require('debug');
-import * as minimist from 'minimist';
+import minimist = require('minimist');
 import { exit, usage } from '../utils/constants';
 import { parseOptions } from '../utils/parse-options';
 import { apply } from './commands/apply';

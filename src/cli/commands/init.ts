@@ -4,13 +4,13 @@ import {
   writeJSONSync,
 } from 'fs-extra';
 import { join } from 'path';
+import { MongoverOptions } from '../../types/types';
 import {
   collectionSpecTemplate,
   databaseSpecTemplate,
   dataSample,
 } from '../../utils/constants';
 import { getLogger } from '../../utils/get-logger';
-import { MongoverOptions } from '../../utils/parse-options';
 
 const logger = getLogger(__filename);
 

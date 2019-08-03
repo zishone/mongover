@@ -1,4 +1,7 @@
-import { debug, Debugger } from 'debug';
+import {
+  debug,
+  Debugger,
+} from 'debug';
 
 interface Logger {
   debug: Debugger;

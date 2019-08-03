@@ -1,5 +1,28 @@
-language : node_js
-node_js :  
- - stable
-script:  
- - npm run ci
+language: node_js
+node_js:
+  - stable
+install:  
+  - npm ci
+before_script:
+  - npm run cleanup
+script:
+  - npm run build
+  - npm run docs
+  - npm run test:coverage
+after_success:
+  - npm run test:coveralls
+deploy:
+  - provider: pages
+    skip_cleanup: true
+    local_dir: docs
+    github_token: $GITHUB_TOKEN
+    on:
+      tags: true
+      branch: master
+  - provider: npm
+    skip_cleanup: true
+    email: "zishgarces@gmail.com"
+    api_key: $NPM_TOKEN
+    on:
+      tags: true
+      branch: master
