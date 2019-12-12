@@ -13,6 +13,7 @@ import { getSpec } from '../utils/get-spec';
 import { importData } from '../utils/import-data';
 import { parseOptions } from '../utils/parse-options';
 import { structureDatabase } from '../utils/structure-database';
+import { versionDatabase } from '../utils/version-database';
 
 const logger = getLogger(__filename);
 
@@ -30,14 +31,14 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
         .filter((dirent) => lstatSync(join(options.specPath, dirent)).isDirectory())
         .forEach((dirent) => databases.push(getSpec(join(options.specPath, dirent))));
     }
-    const client = await connectServer(options.uri, { useNewUrlParser: true });
+    const client = await connectServer(options.uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
     for (const database of databases) {
       if (options.dbs.length === 0 || options.dbs.includes(database.name)) {
         if (options.alias.length !== 0) {
           database.spec.alias = options.alias[options.dbs.indexOf(database.name)];
-        }
-        if (typeof options.seedOnly === 'boolean') {
-          database.spec.seedOnly = options.seedOnly;
         }
         const db = await structureDatabase(client, database.name, database.spec);
         for (const collectionName in database.spec.collections) {
@@ -46,7 +47,7 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
             const existingCollection = await db
               .listCollections({ name: collectionName })
               .toArray();
-            if (!existingCollection[0] || !database.spec.seedOnly) {
+            if (!existingCollection[0] || !options.seedOnly) {
               const collection = await createCollection(db, collectionName, collectionSpec, existingCollection[0]);
               for (const indexSpec of collectionSpec.indexes) {
                 await buildIndex(collection, indexSpec);
@@ -61,6 +62,9 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
               }
             }
           }
+        }
+        if (!options.seedOnly) {
+          await versionDatabase(db, database.spec);
         }
       }
     }

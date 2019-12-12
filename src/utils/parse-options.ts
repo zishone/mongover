@@ -68,16 +68,10 @@ export function parseOptions(args: any): MongoverOptions {
     if (!args.query) {
       args.query = {};
     }
-    if (args.s) {
+    if (args.s || args.seedOnly) {
       args.seedOnly = true;
     }
-    if (!args.s) {
-      args.seedOnly = false;
-    }
-    if (args.seedOnly) {
-      args.seedOnly = true;
-    }
-    if (!args.seedOnly) {
+    if (!args.s && !args.seedOnly) {
       args.seedOnly = false;
     }
     if (args.alias.length !== 0 && args.alias.length !== args.dbs.length) {

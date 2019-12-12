@@ -12,6 +12,7 @@ export async function buildIndex(collection: Collection, indexSpec: IndexSpec): 
     const existing = await collection.indexExists(indexName);
     if (existing && indexSpec.dropFirst) {
       logger.info('Dropping Index: %s', indexName);
+      logger.cli('------- Dropping Index:\t\t\t\t%s', indexName);
       await collection.dropIndex(indexName);
     }
     try {

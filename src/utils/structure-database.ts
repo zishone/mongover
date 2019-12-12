@@ -14,6 +14,7 @@ export async function structureDatabase(client: MongoClient, databaseName: strin
     const db = client.db(databaseSpec.alias || databaseName);
     if (databaseSpec.dropFirst) {
       logger.info('Dropping Database: %s', databaseSpec.alias || databaseName);
+      logger.cli('--- Dropping Database:\t\t\t%s', databaseName + (databaseSpec.alias ? ` as ${databaseSpec.alias}` : ''));
       await db.dropDatabase();
     }
     logger.info('Structured Database: %s', databaseName + (databaseSpec.alias ? ` as ${databaseSpec.alias}` : ''));

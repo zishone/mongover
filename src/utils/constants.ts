@@ -40,12 +40,14 @@ Usage:
           -a or --alias        specifies the aliases of the specified databases to apply, a database will use the alias corresponding to its index separated by commas.
           -c or --collections  specifies which collections to apply. Defaults to all collections in specified databases.
           -s or --seedOnly     specifies if mongover should only seed the database instead of migrating it when it already exists.
+          -m or --migrateForce specifies if mongover should migrate the database even if the specified version is the same.
 `.trim();
 
 export const databaseSpecTemplate: DatabaseSpec = {
   seedOnly: false,
   dropFirst: false,
   alias: 'dbName',
+  mongoVersion: '1.0.0',
   collections: {},
 };
 

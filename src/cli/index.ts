@@ -21,6 +21,9 @@ async function mongover(args: string[]) {
       case 'extract':
         await extract(options);
         break;
+      case 'help':
+        console.log(usage);
+        break;
       default:
         console.log(usage);
         process.exit(exit.error);
