@@ -1,0 +1,471 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>mongover</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">mongover</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> mongover</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#mongover-a-hrefhttpswwwnpmjscompackagemongoverimg-srchttpsimgshieldsionpmvmongover-altnpma-a-hrefhttpstravis-ciorgzishonemongoverimg-srchttpstravis-ciorgzishonemongoversvgbranchmaster-altbuild-statusa-a-hrefhttpscoverallsiogithubzishonemongoverbranchmasterimg-srchttpscoverallsioreposgithubzishonemongoverbadgesvgbranchmaster-altcoverage-statusa-a-hrefhttpsgithubcomzishonemongoverblobmasterlicenseimg-srchttpsimgshieldsionpmlmongover-altlicensea" id="mongover-a-hrefhttpswwwnpmjscompackagemongoverimg-srchttpsimgshieldsionpmvmongover-altnpma-a-hrefhttpstravis-ciorgzishonemongoverimg-srchttpstravis-ciorgzishonemongoversvgbranchmaster-altbuild-statusa-a-hrefhttpscoverallsiogithubzishonemongoverbranchmasterimg-srchttpscoverallsioreposgithubzishonemongoverbadgesvgbranchmaster-altcoverage-statusa-a-hrefhttpsgithubcomzishonemongoverblobmasterlicenseimg-srchttpsimgshieldsionpmlmongover-altlicensea" style="color: inherit; text-decoration: none;">
+					<h1>mongover <a href="https://www.npmjs.com/package/mongover"><img src="https://img.shields.io/npm/v/mongover" alt="NPM"></a> <a href="https://travis-ci.org/zishone/mongover"><img src="https://travis-ci.org/zishone/mongover.svg?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/github/zishone/mongover?branch=master"><img src="https://coveralls.io/repos/github/zishone/mongover/badge.svg?branch=master" alt="Coverage Status"></a> <a href="https://github.com/zishone/mongover/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/mongover" alt="License"></a></h1>
+				</a>
+				<p>A MongoDB Database Server Seeder and Migration Tool.</p>
+				<a href="#introduction" id="introduction" style="color: inherit; text-decoration: none;">
+					<h2>Introduction</h2>
+				</a>
+				<p><code>mongover</code> is a set of tools that can be used as a module dependency for NodeJS applications or as a command line interface tool for the purpose of seeding and migrating MongoDB databases.</p>
+				<a href="#api" id="api" style="color: inherit; text-decoration: none;">
+					<h2>API</h2>
+				</a>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h3>Installation</h3>
+				</a>
+				<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> npm i mongover</span></code></pre>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h3>Usage</h3>
+				</a>
+				<a href="#1-import-mongover" id="1-import-mongover" style="color: inherit; text-decoration: none;">
+					<h4>1. Import mongover</h4>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { apply } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongover'</span>);</code></pre>
+				<a href="#2-define-mongoveroptions" id="2-define-mongoveroptions" style="color: inherit; text-decoration: none;">
+					<h4>2. Define MongoverOptions</h4>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> options = {
+  <span class="hljs-attr">specPath</span>: <span class="hljs-string">'./mongover'</span>,
+  <span class="hljs-attr">uri</span>: <span class="hljs-string">'mongodb://127.0.0.1:27017/'</span>,
+  <span class="hljs-attr">seedOnly</span>: <span class="hljs-literal">false</span>
+};</code></pre>
+				<table>
+					<thead>
+						<tr>
+							<th>MongoverOptions</th>
+							<th>Type</th>
+							<th>Description</th>
+							<th>Default</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td>uri</td>
+							<td>string</td>
+							<td>MongoDB Server connection string.</td>
+							<td>mongodb://127.0.0.1:27017/</td>
+						</tr>
+						<tr>
+							<td>specPath</td>
+							<td>string</td>
+							<td>Path to Mongover Specification.</td>
+							<td>./mongover</td>
+						</tr>
+						<tr>
+							<td>seedOnly</td>
+							<td>boolean</td>
+							<td>Specifies if mongover should only seed instead of migrating existing database.</td>
+							<td>false</td>
+						</tr>
+				</tbody></table>
+				<a href="#3-apply-mongover-specification" id="3-apply-mongover-specification" style="color: inherit; text-decoration: none;">
+					<h4>3. Apply Mongover Specification</h4>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-keyword">await</span> apply(options);</code></pre>
+				<a href="#cli" id="cli" style="color: inherit; text-decoration: none;">
+					<h2>CLI</h2>
+				</a>
+				<a href="#installation-1" id="installation-1" style="color: inherit; text-decoration: none;">
+					<h3>Installation</h3>
+				</a>
+				<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> npm i -g mongover</span></code></pre>
+				<a href="#usage-1" id="usage-1" style="color: inherit; text-decoration: none;">
+					<h3>Usage</h3>
+				</a>
+				<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> mongover &lt;<span class="hljs-built_in">command</span>&gt; [&lt;args&gt;] [&lt;options&gt;]</span></code></pre>
+				<a href="#commands" id="commands" style="color: inherit; text-decoration: none;">
+					<h4>Commands</h4>
+				</a>
+				<ul>
+					<li><p><strong>init</strong>: initializes a new Mongover Specification</p>
+						<p><strong>SYNOPSIS</strong></p>
+						<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> mongover init [&lt;specPath&gt;] [-f dir|-f json]</span></code></pre>
+						<p><strong>ARGUMENTS</strong></p>
+						<pre><code>&lt;specPath&gt;          path <span class="hljs-keyword">to</span> Mongover Specification. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">`./mongover`</span>.</code></pre><p><strong>OPTIONS</strong></p>
+					<pre><code>-f <span class="hljs-literal">or</span> --format      specifies Mongover Specification format, choose between `dir` <span class="hljs-literal">and</span> `json`. Defaults to `dir`.</code></pre></li>
+					<li><p><strong>extract</strong>: extracts the Mongover Specification of an existing MongoDB Server and initializes a new Mongover Repository with it.</p>
+						<p><strong>SYNOPSIS</strong></p>
+						<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> mongover extract [&lt;specPath&gt;] [-u <span class="hljs-string">"&lt;uri&gt;"</span>] [-d &lt;dbName&gt;[,...] [-c &lt;collectionName&gt;[,...]]] [-f dir|-f json] [-e jsonl|-e json|-e no [-q <span class="hljs-string">"&lt;query&gt;"</span>]] </span></code></pre>
+						<p><strong>ARGUMENTS</strong></p>
+						<pre><code>&lt;specPath&gt;          path <span class="hljs-keyword">to</span> Mongover Specification. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">`./mongover`</span>.</code></pre><p><strong>OPTIONS</strong></p>
+						<pre><code>-<span class="hljs-keyword">u</span> <span class="hljs-built_in">or</span> --uri         specifies the uri of the running mongod <span class="hljs-built_in">or</span> mongos. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">'mongodb://127.0.0.1:27017/'</span>.
+
+-d <span class="hljs-built_in">or</span> --dbs         specifies which databases are <span class="hljs-keyword">to</span> <span class="hljs-keyword">be</span> extracted.
+
+-<span class="hljs-keyword">c</span> <span class="hljs-built_in">or</span> --collections specifies which collections are <span class="hljs-keyword">to</span> <span class="hljs-keyword">be</span> extracted. Defaults <span class="hljs-keyword">to</span> <span class="hljs-keyword">all</span> collections in specified databases.
+
+-<span class="hljs-keyword">f</span> <span class="hljs-built_in">or</span> --format      specifies Mongover Specification format, choose between <span class="hljs-string">'dir'</span> <span class="hljs-built_in">and</span> <span class="hljs-string">'json'</span>. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">'dir'</span>.
+
+-<span class="hljs-keyword">e</span> <span class="hljs-built_in">or</span> --export      specifies <span class="hljs-keyword">if</span> data from the MongoDB Server should also <span class="hljs-keyword">be</span> exported, choose between <span class="hljs-string">'jsonl'</span>, <span class="hljs-string">'json'</span> <span class="hljs-built_in">and</span> <span class="hljs-string">'no'</span>. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">'no'</span>.
+
+-q <span class="hljs-built_in">or</span> --query       specifies <span class="hljs-keyword">a</span> <span class="hljs-built_in">filter</span> which data <span class="hljs-keyword">to</span> <span class="hljs-keyword">be</span> exported from the MongoDB Server.</code></pre></li>
+					<li><p><strong>apply</strong>: applies the current Mongover Specification to the MongoDB Server.</p>
+						<p><strong>SYNOPSIS</strong></p>
+						<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> mongover apply [&lt;specPath&gt;] [-u <span class="hljs-string">"&lt;uri&gt;"</span>] [-d &lt;dbName&gt;[,...] [-a &lt;<span class="hljs-built_in">alias</span>&gt;[,...]]] [-c &lt;collectionName&gt;[,...]] [-s]</span></code></pre>
+						<p><strong>ARGUMENTS</strong></p>
+						<pre><code>&lt;specPath&gt;           <span class="hljs-type">path</span> <span class="hljs-keyword">to</span> Mongover Specification. Defaults <span class="hljs-keyword">to</span> <span class="hljs-keyword">current</span> working directory.</code></pre><p><strong>OPTIONS</strong></p>
+						<pre><code>-u <span class="hljs-keyword">or</span> --uri          specifies the uri <span class="hljs-keyword">of</span> the running mongod <span class="hljs-keyword">or</span> mongos. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">'mongodb://127.0.0.1:27017/'</span>.
+
+-d <span class="hljs-keyword">or</span> --dbs          specifies which databases <span class="hljs-keyword">to</span><span class="hljs-built_in"> apply</span>. Defaults <span class="hljs-keyword">to</span> all databases <span class="hljs-keyword">in</span> the Mongover Specification.
+
+-a <span class="hljs-keyword">or</span> --alias        specifies the aliases <span class="hljs-keyword">of</span> the specified databases <span class="hljs-keyword">to</span><span class="hljs-built_in"> apply</span>, a database will use the alias corresponding <span class="hljs-keyword">to</span> its index separated <span class="hljs-keyword">by</span> commas.
+
+-c <span class="hljs-keyword">or</span> --collections  specifies which collections <span class="hljs-keyword">to</span><span class="hljs-built_in"> apply</span>. Defaults <span class="hljs-keyword">to</span> all collections <span class="hljs-keyword">in</span> specified databases.
+
+-s <span class="hljs-keyword">or</span> --seedOnly     specifies <span class="hljs-keyword">if</span> mongover should <span class="hljs-keyword">only</span> seed the database instead <span class="hljs-keyword">of</span> migrating it <span class="hljs-keyword">when</span> it already<span class="hljs-built_in"> exists</span>.
+
+-m <span class="hljs-keyword">or</span> --migrateForce specifies <span class="hljs-keyword">if</span> mongover should migrate the database even <span class="hljs-keyword">if</span> the specified version <span class="hljs-literal">is</span> the same.</code></pre></li>
+					<li><p><strong>help</strong>: outputs Mongover usage.</p>
+						<p><strong>SYNOPSIS</strong></p>
+						<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> mongover <span class="hljs-built_in">help</span></span></code></pre>
+					</li>
+				</ul>
+				<a href="#mongover-specification" id="mongover-specification" style="color: inherit; text-decoration: none;">
+					<h2>Mongover Specification</h2>
+				</a>
+				<a href="#strongformat-codedircodestrong" id="strongformat-codedircodestrong" style="color: inherit; text-decoration: none;">
+					<h3><strong>Format: <code>dir</code></strong></h3>
+				</a>
+				<a href="#file-structure" id="file-structure" style="color: inherit; text-decoration: none;">
+					<h4>File Structure</h4>
+				</a>
+				<pre><code>.
+├── dbName/                           <span class="hljs-comment"># Database Directory</span>
+│   ├── data/             
+│   │   ├── collectionName.jsonl      <span class="hljs-comment"># Export file to be upserted to dbName.collectionName (alternatively `json|js`)</span>
+│   │   └── <span class="hljs-string">...</span>
+│   ├── collections/
+│   │   ├── collectionName.spec.json  <span class="hljs-comment"># Collection Migration/Seeding Specification file</span>
+│   │   └── <span class="hljs-string">...</span>
+│   └── db.spec.json                  <span class="hljs-comment"># Database Migration/Seeding Specification file</span>
+└── <span class="hljs-string">...</span></code></pre><ul>
+					<li><p><strong>db.spec.json</strong></p>
+						<pre><code class="language-json5">  {
+      &quot;seedOnly&quot;: false,                  // Specifies if existing database should be migrated or only seeded.
+      &quot;dropFirst&quot;: false,                 // Specifies if existing database should be dropped before specification is applied.
+      &quot;alias&quot;: &quot;dbName&quot;,                  // Alias/Name the database specification will be deployed as.
+      &quot;mongoVersion&quot;: &quot;1.0.0&quot;             // Specifies the mongoVersion of the database, this will determine if the database needs to be migrated or not.
+  }</code></pre>
+					</li>
+					<li><p><strong>collectionName.spec.json</strong></p>
+						<pre><code class="language-json5">  {
+      &quot;dropFirst&quot;: false,                  // Specifies if the Collection should be dropped before specification is applied.
+      &quot;dropIndexesFirst&quot;: false,           // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
+      &quot;options&quot;: {},                       // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
+      &quot;indexes&quot;: [
+          {
+              &quot;dropFirst&quot;: false,          // Specifies if Index with same name should  be dropped before specification is applied.
+              &quot;keys&quot;: {                    // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
+                  &quot;fieldName&quot;: 1        
+              },
+              &quot;options&quot;: {                 // Create Index Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createIndex
+                  &quot;name&quot;: &quot;fieldName_1&quot;
+              }
+          }
+      ],
+      &quot;data&quot;: {
+          &quot;preservePrimaryKey&quot;: true,      // Specifies if _id from export file should be preserved when applied.
+          &quot;upsertFields&quot;: [                // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
+              &quot;fieldName&quot; 
+          ],
+          &quot;ignoreFields&quot;: [                // Specify fields to be ignored when updating existing documents.
+              &quot;fieldName&quot;
+          ]
+      }
+  }</code></pre>
+					</li>
+				</ul>
+				<a href="#strongformat-codejsoncodestrong" id="strongformat-codejsoncodestrong" style="color: inherit; text-decoration: none;">
+					<h3><strong>Format: <code>json</code></strong></h3>
+				</a>
+				<a href="#file-structure-1" id="file-structure-1" style="color: inherit; text-decoration: none;">
+					<h4>File Structure</h4>
+				</a>
+				<pre><code>.
+├── dbName/                           # Database Directory
+│   ├── data/             
+│   │   ├── collectionName.jsonl      # <span class="hljs-builtin-name">Export</span> file <span class="hljs-keyword">to</span> be upserted <span class="hljs-keyword">to</span> dbName.collectionName (alternatively `json|js`)
+│   │   └── <span class="hljs-built_in">..</span>.
+│   └── db.spec.json                  # Database Migration/Seeding Specification file
+└── <span class="hljs-built_in">..</span>.</code></pre><ul>
+					<li><strong>db.spec.json</strong><pre><code class="language-json5">  {
+      &quot;seedOnly&quot;: false,                    // Specifies if existing database should be migrated or only seeded.
+      &quot;dropFirst&quot;: false,                   // Specifies if existing database should be dropped before specification is applied.
+      &quot;alias&quot;: &quot;dbName&quot;,                    // Alias/Name the database specification will be deployed as.
+      &quot;mongoVersion&quot;: &quot;1.0.0&quot;,              // Specifies the mongoVersion of the database, this will determine if the database needs to be migrated or not.
+      &quot;collections&quot;: {
+          &quot;dropFirst&quot;: false,               // Specifies if the Collection should be dropped before specification is applied.
+          &quot;dropIndexesFirst&quot;: false,        // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
+          &quot;options&quot;: {},                    // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
+          &quot;indexes&quot;: [
+              {
+                  &quot;dropFirst&quot;: false,       // Specifies if Index with same name should  be dropped before specification is applied.
+                  &quot;keys&quot;: {                 // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
+                      &quot;fieldName&quot;: 1        
+                  },
+                  &quot;options&quot;: {              // Create Index Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createIndex
+                      &quot;name&quot;: &quot;fieldName_1&quot;
+                  }
+              }
+          ],
+          &quot;data&quot;: {
+              &quot;preservePrimaryKey&quot;: true,   // Specifies if _id from export file should be preserved when applied.
+              &quot;upsertFields&quot;: [             // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
+                  &quot;fieldName&quot; 
+              ],
+              &quot;ignoreFields&quot;: [             // Specify fields to be ignored when updating existing documents.
+                  &quot;fieldName&quot;
+              ]
+          }
+      }
+  }</code></pre>
+					</li>
+				</ul>
+				<a href="#data-export-file" id="data-export-file" style="color: inherit; text-decoration: none;">
+					<h2>Data Export File</h2>
+				</a>
+				<ul>
+					<li><p><strong>jsonl</strong></p>
+						<pre><code class="language-json">  {<span class="hljs-attr">"_id"</span>:{<span class="hljs-attr">"$oid"</span>:<span class="hljs-string">"aaaaaaaaaaaaaaaaaaaaaaaa"</span>},<span class="hljs-attr">"fieldName"</span>: <span class="hljs-number">1</span>}</code></pre>
+					</li>
+					<li><p><strong>json</strong></p>
+						<pre><code class="language-json">  [
+      {
+          <span class="hljs-attr">"_id"</span>: {
+              <span class="hljs-attr">"$oid"</span>: <span class="hljs-string">"aaaaaaaaaaaaaaaaaaaaaaaa"</span>
+          },
+          <span class="hljs-attr">"fieldName"</span>: <span class="hljs-number">1</span>
+      }
+  ]</code></pre>
+					</li>
+					<li><p><strong>js</strong></p>
+						<pre><code class="language-javascript">  <span class="hljs-built_in">module</span>.exports = [
+      {
+          <span class="hljs-attr">_id</span>: {
+              <span class="hljs-attr">$oid</span>: <span class="hljs-string">'aaaaaaaaaaaaaaaaaaaaaaaa'</span>
+          },
+          <span class="hljs-attr">fieldName</span>: <span class="hljs-number">1</span>
+      }
+  ];</code></pre>
+					</li>
+				</ul>
+				<a href="#authors" id="authors" style="color: inherit; text-decoration: none;">
+					<h2>Authors</h2>
+				</a>
+				<ul>
+					<li><strong>Zishran Julbert Garces</strong></li>
+				</ul>
+				<p>See also the list of <a href="https://github.com/superzish/mongover/contributors">contributors</a> who participated in this project.</p>
+				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+					<h2>License</h2>
+				</a>
+				<p>This project is licensed under the MIT License - see the <a href="https://github.com/superzish/mongover/blob/master/LICENSE">LICENSE</a> file for details.</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_cli_commands_apply_.html">"cli/commands/apply"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_cli_commands_extract_.html">"cli/commands/extract"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_cli_commands_init_.html">"cli/commands/init"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_cli_index_.html">"cli/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_core_apply_.html">"core/apply"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_index_.html">"index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_types_types_.html">"types/types"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_utils_build_index_.html">"utils/build-<wbr>index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_utils_connect_server_.html">"utils/connect-<wbr>server"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_utils_constants_.html">"utils/constants"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_utils_create_collection_.html">"utils/create-<wbr>collection"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_utils_dot_notate_.html">"utils/dot-<wbr>notate"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_utils_export_data_.html">"utils/export-<wbr>data"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_utils_get_logger_.html">"utils/get-<wbr>logger"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_utils_get_property_.html">"utils/get-<wbr>property"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_utils_get_spec_.html">"utils/get-<wbr>spec"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_utils_import_data_.html">"utils/import-<wbr>data"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_utils_parse_options_.html">"utils/parse-<wbr>options"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_utils_structure_database_.html">"utils/structure-<wbr>database"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_utils_version_database_.html">"utils/version-<wbr>database"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
