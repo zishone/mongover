@@ -109,6 +109,17 @@ $ mongover <command> [<args>] [<options>]
 
       -s or --seedOnly     specifies if mongover should only seed the database instead of migrating it when it already exists.
 
+      -m or --migrateForce specifies if mongover should migrate the database even if the specified version is the same.
+
+* **help**: outputs Mongover usage.
+  
+  **SYNOPSIS**
+
+  ```shell
+  $ mongover help
+  ```
+
+
 ## Mongover Specification
 ### **Format: `dir`**
 #### File Structure
@@ -128,7 +139,8 @@ $ mongover <command> [<args>] [<options>]
     {
         "seedOnly": false,                  // Specifies if existing database should be migrated or only seeded.
         "dropFirst": false,                 // Specifies if existing database should be dropped before specification is applied.
-        "alias": "dbName"                   // Alias/Name the database specification will be deployed as.
+        "alias": "dbName",                  // Alias/Name the database specification will be deployed as.
+        "mongoVersion": "1.0.0"             // Specifies the mongoVersion of the database, this will determine if the database needs to be migrated or not.
     }
     ```
 
@@ -177,6 +189,7 @@ $ mongover <command> [<args>] [<options>]
         "seedOnly": false,                    // Specifies if existing database should be migrated or only seeded.
         "dropFirst": false,                   // Specifies if existing database should be dropped before specification is applied.
         "alias": "dbName",                    // Alias/Name the database specification will be deployed as.
+        "mongoVersion": "1.0.0",              // Specifies the mongoVersion of the database, this will determine if the database needs to be migrated or not.
         "collections": {
             "dropFirst": false,               // Specifies if the Collection should be dropped before specification is applied.
             "dropIndexesFirst": false,        // Specifies if all the Indexes of the Collection should be dropped before specification is applied.

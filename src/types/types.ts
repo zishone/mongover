@@ -48,5 +48,6 @@ export interface DatabaseSpec {
   seedOnly: boolean;
   dropFirst: boolean;
   alias: string | undefined;
+  mongoVersion: string;
   collections: any;
 }

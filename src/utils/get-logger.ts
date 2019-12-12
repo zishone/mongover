@@ -2,6 +2,7 @@ import {
   debug,
   Debugger,
 } from 'debug';
+import { sep } from 'path';
 
 interface Logger {
   debug: Debugger;
@@ -12,7 +13,7 @@ interface Logger {
 }
 
 export function getLogger(fileName: string): Logger {
-  const component = fileName.split('.')[0].split('/').pop();
+  const component = fileName.split('.')[0].split(sep).pop();
   return {
     debug: debug(`mongover:debug:${component}`),
     info: debug(`mongover:info:${component}`),

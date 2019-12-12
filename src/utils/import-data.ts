@@ -24,8 +24,8 @@ async function processDataArr(collection: Collection, dataSpec: DataSpec, dataAr
         try {
           await collection.insertOne(data);
         } catch (error) {
-          logger.warn('Can\'t insert Data: %o: %s', data, error.message);
-          logger.cli('------- Can\'t insert Data:\t\t\t%o: %s', data, error.message);
+          logger.warn('Can\'t insert Data: %o: %s', `${EJSON.stringify(data).substring(0, 60)}...`, '\n\t\t\t\tMessage:\t\t\t', error.message);
+          logger.cli('------- Can\'t insert Data:\t\t\t%o: %s', `${EJSON.stringify(data).substring(0, 60)}...`, '\n\t\t\t\tMessage:\t\t\t', error.message);
         }
       } else {
         const filter: any = {};
@@ -51,8 +51,8 @@ async function processDataArr(collection: Collection, dataSpec: DataSpec, dataAr
             await collection.insertOne(data);
           }
         } catch (error) {
-          logger.warn('Can\'t upsert Data: %o%s', data, error.message);
-          logger.cli('------- Can\'t upsert Data:\t\t\t%o: %s', data, error.message);
+          logger.warn('Can\'t upsert Data: %o%s', `${EJSON.stringify(data).substring(0, 60)}...`, '\n\t\t\t\tMessage:\t\t\t', error.message);
+          logger.cli('------- Can\'t upsert Data:\t\t\t%o: %s', `${EJSON.stringify(data).substring(0, 60)}...`, '\n\t\t\t\tMessage:\t\t\t', error.message);
         }
       }
     }

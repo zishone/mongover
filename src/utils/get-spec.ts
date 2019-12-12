@@ -4,10 +4,13 @@ import {
   readdirSync,
   readJSONSync,
 } from 'fs-extra';
-import { join } from 'path';
+import {
+  join,
+  sep,
+} from 'path';
 
 export function getSpec(specPath: string) {
-  const segments = specPath.split('/');
+  const segments = specPath.split(sep);
   let spec: any;
   let name: string;
   let dataPath: string;
@@ -19,8 +22,8 @@ export function getSpec(specPath: string) {
     segments.pop();
     spec = readJSONSync(specPath);
     name = (segments.pop() || '').split('.')[0];
-    dataPath = join('/', ...segments, name, 'data');
-    specPath = join('/', ...segments, name);
+    dataPath = join(sep, ...segments, name, 'data');
+    specPath = join(sep, ...segments, name);
   }
   if (!spec.collections && existsSync(join(specPath, 'collections'))) {
     spec.collections = {};
