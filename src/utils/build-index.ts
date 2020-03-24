@@ -7,8 +7,6 @@ const logger = getLogger(__filename);
 export async function buildIndex(collection: Collection, indexSpec: IndexSpec): Promise<void> {
   const indexName = indexSpec.options.name || JSON.stringify(indexSpec.keys).replace(/[:,]/g, '_').replace(/[{}"]/g, '');
   try {
-    logger.debug('Building Index: %s', indexName);
-    logger.cli('------- Building Index: %s', indexName);
     const existing = await collection.indexExists(indexName);
     if (existing && indexSpec.dropFirst) {
       logger.info('Dropping Index: %s', indexName);
@@ -16,6 +14,8 @@ export async function buildIndex(collection: Collection, indexSpec: IndexSpec): 
       await collection.dropIndex(indexName);
     }
     try {
+      logger.debug('Building Index: %s', indexName);
+      logger.cli('------- Building Index: %s', indexName);
       await collection.createIndex(indexSpec.keys, indexSpec.options);
     } catch (error) {
       logger.warn('Can\'t build Index: %s: %s', indexName, error.message);
