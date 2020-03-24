@@ -140,7 +140,7 @@ $ mongover <command> [<args>] [<options>]
         "seedOnly": false,                  // Specifies if existing database should be migrated or only seeded.
         "dropFirst": false,                 // Specifies if existing database should be dropped before specification is applied.
         "alias": "dbName",                  // Alias/Name the database specification will be deployed as.
-        "mongoVersion": "1.0.0"             // Specifies the mongoVersion of the database, this will determine if the database needs to be migrated or not.
+        "version": "1.0.0"             // Specifies the version of the database, this will determine if the database needs to be migrated or not.
     }
     ```
 
@@ -189,7 +189,7 @@ $ mongover <command> [<args>] [<options>]
         "seedOnly": false,                    // Specifies if existing database should be migrated or only seeded.
         "dropFirst": false,                   // Specifies if existing database should be dropped before specification is applied.
         "alias": "dbName",                    // Alias/Name the database specification will be deployed as.
-        "mongoVersion": "1.0.0",              // Specifies the mongoVersion of the database, this will determine if the database needs to be migrated or not.
+        "version": "1.0.0",              // Specifies the version of the database, this will determine if the database needs to be migrated or not.
         "collections": {
             "dropFirst": false,               // Specifies if the Collection should be dropped before specification is applied.
             "dropIndexesFirst": false,        // Specifies if all the Indexes of the Collection should be dropped before specification is applied.

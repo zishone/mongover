@@ -47,7 +47,7 @@ export const databaseSpecTemplate: DatabaseSpec = {
   seedOnly: false,
   dropFirst: false,
   alias: 'dbName',
-  mongoVersion: '1.0.0',
+  version: '1.0.0',
   collections: {},
 };
 

@@ -9,21 +9,23 @@ const logger = getLogger(__filename);
 
 export async function versionDatabase(db: Db, databaseSpec: DatabaseSpec): Promise<Db> {
   try {
-    logger.debug('Versioning Database: %s', `${db.databaseName}@${databaseSpec.mongoVersion}`);
-    logger.cli('--- Versioning Database:\t\t\t\t%s', `${db.databaseName}@${databaseSpec.mongoVersion}`);
-    const mongoVersion = { mongoVersion: databaseSpec.mongoVersion };
-    const collection = db.collection('mongover');
-    const currentVersion = await collection.findOne({});
-    if (currentVersion) {
-      await collection.updateOne({}, { $set: mongoVersion });
-    } else {
-      await collection.insertOne(mongoVersion);
+    logger.debug('Versioning Database: %s', `${db.databaseName}@${databaseSpec.version}`);
+    logger.cli('--- Versioning Database:\t\t\t\t%s', `${db.databaseName}@${databaseSpec.version}`);
+    const newMeta = { version: databaseSpec.version };
+    const collection = db.collection('_mongover');
+    const currentMeta = await collection.findOne({});
+    if (!currentMeta) {
+      await collection.insertOne(newMeta);
     }
-    logger.info('Versioned Database: %s', `${db.databaseName}@${databaseSpec.mongoVersion}`);
+    if (currentMeta && currentMeta.version !== newMeta.version) {
+      await collection.deleteOne({ _id: currentMeta._id });
+      await collection.insertOne(newMeta);
+    }
+    logger.info('Versioned Database: %s', `${db.databaseName}@${databaseSpec.version}`);
     return db;
   } catch (error) {
-    logger.error('Error versioning Database: %s', `${db.databaseName}@${databaseSpec.mongoVersion}`);
-    logger.cli('--- Error versioning Database:\t\t\t%s', `${db.databaseName}@${databaseSpec.mongoVersion}`);
+    logger.error('Error versioning Database: %s', `${db.databaseName}@${databaseSpec.version}`);
+    logger.cli('--- Error versioning Database:\t\t\t%s', `${db.databaseName}@${databaseSpec.version}`);
     throw error;
   }
 }
