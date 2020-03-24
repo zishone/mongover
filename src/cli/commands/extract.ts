@@ -16,10 +16,10 @@ const logger = getLogger(__filename);
 
 export async function extract(options: MongoverOptions): Promise<void> {
   try {
-    logger.cli('Extracting Mongover Specification:\t\t%s', options.specPath);
+    logger.cli('Extracting Mongover Specification: %s', options.specPath);
     const client = await connectServer(options.uri, { useNewUrlParser: true });
     for (const dbName of options.dbs) {
-      logger.cli('--- Extracting Database:\t\t\t\t%s', dbName);
+      logger.cli('--- Extracting Database: %s', dbName);
       const db = client.db(dbName);
       const databaseSpecPath = join(options.specPath, dbName);
       const collectionSpecPath = join(databaseSpecPath, 'collections');
@@ -33,7 +33,7 @@ export async function extract(options: MongoverOptions): Promise<void> {
       const collectionInfos = await db.listCollections().toArray();
       for (const collectionInfo of collectionInfos) {
         if (options.collections.length === 0 || options.collections.includes(collectionInfo.name)) {
-          logger.cli('----- Extracting Collection:\t\t\t%s', collectionInfo.name);
+          logger.cli('----- Extracting Collection: %s', collectionInfo.name);
           const collection = db.collection(collectionInfo.name);
           collectionSpecTemplate.data.ignoreFields = [];
           collectionSpecTemplate.data.upsertFields = [];
@@ -44,7 +44,7 @@ export async function extract(options: MongoverOptions): Promise<void> {
             .toArray();
           for (const indexInfo of indexInfos) {
             if (indexInfo.name !== '_id_') {
-              logger.cli('------- Extracting Index:\t\t\t%s', indexInfo.name);
+              logger.cli('------- Extracting Index: %s', indexInfo.name);
               const indexOptions = JSON.parse(JSON.stringify(indexInfo));
               delete indexOptions.key;
               delete indexOptions.v;
@@ -68,10 +68,10 @@ export async function extract(options: MongoverOptions): Promise<void> {
       }
       writeJSONSync(join(databaseSpecPath, 'db.spec.json'), databaseSpecTemplate, { spaces: 2 });
     }
-    logger.cli('Done extracting Mongover Specification:\t\t%s', options.specPath);
+    logger.cli('Done extracting Mongover Specification: %s', options.specPath);
     await client.close();
   } catch (error) {
-    logger.cli('Error extracting Mongover Specification:\t\t%O', error);
+    logger.cli('Error extracting Mongover Specification: %O', error);
     throw error;
   }
 }

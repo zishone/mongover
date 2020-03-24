@@ -16,7 +16,7 @@ const logger = getLogger(__filename);
 
 export async function init(options: MongoverOptions): Promise<void> {
   try {
-    logger.cli('Initializing Mongover Specification:\t\t%s', options.specPath);
+    logger.cli('Initializing Mongover Specification: %s', options.specPath);
     ensureDirSync(join(options.specPath, 'dbName', 'data'));
     writeFileSync(join(options.specPath, 'dbName', 'data', 'collectionName.jsonl'), dataSample);
     switch (options.format) {
@@ -35,9 +35,9 @@ export async function init(options: MongoverOptions): Promise<void> {
       default:
         throw new Error(`Unrecognized format: ${options.format}.`);
     }
-    logger.cli('Done initializing Mongover Specification:\t%s', options.specPath);
+    logger.cli('Done initializing Mongover Specification: %s', options.specPath);
   } catch (error) {
-    logger.cli('Error initializing Mongover Specification:\t%O', error);
+    logger.cli('Error initializing Mongover Specification: %O', error);
     throw error;
   }
 }

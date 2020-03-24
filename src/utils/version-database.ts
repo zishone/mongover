@@ -10,7 +10,7 @@ const logger = getLogger(__filename);
 export async function versionDatabase(db: Db, databaseSpec: DatabaseSpec): Promise<Db> {
   try {
     logger.debug('Versioning Database: %s', `${db.databaseName}@${databaseSpec.version}`);
-    logger.cli('--- Versioning Database:\t\t\t\t%s', `${db.databaseName}@${databaseSpec.version}`);
+    logger.cli('--- Versioning Database: %s', `${db.databaseName}@${databaseSpec.version}`);
     const newMeta = { version: databaseSpec.version };
     const collection = db.collection('_mongover');
     const currentMeta = await collection.findOne({});
@@ -25,7 +25,7 @@ export async function versionDatabase(db: Db, databaseSpec: DatabaseSpec): Promi
     return db;
   } catch (error) {
     logger.error('Error versioning Database: %s', `${db.databaseName}@${databaseSpec.version}`);
-    logger.cli('--- Error versioning Database:\t\t\t%s', `${db.databaseName}@${databaseSpec.version}`);
+    logger.cli('--- Error versioning Database: %s', `${db.databaseName}@${databaseSpec.version}`);
     throw error;
   }
 }
