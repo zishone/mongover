@@ -1,5 +1,5 @@
-import { DatabaseSpec, MongoverOptions } from '../types/types';
 import { join } from 'path';
+import { DatabaseSpec, MongoverOptions } from '../types/types';
 
 export const usage = `
 Usage:
