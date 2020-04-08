@@ -38,6 +38,9 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
     for (const database of databases) {
       if (options.dbs.length === 0 || options.dbs.includes(database.name)) {
         database.spec.alias = options.alias[options.dbs.indexOf(database.name)];
+        if (options.seedOnly) {
+          database.spec.seedOnly = true;
+        }
         const db = await structureDatabase(client, database.name, database.spec);
         for (const collectionName in database.spec.collections) {
           if (options.collections.length === 0 || options.collections.includes(collectionName)) {
@@ -45,7 +48,7 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
             const existingCollection = await db
               .listCollections({ name: collectionName })
               .toArray();
-            if (!existingCollection[0] || !options.seedOnly) {
+            if (!existingCollection[0] || !database.spec.seedOnly) {
               const collection = await createCollection(db, collectionName, collectionSpec, existingCollection[0]);
               for (const indexSpec of collectionSpec.indexes) {
                 await buildIndex(collection, indexSpec);
@@ -61,7 +64,7 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
             }
           }
         }
-        if (!options.seedOnly) {
+        if (!database.spec.seedOnly) {
           await versionDatabase(db, options.infoCollection, database.spec);
         }
       }
