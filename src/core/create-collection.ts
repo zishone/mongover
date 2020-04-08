@@ -3,7 +3,7 @@ import {
   Db,
 } from 'mongodb';
 import { CollectionSpec } from '../types/types';
-import { getLogger } from './get-logger';
+import { getLogger } from '../utils/get-logger';
 
 const logger = getLogger(__filename);
 

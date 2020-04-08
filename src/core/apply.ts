@@ -5,15 +5,15 @@ import {
 } from 'fs-extra';
 import { join } from 'path';
 import { MongoverOptions } from '../types/types';
-import { buildIndex } from '../utils/build-index';
-import { connectServer } from '../utils/connect-server';
-import { createCollection } from '../utils/create-collection';
 import { getLogger } from '../utils/get-logger';
-import { getSpec } from '../utils/get-spec';
-import { importData } from '../utils/import-data';
 import { parseOptions } from '../utils/parse-options';
-import { structureDatabase } from '../utils/structure-database';
-import { versionDatabase } from '../utils/version-database';
+import { buildIndex } from './build-index';
+import { connectServer } from './connect-server';
+import { createCollection } from './create-collection';
+import { getSpec } from './get-spec';
+import { importData } from './import-data';
+import { structureDatabase } from './structure-database';
+import { versionDatabase } from './version-database';
 
 const logger = getLogger(__filename);
 
@@ -37,9 +37,7 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
     });
     for (const database of databases) {
       if (options.dbs.length === 0 || options.dbs.includes(database.name)) {
-        if (options.alias.length !== 0) {
-          database.spec.alias = options.alias[options.dbs.indexOf(database.name)];
-        }
+        database.spec.alias = options.alias[options.dbs.indexOf(database.name)];
         const db = await structureDatabase(client, database.name, database.spec);
         for (const collectionName in database.spec.collections) {
           if (options.collections.length === 0 || options.collections.includes(collectionName)) {
@@ -64,7 +62,7 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
           }
         }
         if (!options.seedOnly) {
-          await versionDatabase(db, database.spec);
+          await versionDatabase(db, options.infoCollection, database.spec);
         }
       }
     }

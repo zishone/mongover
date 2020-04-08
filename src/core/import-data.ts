@@ -6,9 +6,9 @@ import {
   Interface,
 } from 'readline';
 import { DataSpec } from '../types/types';
-import { dotNotate } from './dot-notate';
-import { getLogger } from './get-logger';
-import { getProperty } from './get-property';
+import { dotNotate } from '../utils/dot-notate';
+import { getLogger } from '../utils/get-logger';
+import { getProperty } from '../utils/get-property';
 
 const logger = getLogger(__filename);
 

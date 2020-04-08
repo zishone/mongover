@@ -3,16 +3,16 @@ import {
   MongoClient,
 } from 'mongodb';
 import { DatabaseSpec } from '../types/types';
-import { getLogger } from './get-logger';
+import { getLogger } from '../utils/get-logger';
 
 const logger = getLogger(__filename);
 
-export async function versionDatabase(db: Db, databaseSpec: DatabaseSpec): Promise<Db> {
+export async function versionDatabase(db: Db, infoCollection: string, databaseSpec: DatabaseSpec): Promise<Db> {
   try {
     logger.debug('Versioning Database: %s', `${db.databaseName}@${databaseSpec.version}`);
     logger.cli('--- Versioning Database: %s', `${db.databaseName}@${databaseSpec.version}`);
     const newMeta = { version: databaseSpec.version };
-    const collection = db.collection('_mongover');
+    const collection = db.collection(infoCollection);
     const currentMeta = await collection.findOne({});
     if (!currentMeta) {
       await collection.insertOne(newMeta);

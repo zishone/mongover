@@ -2,7 +2,7 @@ import {
   MongoClient,
   MongoClientOptions,
 } from 'mongodb';
-import { getLogger } from './get-logger';
+import { getLogger } from '../utils/get-logger';
 
 const logger = getLogger(__filename);
 

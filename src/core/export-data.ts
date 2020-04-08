@@ -2,7 +2,7 @@ import { appendFileSync } from 'fs';
 import { writeJSONSync } from 'fs-extra';
 import { Collection } from 'mongodb';
 import EJSON = require('mongodb-extended-json');
-import { getLogger } from './get-logger';
+import { getLogger } from '../utils/get-logger';
 
 const logger = getLogger(__filename);
 

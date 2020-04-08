@@ -10,7 +10,36 @@ import { init } from './commands/init';
 
 async function mongover(args: string[]) {
   try {
-    const options = parseOptions(minimist(args.slice(3)));
+    const parsedArgs = minimist(args.slice(3), {
+      string: [
+        'uri',
+        'format',
+        'export',
+        'query',
+        'alias',
+        'dbs',
+        'collections',
+        'infoCollection',
+      ],
+      boolean: [
+        'seedOnly',
+        'migrateForce',
+      ],
+      alias: {
+        u: 'uri',
+        d: 'dbs',
+        c: 'collections',
+        f: 'format',
+        e: 'export',
+        q: 'query',
+        a: 'alias',
+        s: 'seedOnly',
+        m: 'migrateForce',
+        i: 'infoCollection',
+      },
+    });
+    const options = parseOptions(parsedArgs);
+    console.log('parsedArgs', options);
     switch (args[2]) {
       case 'apply':
         await apply(options);
@@ -30,6 +59,7 @@ async function mongover(args: string[]) {
     }
     process.exit(exit.success);
   } catch (error) {
+    console.log(error);
     process.exit(exit.error);
   }
 }
