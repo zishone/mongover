@@ -30,7 +30,15 @@ export async function extract(options: MongoverOptions): Promise<void> {
         ensureDirSync(collectionSpecPath);
         delete databaseSpecTemplate.collections;
       }
-      const collectionInfos = await db.listCollections().toArray();
+      const info = await db
+        .collection(options.infoCollection)
+        .findOne({});
+      if (info) {
+        databaseSpecTemplate.version = info.options;
+      }
+      const collectionInfos = await db
+        .listCollections({ name: { $ne: options.infoCollection } })
+        .toArray();
       for (const collectionInfo of collectionInfos) {
         if (options.collections.length === 0 || options.collections.includes(collectionInfo.name)) {
           logger.cli('----- Extracting Collection: %s', collectionInfo.name);
@@ -61,7 +69,7 @@ export async function extract(options: MongoverOptions): Promise<void> {
           } else {
             databaseSpecTemplate.collections[collectionInfo.name] = collectionSpecTemplate;
           }
-          if (options.export) {
+          if (options.export !== 'no') {
             await exportData(collection, join(dataPath, collectionInfo.name), options.export, options.query);
           }
         }
