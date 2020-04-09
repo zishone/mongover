@@ -78,7 +78,7 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
               }
             }
           }
-          if (!database.spec.seedOnly || database.spec.migrateForce) {
+          if (!database.spec.seedOnly || !versionCheck.version || database.spec.migrateForce) {
             database.spec.infoCollection = options.infoCollection;
             await versionDatabase(db, database.spec);
           }
