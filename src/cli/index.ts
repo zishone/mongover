@@ -3,10 +3,13 @@
 import debug = require('debug');
 import minimist = require('minimist');
 import { exit, usage } from '../utils/constants';
+import { getLogger } from '../utils/get-logger';
 import { parseOptions } from '../utils/parse-options';
 import { apply } from './commands/apply';
 import { extract } from './commands/extract';
 import { init } from './commands/init';
+
+const logger = getLogger(__filename);
 
 async function mongover(args: string[]) {
   try {
@@ -54,10 +57,11 @@ async function mongover(args: string[]) {
         break;
       default:
         console.log(usage);
-        process.exit(exit.error);
+        throw new Error('No such command.');
     }
     process.exit(exit.success);
   } catch (error) {
+    logger.cli('Error: %s', error.message);
     process.exit(exit.error);
   }
 }

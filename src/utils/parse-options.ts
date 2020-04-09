@@ -1,20 +1,14 @@
 import EJSON = require('mongodb-extended-json');
 import { join } from 'path';
 import { MongoverOptions } from '../types/types';
-import {
-  mongoverOptionsDefaults,
-  usage,
-} from './constants';
-import { getLogger } from './get-logger';
-
-const logger = getLogger(__filename);
+import { mongoverOptionsDefaults } from './constants';
 
 export function parseOptions(args: any): MongoverOptions {
   try {
     const mongoverOptions: MongoverOptions = mongoverOptionsDefaults;
-    if (args.specPath) {
+    if (args.specPath && args.specPath !== mongoverOptions.specPath) {
       mongoverOptions.specPath = join(process.cwd(), args.specPath);
-    } else if (args._[0]) {
+    } else if (args._ && args._[0]) {
       mongoverOptions.specPath = join(process.cwd(), args._[0]);
     }
     if (args.uri) {
@@ -25,12 +19,13 @@ export function parseOptions(args: any): MongoverOptions {
       mongoverOptions.alias = args.dbs.split(',');
     } else if (Array.isArray(args.dbs)) {
       mongoverOptions.dbs = args.dbs;
-      mongoverOptions.alias = args.dbs;
     }
     if (typeof args.alias === 'string') {
       mongoverOptions.alias = args.alias.split(',');
     } else if (Array.isArray(args.alias)) {
       mongoverOptions.alias = args.alias;
+    } else {
+      mongoverOptions.alias = mongoverOptions.dbs;
     }
     if (typeof args.collections === 'string') {
       mongoverOptions.collections = args.collections.split(',');
@@ -59,18 +54,14 @@ export function parseOptions(args: any): MongoverOptions {
     }
 
     if (mongoverOptions.alias.length !== mongoverOptions.dbs.length) {
-      const error = new Error('-d | --dbs and -a | --alias should have the same length.');
-      logger.cli('Error parsing Mongover Options: %s', error.message);
-      throw error;
+      throw new Error('-d | --dbs and -a | --alias should have the same length.');
     }
     switch (mongoverOptions.format) {
       case 'dir':
       case 'json':
         break;
       default:
-        const error = new Error('Unknown format specified.');
-        logger.cli('Error parsing Mongover Options: %s', error.message);
-        throw error;
+        throw new Error('Unknown format specified.');
     }
     switch (mongoverOptions.export) {
       case 'no':
@@ -78,13 +69,10 @@ export function parseOptions(args: any): MongoverOptions {
       case 'jsonl':
         break;
       default:
-        const error = new Error('Unknown export type specified.');
-        logger.cli('Error parsing Mongover Options: %s', error.message);
-        throw error;
+        throw new Error('Unknown export type specified.');
     }
     return mongoverOptions;
   } catch (error) {
-    console.log(usage);
     throw error;
   }
 }
