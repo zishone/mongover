@@ -5,6 +5,9 @@ import {
   mongoverOptionsDefaults,
   usage,
 } from './constants';
+import { getLogger } from './get-logger';
+
+const logger = getLogger(__filename);
 
 export function parseOptions(args: any): MongoverOptions {
   try {
@@ -56,14 +59,18 @@ export function parseOptions(args: any): MongoverOptions {
     }
 
     if (mongoverOptions.alias.length !== mongoverOptions.dbs.length) {
-      throw new Error('-d | --dbs and -a | --alias should have the same length.');
+      const error = new Error('-d | --dbs and -a | --alias should have the same length.');
+      logger.cli('Error parsing Mongover Options: %s', error.message);
+      throw error;
     }
     switch (mongoverOptions.format) {
       case 'dir':
       case 'json':
         break;
       default:
-        throw new Error('Unknown format specified.');
+        const error = new Error('Unknown format specified.');
+        logger.cli('Error parsing Mongover Options: %s', error.message);
+        throw error;
     }
     switch (mongoverOptions.export) {
       case 'no':
@@ -71,7 +78,9 @@ export function parseOptions(args: any): MongoverOptions {
       case 'jsonl':
         break;
       default:
-        throw new Error('Unknown export type specified.');
+        const error = new Error('Unknown export type specified.');
+        logger.cli('Error parsing Mongover Options: %s', error.message);
+        throw error;
     }
     return mongoverOptions;
   } catch (error) {
