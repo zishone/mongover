@@ -64,8 +64,8 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<a href="#mongover-a-hrefhttpswwwnpmjscompackagemongoverimg-srchttpsimgshieldsionpmvmongover-altnpma-a-hrefhttpstravis-ciorgzishonemongoverimg-srchttpstravis-ciorgzishonemongoversvgbranchmaster-altbuild-statusa-a-hrefhttpscoverallsiogithubzishonemongoverbranchmasterimg-srchttpscoverallsioreposgithubzishonemongoverbadgesvgbranchmaster-altcoverage-statusa-a-hrefhttpsgithubcomzishonemongoverblobmasterlicenseimg-srchttpsimgshieldsionpmlmongover-altlicensea" id="mongover-a-hrefhttpswwwnpmjscompackagemongoverimg-srchttpsimgshieldsionpmvmongover-altnpma-a-hrefhttpstravis-ciorgzishonemongoverimg-srchttpstravis-ciorgzishonemongoversvgbranchmaster-altbuild-statusa-a-hrefhttpscoverallsiogithubzishonemongoverbranchmasterimg-srchttpscoverallsioreposgithubzishonemongoverbadgesvgbranchmaster-altcoverage-statusa-a-hrefhttpsgithubcomzishonemongoverblobmasterlicenseimg-srchttpsimgshieldsionpmlmongover-altlicensea" style="color: inherit; text-decoration: none;">
-					<h1>mongover <a href="https://www.npmjs.com/package/mongover"><img src="https://img.shields.io/npm/v/mongover" alt="NPM"></a> <a href="https://travis-ci.org/zishone/mongover"><img src="https://travis-ci.org/zishone/mongover.svg?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/github/zishone/mongover?branch=master"><img src="https://coveralls.io/repos/github/zishone/mongover/badge.svg?branch=master" alt="Coverage Status"></a> <a href="https://github.com/zishone/mongover/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/mongover" alt="License"></a></h1>
+				<a href="#mongover-a-hrefhttpswwwnpmjscompackagemongoverimg-srchttpsimgshieldsionpmvmongover-altnpma-a-hrefhttpstravis-ciorgzishonemongoverimg-srchttpsgithubcomzishonemongoverworkflowspublishbadgesvg-altbuild-statusa-a-hrefhttpscoverallsiogithubzishonemongoverbranchmasterimg-srchttpscoverallsioreposgithubzishonemongoverbadgesvgbranchmaster-altcoverage-statusa-a-hrefhttpsgithubcomzishonemongoverblobmasterlicenseimg-srchttpsimgshieldsionpmlmongover-altlicensea" id="mongover-a-hrefhttpswwwnpmjscompackagemongoverimg-srchttpsimgshieldsionpmvmongover-altnpma-a-hrefhttpstravis-ciorgzishonemongoverimg-srchttpsgithubcomzishonemongoverworkflowspublishbadgesvg-altbuild-statusa-a-hrefhttpscoverallsiogithubzishonemongoverbranchmasterimg-srchttpscoverallsioreposgithubzishonemongoverbadgesvgbranchmaster-altcoverage-statusa-a-hrefhttpsgithubcomzishonemongoverblobmasterlicenseimg-srchttpsimgshieldsionpmlmongover-altlicensea" style="color: inherit; text-decoration: none;">
+					<h1>mongover <a href="https://www.npmjs.com/package/mongover"><img src="https://img.shields.io/npm/v/mongover" alt="NPM"></a> <a href="https://travis-ci.org/zishone/mongover"><img src="https://github.com/zishone/mongover/workflows/Publish/badge.svg" alt="Build Status"></a> <a href="https://coveralls.io/github/zishone/mongover?branch=master"><img src="https://coveralls.io/repos/github/zishone/mongover/badge.svg?branch=master" alt="Coverage Status"></a> <a href="https://github.com/zishone/mongover/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/mongover" alt="License"></a></h1>
 				</a>
 				<p>A MongoDB Database Server Seeder and Migration Tool.</p>
 				<a href="#introduction" id="introduction" style="color: inherit; text-decoration: none;">
@@ -145,40 +145,44 @@
 						<p><strong>SYNOPSIS</strong></p>
 						<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> mongover init [&lt;specPath&gt;] [-f dir|-f json]</span></code></pre>
 						<p><strong>ARGUMENTS</strong></p>
-						<pre><code>&lt;specPath&gt;          path <span class="hljs-keyword">to</span> Mongover Specification. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">`./mongover`</span>.</code></pre><p><strong>OPTIONS</strong></p>
-					<pre><code>-f <span class="hljs-literal">or</span> --format      specifies Mongover Specification format, choose between `dir` <span class="hljs-literal">and</span> `json`. Defaults to `dir`.</code></pre></li>
+						<pre><code>&lt;specPath&gt;                path <span class="hljs-keyword">to</span> Mongover Specification. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">`./mongover`</span>.</code></pre><p><strong>OPTIONS</strong></p>
+					<pre><code>-f <span class="hljs-literal">or</span> --format            specifies Mongover Specification format, choose between `dir` <span class="hljs-literal">and</span> `json`. Defaults to `dir`.</code></pre></li>
 					<li><p><strong>extract</strong>: extracts the Mongover Specification of an existing MongoDB Server and initializes a new Mongover Repository with it.</p>
 						<p><strong>SYNOPSIS</strong></p>
 						<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> mongover extract [&lt;specPath&gt;] [-u <span class="hljs-string">"&lt;uri&gt;"</span>] [-d &lt;dbName&gt;[,...] [-c &lt;collectionName&gt;[,...]]] [-f dir|-f json] [-e jsonl|-e json|-e no [-q <span class="hljs-string">"&lt;query&gt;"</span>]] </span></code></pre>
 						<p><strong>ARGUMENTS</strong></p>
-						<pre><code>&lt;specPath&gt;          path <span class="hljs-keyword">to</span> Mongover Specification. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">`./mongover`</span>.</code></pre><p><strong>OPTIONS</strong></p>
-						<pre><code>-<span class="hljs-keyword">u</span> <span class="hljs-built_in">or</span> --uri         specifies the uri of the running mongod <span class="hljs-built_in">or</span> mongos. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">'mongodb://127.0.0.1:27017/'</span>.
+						<pre><code>&lt;specPath&gt;                path <span class="hljs-keyword">to</span> Mongover Specification. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">`./mongover`</span>.</code></pre><p><strong>OPTIONS</strong></p>
+						<pre><code>-u <span class="hljs-keyword">or</span> --uri               specifies the uri <span class="hljs-keyword">of</span> the running mongod <span class="hljs-keyword">or</span> mongos. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">'mongodb://127.0.0.1:27017/'</span>.
 
--d <span class="hljs-built_in">or</span> --dbs         specifies which databases are <span class="hljs-keyword">to</span> <span class="hljs-keyword">be</span> extracted.
+-d <span class="hljs-keyword">or</span> --dbs               specifies which databases are <span class="hljs-keyword">to</span> be extracted.
 
--<span class="hljs-keyword">c</span> <span class="hljs-built_in">or</span> --collections specifies which collections are <span class="hljs-keyword">to</span> <span class="hljs-keyword">be</span> extracted. Defaults <span class="hljs-keyword">to</span> <span class="hljs-keyword">all</span> collections in specified databases.
+-c <span class="hljs-keyword">or</span> --collections       specifies which collections are <span class="hljs-keyword">to</span> be extracted. Defaults <span class="hljs-keyword">to</span> all collections <span class="hljs-keyword">in</span> specified databases.
 
--<span class="hljs-keyword">f</span> <span class="hljs-built_in">or</span> --format      specifies Mongover Specification format, choose between <span class="hljs-string">'dir'</span> <span class="hljs-built_in">and</span> <span class="hljs-string">'json'</span>. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">'dir'</span>.
+-f <span class="hljs-keyword">or</span> --format            specifies Mongover Specification format, choose between <span class="hljs-string">'dir'</span> <span class="hljs-keyword">and</span> <span class="hljs-string">'json'</span>. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">'dir'</span>.
 
--<span class="hljs-keyword">e</span> <span class="hljs-built_in">or</span> --export      specifies <span class="hljs-keyword">if</span> data from the MongoDB Server should also <span class="hljs-keyword">be</span> exported, choose between <span class="hljs-string">'jsonl'</span>, <span class="hljs-string">'json'</span> <span class="hljs-built_in">and</span> <span class="hljs-string">'no'</span>. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">'no'</span>.
+-e <span class="hljs-keyword">or</span> --<span class="hljs-keyword">export</span>            specifies <span class="hljs-keyword">if</span> data <span class="hljs-keyword">from</span> the MongoDB Server should also be exported, choose between <span class="hljs-string">'jsonl'</span>, <span class="hljs-string">'json'</span> <span class="hljs-keyword">and</span> <span class="hljs-string">'no'</span>. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">'no'</span>.
 
--q <span class="hljs-built_in">or</span> --query       specifies <span class="hljs-keyword">a</span> <span class="hljs-built_in">filter</span> which data <span class="hljs-keyword">to</span> <span class="hljs-keyword">be</span> exported from the MongoDB Server.</code></pre></li>
+-q <span class="hljs-keyword">or</span> --query             specifies a filter which data <span class="hljs-keyword">to</span> be exported <span class="hljs-keyword">from</span> the MongoDB Server.
+
+-i <span class="hljs-keyword">or</span> --infoCollection    specifies the collection name <span class="hljs-keyword">of</span> the database information such as <span class="hljs-literal">it</span><span class="hljs-string">'s version. Defaults to '</span>_mongover<span class="hljs-string">'.</span></code></pre></li>
 					<li><p><strong>apply</strong>: applies the current Mongover Specification to the MongoDB Server.</p>
 						<p><strong>SYNOPSIS</strong></p>
 						<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> mongover apply [&lt;specPath&gt;] [-u <span class="hljs-string">"&lt;uri&gt;"</span>] [-d &lt;dbName&gt;[,...] [-a &lt;<span class="hljs-built_in">alias</span>&gt;[,...]]] [-c &lt;collectionName&gt;[,...]] [-s]</span></code></pre>
 						<p><strong>ARGUMENTS</strong></p>
-						<pre><code>&lt;specPath&gt;           <span class="hljs-type">path</span> <span class="hljs-keyword">to</span> Mongover Specification. Defaults <span class="hljs-keyword">to</span> <span class="hljs-keyword">current</span> working directory.</code></pre><p><strong>OPTIONS</strong></p>
-						<pre><code>-u <span class="hljs-keyword">or</span> --uri          specifies the uri <span class="hljs-keyword">of</span> the running mongod <span class="hljs-keyword">or</span> mongos. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">'mongodb://127.0.0.1:27017/'</span>.
+						<pre><code>&lt;specPath&gt;                <span class="hljs-type">path</span> <span class="hljs-keyword">to</span> Mongover Specification. Defaults <span class="hljs-keyword">to</span> <span class="hljs-keyword">current</span> working directory.</code></pre><p><strong>OPTIONS</strong></p>
+						<pre><code>-u <span class="hljs-keyword">or</span> --uri               pecifies the uri <span class="hljs-keyword">of</span> the running mongod <span class="hljs-keyword">or</span> mongos. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">'mongodb://127.0.0.1:27017/'</span>.
 
--d <span class="hljs-keyword">or</span> --dbs          specifies which databases <span class="hljs-keyword">to</span><span class="hljs-built_in"> apply</span>. Defaults <span class="hljs-keyword">to</span> all databases <span class="hljs-keyword">in</span> the Mongover Specification.
+-d <span class="hljs-keyword">or</span> --dbs               specifies which databases <span class="hljs-keyword">to</span><span class="hljs-built_in"> apply</span>. Defaults <span class="hljs-keyword">to</span> all databases <span class="hljs-keyword">in</span> the Mongover Specification.
 
--a <span class="hljs-keyword">or</span> --alias        specifies the aliases <span class="hljs-keyword">of</span> the specified databases <span class="hljs-keyword">to</span><span class="hljs-built_in"> apply</span>, a database will use the alias corresponding <span class="hljs-keyword">to</span> its index separated <span class="hljs-keyword">by</span> commas.
+-a <span class="hljs-keyword">or</span> --alias             specifies the aliases <span class="hljs-keyword">of</span> the specified databases <span class="hljs-keyword">to</span><span class="hljs-built_in"> apply</span>, a database will use the alias corresponding <span class="hljs-keyword">to</span> its index separated <span class="hljs-keyword">by</span> commas.
 
--c <span class="hljs-keyword">or</span> --collections  specifies which collections <span class="hljs-keyword">to</span><span class="hljs-built_in"> apply</span>. Defaults <span class="hljs-keyword">to</span> all collections <span class="hljs-keyword">in</span> specified databases.
+-c <span class="hljs-keyword">or</span> --collections       specifies which collections <span class="hljs-keyword">to</span><span class="hljs-built_in"> apply</span>. Defaults <span class="hljs-keyword">to</span> all collections <span class="hljs-keyword">in</span> specified databases.
 
--s <span class="hljs-keyword">or</span> --seedOnly     specifies <span class="hljs-keyword">if</span> mongover should <span class="hljs-keyword">only</span> seed the database instead <span class="hljs-keyword">of</span> migrating it <span class="hljs-keyword">when</span> it already<span class="hljs-built_in"> exists</span>.
+-s <span class="hljs-keyword">or</span> --seedOnly          specifies <span class="hljs-keyword">if</span> mongover should <span class="hljs-keyword">only</span> seed the database instead <span class="hljs-keyword">of</span> migrating it <span class="hljs-keyword">when</span> it already<span class="hljs-built_in"> exists</span>.
 
--m <span class="hljs-keyword">or</span> --migrateForce specifies <span class="hljs-keyword">if</span> mongover should migrate the database even <span class="hljs-keyword">if</span> the specified version <span class="hljs-literal">is</span> the same.</code></pre></li>
+-m <span class="hljs-keyword">or</span> --migrateForce      specifies <span class="hljs-keyword">if</span> mongover should migrate the database even <span class="hljs-keyword">if</span> the specified version <span class="hljs-literal">is</span> the same.
+
+-i <span class="hljs-keyword">or</span> --infoCollection    specifies the<span class="hljs-built_in"> collection</span><span class="hljs-built_in"> name</span> <span class="hljs-keyword">of</span> the database information such <span class="hljs-keyword">as</span> it<span class="hljs-string">'s version. Defaults to '</span>_mongover<span class="hljs-string">'.</span></code></pre></li>
 					<li><p><strong>help</strong>: outputs Mongover usage.</p>
 						<p><strong>SYNOPSIS</strong></p>
 						<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> mongover <span class="hljs-built_in">help</span></span></code></pre>
@@ -205,34 +209,36 @@
 └── <span class="hljs-string">...</span></code></pre><ul>
 					<li><p><strong>db.spec.json</strong></p>
 						<pre><code class="language-json5">  {
-      &quot;seedOnly&quot;: false,                  // Specifies if existing database should be migrated or only seeded.
-      &quot;dropFirst&quot;: false,                 // Specifies if existing database should be dropped before specification is applied.
-      &quot;alias&quot;: &quot;dbName&quot;,                  // Alias/Name the database specification will be deployed as.
-      &quot;mongoVersion&quot;: &quot;1.0.0&quot;             // Specifies the mongoVersion of the database, this will determine if the database needs to be migrated or not.
+      &quot;seedOnly&quot;: false,                      // Specifies if existing database should be migrated or only seeded.
+      &quot;migrateForce&quot;: false,                  // Specifies if mongover should migrate the database even if the specified version is the same.
+      &quot;infoCollection&quot;: &quot;_mongover&quot;,          // Specifies the collection name of the database information such as it&#39;s version. Defaults to &#39;_mongover&#39;.
+      &quot;dropFirst&quot;: false,                     // Specifies if existing database should be dropped before specification is applied.
+      &quot;alias&quot;: &quot;dbName&quot;,                      // Alias/Name the database specification will be deployed as.
+      &quot;version&quot;: &quot;1.0.0&quot;,                     // Specifies the version of the database, this will determine if the database needs to be migrated or not.
   }</code></pre>
 					</li>
 					<li><p><strong>collectionName.spec.json</strong></p>
 						<pre><code class="language-json5">  {
-      &quot;dropFirst&quot;: false,                  // Specifies if the Collection should be dropped before specification is applied.
-      &quot;dropIndexesFirst&quot;: false,           // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
-      &quot;options&quot;: {},                       // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
+      &quot;dropFirst&quot;: false,                     // Specifies if the Collection should be dropped before specification is applied.
+      &quot;dropIndexesFirst&quot;: false,              // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
+      &quot;options&quot;: {},                          // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
       &quot;indexes&quot;: [
           {
-              &quot;dropFirst&quot;: false,          // Specifies if Index with same name should  be dropped before specification is applied.
-              &quot;keys&quot;: {                    // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
+              &quot;dropFirst&quot;: false,             // Specifies if Index with same name should  be dropped before specification is applied.
+              &quot;keys&quot;: {                       // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
                   &quot;fieldName&quot;: 1        
               },
-              &quot;options&quot;: {                 // Create Index Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createIndex
+              &quot;options&quot;: {                    // Create Index Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createIndex
                   &quot;name&quot;: &quot;fieldName_1&quot;
               }
           }
       ],
       &quot;data&quot;: {
-          &quot;preservePrimaryKey&quot;: true,      // Specifies if _id from export file should be preserved when applied.
-          &quot;upsertFields&quot;: [                // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
+          &quot;preservePrimaryKey&quot;: true,         // Specifies if _id from export file should be preserved when applied.
+          &quot;upsertFields&quot;: [                   // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
               &quot;fieldName&quot; 
           ],
-          &quot;ignoreFields&quot;: [                // Specify fields to be ignored when updating existing documents.
+          &quot;ignoreFields&quot;: [                   // Specify fields to be ignored when updating existing documents.
               &quot;fieldName&quot;
           ]
       }
@@ -253,31 +259,33 @@
 │   └── db.spec.json                  # Database Migration/Seeding Specification file
 └── <span class="hljs-built_in">..</span>.</code></pre><ul>
 					<li><strong>db.spec.json</strong><pre><code class="language-json5">  {
-      &quot;seedOnly&quot;: false,                    // Specifies if existing database should be migrated or only seeded.
-      &quot;dropFirst&quot;: false,                   // Specifies if existing database should be dropped before specification is applied.
-      &quot;alias&quot;: &quot;dbName&quot;,                    // Alias/Name the database specification will be deployed as.
-      &quot;mongoVersion&quot;: &quot;1.0.0&quot;,              // Specifies the mongoVersion of the database, this will determine if the database needs to be migrated or not.
+      &quot;seedOnly&quot;: false,                      // Specifies if existing database should be migrated or only seeded.
+      &quot;migrateForce&quot;: false,                  // Specifies if mongover should migrate the database even if the specified version is the same.
+      &quot;infoCollection&quot;: &quot;_mongover&quot;,          // Specifies the collection name of the database information such as it&#39;s version. Defaults to &#39;_mongover&#39;.
+      &quot;dropFirst&quot;: false,                     // Specifies if existing database should be dropped before specification is applied.
+      &quot;alias&quot;: &quot;dbName&quot;,                      // Alias/Name the database specification will be deployed as.
+      &quot;version&quot;: &quot;1.0.0&quot;,                     // Specifies the version of the database, this will determine if the database needs to be migrated or not.
       &quot;collections&quot;: {
-          &quot;dropFirst&quot;: false,               // Specifies if the Collection should be dropped before specification is applied.
-          &quot;dropIndexesFirst&quot;: false,        // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
-          &quot;options&quot;: {},                    // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
+          &quot;dropFirst&quot;: false,                 // Specifies if the Collection should be dropped before specification is applied.
+          &quot;dropIndexesFirst&quot;: false,          // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
+          &quot;options&quot;: {},                      // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
           &quot;indexes&quot;: [
               {
-                  &quot;dropFirst&quot;: false,       // Specifies if Index with same name should  be dropped before specification is applied.
-                  &quot;keys&quot;: {                 // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
+                  &quot;dropFirst&quot;: false,         // Specifies if Index with same name should  be dropped before specification is applied.
+                  &quot;keys&quot;: {                   // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
                       &quot;fieldName&quot;: 1        
                   },
-                  &quot;options&quot;: {              // Create Index Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createIndex
+                  &quot;options&quot;: {                // Create Index Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createIndex
                       &quot;name&quot;: &quot;fieldName_1&quot;
                   }
               }
           ],
           &quot;data&quot;: {
-              &quot;preservePrimaryKey&quot;: true,   // Specifies if _id from export file should be preserved when applied.
-              &quot;upsertFields&quot;: [             // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
+              &quot;preservePrimaryKey&quot;: true,     // Specifies if _id from export file should be preserved when applied.
+              &quot;upsertFields&quot;: [               // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
                   &quot;fieldName&quot; 
               ],
-              &quot;ignoreFields&quot;: [             // Specify fields to be ignored when updating existing documents.
+              &quot;ignoreFields&quot;: [               // Specify fields to be ignored when updating existing documents.
                   &quot;fieldName&quot;
               ]
           }
@@ -319,11 +327,11 @@
 				<ul>
 					<li><strong>Zishran Julbert Garces</strong></li>
 				</ul>
-				<p>See also the list of <a href="https://github.com/superzish/mongover/contributors">contributors</a> who participated in this project.</p>
+				<p>See also the list of <a href="https://github.com/zishone/mongover/contributors">contributors</a> who participated in this project.</p>
 				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
 					<h2>License</h2>
 				</a>
-				<p>This project is licensed under the MIT License - see the <a href="https://github.com/superzish/mongover/blob/master/LICENSE">LICENSE</a> file for details.</p>
+				<p>This project is licensed under the MIT License - see the <a href="https://github.com/zishone/mongover/blob/master/LICENSE">LICENSE</a> file for details.</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -348,28 +356,43 @@
 						<a href="modules/_core_apply_.html">"core/apply"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="modules/_core_build_index_.html">"core/build-<wbr>index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_core_compare_version_.html">"core/compare-<wbr>version"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_core_connect_server_.html">"core/connect-<wbr>server"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_core_create_collection_.html">"core/create-<wbr>collection"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_core_export_data_.html">"core/export-<wbr>data"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_core_get_spec_.html">"core/get-<wbr>spec"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_core_import_data_.html">"core/import-<wbr>data"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_core_structure_database_.html">"core/structure-<wbr>database"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_core_version_database_.html">"core/version-<wbr>database"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="modules/_index_.html">"index"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_types_types_.html">"types/types"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_utils_build_index_.html">"utils/build-<wbr>index"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_utils_connect_server_.html">"utils/connect-<wbr>server"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
 						<a href="modules/_utils_constants_.html">"utils/constants"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_utils_create_collection_.html">"utils/create-<wbr>collection"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
 						<a href="modules/_utils_dot_notate_.html">"utils/dot-<wbr>notate"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_utils_export_data_.html">"utils/export-<wbr>data"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_utils_get_logger_.html">"utils/get-<wbr>logger"</a>
@@ -378,19 +401,7 @@
 						<a href="modules/_utils_get_property_.html">"utils/get-<wbr>property"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_utils_get_spec_.html">"utils/get-<wbr>spec"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_utils_import_data_.html">"utils/import-<wbr>data"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
 						<a href="modules/_utils_parse_options_.html">"utils/parse-<wbr>options"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_utils_structure_database_.html">"utils/structure-<wbr>database"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_utils_version_database_.html">"utils/version-<wbr>database"</a>
 					</li>
 				</ul>
 			</nav>
