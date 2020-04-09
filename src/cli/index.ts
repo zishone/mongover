@@ -39,7 +39,6 @@ async function mongover(args: string[]) {
       },
     });
     const options = parseOptions(parsedArgs);
-    console.log('parsedArgs', options);
     switch (args[2]) {
       case 'apply':
         await apply(options);
