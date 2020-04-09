@@ -58,7 +58,6 @@ async function mongover(args: string[]) {
     }
     process.exit(exit.success);
   } catch (error) {
-    console.log(error);
     process.exit(exit.error);
   }
 }
