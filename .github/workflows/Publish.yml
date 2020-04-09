@@ -26,7 +26,7 @@ jobs:
       - name: publish docs
         run: npm run docs:deploy
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: publish on npm
         run: npm publish
         env:
