@@ -21,18 +21,18 @@ jobs:
         # env:
           # NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-  publish-gpr:
+  # publish-gpr:
 
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 10
-          registry-url: 'https://npm.pkg.github.com'
-      - run: npm ci
-      - name: publish on gpr
-        run: npm publish --registry=https://npm.pkg.github.com
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # steps:
+      # - uses: actions/checkout@v2
+      # - uses: actions/setup-node@v1
+        # with:
+          # node-version: 10
+          # registry-url: 'https://npm.pkg.github.com'
+      # - run: npm ci
+      # - name: publish on gpr
+        # run: npm publish --registry=https://npm.pkg.github.com
+        # env:
+          # NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
