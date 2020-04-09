@@ -1,7 +1,4 @@
-import {
-  Db,
-  MongoClient,
-} from 'mongodb';
+import { Db } from 'mongodb';
 import { DatabaseSpec } from '../types/types';
 import { getLogger } from '../utils/get-logger';
 
