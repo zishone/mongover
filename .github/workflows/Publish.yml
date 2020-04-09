@@ -5,7 +5,7 @@ on:
     branches: [ master ]
 
 jobs:
-  publish:
+  publish-npm:
 
     runs-on: ubuntu-latest
 
@@ -15,24 +15,24 @@ jobs:
         with:
           node-version: 10
           registry-url: https://registry.npmjs.org/ 
-      - name: install
-        run: npm ci
-      - name: build
-        run: npm run build
-      # - name: publish docs
-        # run: npm run docs:deploy
-        # env:
-          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: npm ci
       - name: publish on npm
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish-gpr:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
+          node-version: 10
           registry-url: 'https://npm.pkg.github.com'
-      - name: publish on github
+      - run: npm ci
+      - name: publish on gpr
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    
