@@ -61,6 +61,8 @@ export const mongoverOptionsDefaults: MongoverOptions = {
 
 export const databaseSpecTemplate: DatabaseSpec = {
   seedOnly: false,
+  migrateForce: false,
+  infoCollection: '_mongover',
   dropFirst: false,
   alias: 'dbName',
   version: '1.0.0',

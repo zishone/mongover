@@ -8,7 +8,7 @@ import { MongoverOptions } from '../types/types';
 import { getLogger } from '../utils/get-logger';
 import { parseOptions } from '../utils/parse-options';
 import { buildIndex } from './build-index';
-import { checkVersion } from './check-version';
+import { compareVersion } from './compare-version';
 import { connectServer } from './connect-server';
 import { createCollection } from './create-collection';
 import { getSpec } from './get-spec';
@@ -42,11 +42,15 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
         if (options.seedOnly) {
           database.spec.seedOnly = true;
         }
+        if (options.migrateForce) {
+          database.spec.migrateForce = true;
+          database.spec.seedOnly = false;
+        }
         let versionCheck;
         if (options.migrateForce) {
           versionCheck = true;
         } else {
-          versionCheck = await checkVersion(client, database.name, options.infoCollection, database.spec);
+          versionCheck = await compareVersion(client, database.name, options.infoCollection, database.spec);
         }
         if (versionCheck) {
           const db = await structureDatabase(client, database.name, database.spec);
@@ -72,8 +76,9 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
               }
             }
           }
-          if (!database.spec.seedOnly || options.migrateForce) {
-            await versionDatabase(db, options.infoCollection, database.spec);
+          if (!database.spec.seedOnly) {
+            database.spec.infoCollection = options.infoCollection;
+            await versionDatabase(db, database.spec);
           }
         }
       }

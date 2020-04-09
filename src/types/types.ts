@@ -37,6 +37,8 @@ export interface MongoverOptions {
 
 export interface DatabaseSpec {
   seedOnly: boolean;
+  migrateForce: boolean;
+  infoCollection: string;
   dropFirst: boolean;
   alias: string | undefined;
   version: string;
