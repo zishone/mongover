@@ -25,7 +25,7 @@ async function processDataArr(collection: Collection, dataSpec: DataSpec, dataAr
           await collection.insertOne(data);
         } catch (error) {
           logger.warn('Can\'t insert Data: %o: %s', `${EJSON.stringify(data).substring(0, 60)}...`, '\nError: ', error.message);
-          logger.cli('--------- Can\'t insert Data: %o: %s', `${EJSON.stringify(data).substring(0, 60)}...`, '\n--------- Error: ', error.message);
+          logger.cli('------- Can\'t insert Data: %o: %s', `${EJSON.stringify(data).substring(0, 60)}...`, '\n------- Error: ', error.message);
         }
       } else {
         const filter: any = {};
@@ -52,7 +52,7 @@ async function processDataArr(collection: Collection, dataSpec: DataSpec, dataAr
           }
         } catch (error) {
           logger.warn('Can\'t upsert Data: %o%s', `${EJSON.stringify(data).substring(0, 60)}...`, '\nError: ', error.message);
-          logger.cli('--------- Can\'t upsert Data: %o: %s', `${EJSON.stringify(data).substring(0, 60)}...`, '\n--------- Error: ', error.message);
+          logger.cli('------- Can\'t upsert Data: %o: %s', `${EJSON.stringify(data).substring(0, 60)}...`, '\n------- Error: ', error.message);
         }
       }
     }
@@ -100,7 +100,7 @@ function processJsonl(collection: Collection, dataSpec: DataSpec, fileStream: In
 export async function importData(collection: Collection, dataSpec: DataSpec, dataPath: string): Promise<void> {
   try {
     logger.debug('Importing Data: %s', dataPath.replace(process.cwd(), '.'));
-    logger.cli('--------- Importing Data: %s', dataPath.replace(process.cwd(), '.'));
+    logger.cli('------- Importing Data: %s', dataPath.replace(process.cwd(), '.'));
     const fileType = dataPath.split('.').pop();
     switch (fileType) {
       case 'jsonl':
@@ -118,7 +118,7 @@ export async function importData(collection: Collection, dataSpec: DataSpec, dat
     }
   } catch (error) {
     logger.error('Error importing Data: %s', dataPath.replace(process.cwd(), '.'));
-    logger.cli('--------- Error importing Data: %s', dataPath.replace(process.cwd(), '.'));
+    logger.cli('------- Error importing Data: %s', dataPath.replace(process.cwd(), '.'));
     throw error;
   }
 }

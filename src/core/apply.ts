@@ -44,16 +44,15 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
         }
         if (options.migrateForce) {
           database.spec.migrateForce = true;
-          database.spec.seedOnly = false;
         }
-        let versionCheck;
-        if (options.migrateForce) {
-          versionCheck = true;
+        let versionCheck: any = {};
+        if (database.spec.migrateForce) {
+          versionCheck.higher = true;
         } else {
           versionCheck = await compareVersion(client, database.name, options.infoCollection, database.spec);
         }
-        if (versionCheck) {
-          const db = await structureDatabase(client, database.name, database.spec);
+        if (versionCheck.higher) {
+          const db = await structureDatabase(client, database.name, database.spec, versionCheck.version);
           for (const collectionName in database.spec.collections) {
             if (options.collections.length === 0 || options.collections.includes(collectionName)) {
               const collectionSpec = database.spec.collections[collectionName];
@@ -73,13 +72,19 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
                     }
                   }
                 }
+              } else {
+                logger.info('Skipping Collection: %s exists', collectionName);
+                logger.cli('----- Skipping Collection: %s exists', collectionName);
               }
             }
           }
-          if (!database.spec.seedOnly) {
+          if (!database.spec.seedOnly || database.spec.migrateForce) {
             database.spec.infoCollection = options.infoCollection;
             await versionDatabase(db, database.spec);
           }
+        } else {
+          logger.debug('Skipping Version: %s is not higher than what is applied', `${database.spec.alias || database.name}@${database.spec.version}`);
+          logger.cli('--- Skipping Version: %s is not higher than what is applied', `${database.spec.alias || database.name}@${database.spec.version}`);
         }
       }
     }
