@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  test:
+  publish:
 
     runs-on: ubuntu-latest
 
@@ -23,10 +23,10 @@ jobs:
         run: npm run lint
       - name: build
         run: npm run build
-      - name: publish docs
-        run: npm run docs:deploy
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: publish docs
+        # run: npm run docs:deploy
+        # env:
+          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: publish on npm
         run: npm publish
         env:
