@@ -3,14 +3,45 @@
 import debug = require('debug');
 import minimist = require('minimist');
 import { exit, usage } from '../utils/constants';
+import { getLogger } from '../utils/get-logger';
 import { parseOptions } from '../utils/parse-options';
 import { apply } from './commands/apply';
 import { extract } from './commands/extract';
 import { init } from './commands/init';
 
+const logger = getLogger(__filename);
+
 async function mongover(args: string[]) {
   try {
-    const options = parseOptions(minimist(args.slice(3)));
+    const parsedArgs = minimist(args.slice(3), {
+      string: [
+        'uri',
+        'format',
+        'export',
+        'query',
+        'alias',
+        'dbs',
+        'collections',
+        'infoCollection',
+      ],
+      boolean: [
+        'seedOnly',
+        'migrateForce',
+      ],
+      alias: {
+        u: 'uri',
+        d: 'dbs',
+        c: 'collections',
+        f: 'format',
+        e: 'export',
+        q: 'query',
+        a: 'alias',
+        s: 'seedOnly',
+        m: 'migrateForce',
+        i: 'infoCollection',
+      },
+    });
+    const options = parseOptions(parsedArgs);
     switch (args[2]) {
       case 'apply':
         await apply(options);
@@ -26,10 +57,11 @@ async function mongover(args: string[]) {
         break;
       default:
         console.log(usage);
-        process.exit(exit.error);
+        throw new Error('No such command.');
     }
     process.exit(exit.success);
   } catch (error) {
+    logger.cli('Error: %s', error.message);
     process.exit(exit.error);
   }
 }

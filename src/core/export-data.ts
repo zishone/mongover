@@ -2,13 +2,13 @@ import { appendFileSync } from 'fs';
 import { writeJSONSync } from 'fs-extra';
 import { Collection } from 'mongodb';
 import EJSON = require('mongodb-extended-json');
-import { getLogger } from './get-logger';
+import { getLogger } from '../utils/get-logger';
 
 const logger = getLogger(__filename);
 
 export async function exportData(collection: Collection, dataFilePath: string, dataType: string, query: any): Promise<void> {
   try {
-    logger.cli('------- Exporting Data:\t\t\t\t%s', `${dataFilePath.replace(process.cwd(), '.')}.${dataType}`);
+    logger.cli('------- Exporting Data: %s', `${dataFilePath.replace(process.cwd(), '.')}.${dataType}`);
     const cursor = collection.find(query);
     switch (dataType) {
       case 'jsonl':
@@ -37,7 +37,7 @@ export async function exportData(collection: Collection, dataFilePath: string, d
           throw new Error(`Unrecognized Export type: ${dataType}.`);
     }
   } catch (error) {
-    logger.cli('------- Error exporting Data:\t\t\t%s', `${dataFilePath.replace(process.cwd(), '.')}.${dataType}`);
+    logger.cli('------- Error exporting Data: %s', `${dataFilePath.replace(process.cwd(), '.')}.${dataType}`);
     throw error;
   }
 }

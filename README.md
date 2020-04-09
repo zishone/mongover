@@ -1,4 +1,4 @@
-# mongover [![NPM](https://img.shields.io/npm/v/mongover)](https://www.npmjs.com/package/mongover) [![Build Status](https://travis-ci.org/zishone/mongover.svg?branch=master)](https://travis-ci.org/zishone/mongover) [![Coverage Status](https://coveralls.io/repos/github/zishone/mongover/badge.svg?branch=master)](https://coveralls.io/github/zishone/mongover?branch=master) [![License](https://img.shields.io/npm/l/mongover)](https://github.com/zishone/mongover/blob/master/LICENSE)
+# mongover [![NPM](https://img.shields.io/npm/v/mongover)](https://www.npmjs.com/package/mongover) [![Build Status](https://github.com/zishone/mongover/workflows/Publish/badge.svg)](https://travis-ci.org/zishone/mongover) [![Coverage Status](https://coveralls.io/repos/github/zishone/mongover/badge.svg?branch=master)](https://coveralls.io/github/zishone/mongover?branch=master) [![License](https://img.shields.io/npm/l/mongover)](https://github.com/zishone/mongover/blob/master/LICENSE)
 A MongoDB Database Server Seeder and Migration Tool.
 
 ## Introduction
@@ -53,11 +53,11 @@ $ mongover <command> [<args>] [<options>]
 
   **ARGUMENTS**
 
-      <specPath>          path to Mongover Specification. Defaults to `./mongover`.
+      <specPath>                path to Mongover Specification. Defaults to `./mongover`.
 
   **OPTIONS**
 
-      -f or --format      specifies Mongover Specification format, choose between `dir` and `json`. Defaults to `dir`.
+      -f or --format            specifies Mongover Specification format, choose between `dir` and `json`. Defaults to `dir`.
 
 * **extract**: extracts the Mongover Specification of an existing MongoDB Server and initializes a new Mongover Repository with it.
   
@@ -69,21 +69,23 @@ $ mongover <command> [<args>] [<options>]
 
   **ARGUMENTS**
 
-      <specPath>          path to Mongover Specification. Defaults to `./mongover`.
+      <specPath>                path to Mongover Specification. Defaults to `./mongover`.
 
   **OPTIONS**
 
-      -u or --uri         specifies the uri of the running mongod or mongos. Defaults to 'mongodb://127.0.0.1:27017/'.
+      -u or --uri               specifies the uri of the running mongod or mongos. Defaults to 'mongodb://127.0.0.1:27017/'.
 
-      -d or --dbs         specifies which databases are to be extracted.
+      -d or --dbs               specifies which databases are to be extracted.
 
-      -c or --collections specifies which collections are to be extracted. Defaults to all collections in specified databases.
+      -c or --collections       specifies which collections are to be extracted. Defaults to all collections in specified databases.
 
-      -f or --format      specifies Mongover Specification format, choose between 'dir' and 'json'. Defaults to 'dir'.
+      -f or --format            specifies Mongover Specification format, choose between 'dir' and 'json'. Defaults to 'dir'.
 
-      -e or --export      specifies if data from the MongoDB Server should also be exported, choose between 'jsonl', 'json' and 'no'. Defaults to 'no'.
+      -e or --export            specifies if data from the MongoDB Server should also be exported, choose between 'jsonl', 'json' and 'no'. Defaults to 'no'.
 
-      -q or --query       specifies a filter which data to be exported from the MongoDB Server.
+      -q or --query             specifies a filter which data to be exported from the MongoDB Server.
+
+      -i or --infoCollection    specifies the collection name of the database information such as it's version. Defaults to '_mongover'.
      
 * **apply**: applies the current Mongover Specification to the MongoDB Server.
   
@@ -95,21 +97,23 @@ $ mongover <command> [<args>] [<options>]
 
   **ARGUMENTS**
 
-      <specPath>           path to Mongover Specification. Defaults to current working directory.
+      <specPath>                path to Mongover Specification. Defaults to current working directory.
 
   **OPTIONS**
 
-      -u or --uri          specifies the uri of the running mongod or mongos. Defaults to 'mongodb://127.0.0.1:27017/'.
+      -u or --uri               pecifies the uri of the running mongod or mongos. Defaults to 'mongodb://127.0.0.1:27017/'.
 
-      -d or --dbs          specifies which databases to apply. Defaults to all databases in the Mongover Specification.
+      -d or --dbs               specifies which databases to apply. Defaults to all databases in the Mongover Specification.
 
-      -a or --alias        specifies the aliases of the specified databases to apply, a database will use the alias corresponding to its index separated by commas.
+      -a or --alias             specifies the aliases of the specified databases to apply, a database will use the alias corresponding to its index separated by commas.
 
-      -c or --collections  specifies which collections to apply. Defaults to all collections in specified databases.
+      -c or --collections       specifies which collections to apply. Defaults to all collections in specified databases.
 
-      -s or --seedOnly     specifies if mongover should only seed the database instead of migrating it when it already exists.
+      -s or --seedOnly          specifies if mongover should only seed the database instead of migrating it when it already exists.
 
-      -m or --migrateForce specifies if mongover should migrate the database even if the specified version is the same.
+      -m or --migrateForce      specifies if mongover should migrate the database even if the specified version is the same.
+
+      -i or --infoCollection    specifies the collection name of the database information such as it's version. Defaults to '_mongover'.
 
 * **help**: outputs Mongover usage.
   
@@ -137,36 +141,38 @@ $ mongover <command> [<args>] [<options>]
 * **db.spec.json**
     ```json5
     {
-        "seedOnly": false,                  // Specifies if existing database should be migrated or only seeded.
-        "dropFirst": false,                 // Specifies if existing database should be dropped before specification is applied.
-        "alias": "dbName",                  // Alias/Name the database specification will be deployed as.
-        "mongoVersion": "1.0.0"             // Specifies the mongoVersion of the database, this will determine if the database needs to be migrated or not.
+        "seedOnly": false,                      // Specifies if existing database should be migrated or only seeded.
+        "migrateForce": false,                  // Specifies if mongover should migrate the database even if the specified version is the same.
+        "infoCollection": "_mongover",          // Specifies the collection name of the database information such as it's version. Defaults to '_mongover'.
+        "dropFirst": false,                     // Specifies if existing database should be dropped before specification is applied.
+        "alias": "dbName",                      // Alias/Name the database specification will be deployed as.
+        "version": "1.0.0",                     // Specifies the version of the database, this will determine if the database needs to be migrated or not.
     }
     ```
 
 * **collectionName.spec.json**
     ```json5
     {
-        "dropFirst": false,                  // Specifies if the Collection should be dropped before specification is applied.
-        "dropIndexesFirst": false,           // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
-        "options": {},                       // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
+        "dropFirst": false,                     // Specifies if the Collection should be dropped before specification is applied.
+        "dropIndexesFirst": false,              // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
+        "options": {},                          // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
         "indexes": [
             {
-                "dropFirst": false,          // Specifies if Index with same name should  be dropped before specification is applied.
-                "keys": {                    // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
+                "dropFirst": false,             // Specifies if Index with same name should  be dropped before specification is applied.
+                "keys": {                       // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
                     "fieldName": 1        
                 },
-                "options": {                 // Create Index Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createIndex
+                "options": {                    // Create Index Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createIndex
                     "name": "fieldName_1"
                 }
             }
         ],
         "data": {
-            "preservePrimaryKey": true,      // Specifies if _id from export file should be preserved when applied.
-            "upsertFields": [                // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
+            "preservePrimaryKey": true,         // Specifies if _id from export file should be preserved when applied.
+            "upsertFields": [                   // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
                 "fieldName" 
             ],
-            "ignoreFields": [                // Specify fields to be ignored when updating existing documents.
+            "ignoreFields": [                   // Specify fields to be ignored when updating existing documents.
                 "fieldName"
             ]
         }
@@ -186,31 +192,33 @@ $ mongover <command> [<args>] [<options>]
 * **db.spec.json**
     ```json5
     {
-        "seedOnly": false,                    // Specifies if existing database should be migrated or only seeded.
-        "dropFirst": false,                   // Specifies if existing database should be dropped before specification is applied.
-        "alias": "dbName",                    // Alias/Name the database specification will be deployed as.
-        "mongoVersion": "1.0.0",              // Specifies the mongoVersion of the database, this will determine if the database needs to be migrated or not.
+        "seedOnly": false,                      // Specifies if existing database should be migrated or only seeded.
+        "migrateForce": false,                  // Specifies if mongover should migrate the database even if the specified version is the same.
+        "infoCollection": "_mongover",          // Specifies the collection name of the database information such as it's version. Defaults to '_mongover'.
+        "dropFirst": false,                     // Specifies if existing database should be dropped before specification is applied.
+        "alias": "dbName",                      // Alias/Name the database specification will be deployed as.
+        "version": "1.0.0",                     // Specifies the version of the database, this will determine if the database needs to be migrated or not.
         "collections": {
-            "dropFirst": false,               // Specifies if the Collection should be dropped before specification is applied.
-            "dropIndexesFirst": false,        // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
-            "options": {},                    // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
+            "dropFirst": false,                 // Specifies if the Collection should be dropped before specification is applied.
+            "dropIndexesFirst": false,          // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
+            "options": {},                      // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
             "indexes": [
                 {
-                    "dropFirst": false,       // Specifies if Index with same name should  be dropped before specification is applied.
-                    "keys": {                 // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
+                    "dropFirst": false,         // Specifies if Index with same name should  be dropped before specification is applied.
+                    "keys": {                   // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
                         "fieldName": 1        
                     },
-                    "options": {              // Create Index Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createIndex
+                    "options": {                // Create Index Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createIndex
                         "name": "fieldName_1"
                     }
                 }
             ],
             "data": {
-                "preservePrimaryKey": true,   // Specifies if _id from export file should be preserved when applied.
-                "upsertFields": [             // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
+                "preservePrimaryKey": true,     // Specifies if _id from export file should be preserved when applied.
+                "upsertFields": [               // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
                     "fieldName" 
                 ],
-                "ignoreFields": [             // Specify fields to be ignored when updating existing documents.
+                "ignoreFields": [               // Specify fields to be ignored when updating existing documents.
                     "fieldName"
                 ]
             }
@@ -251,7 +259,7 @@ $ mongover <command> [<args>] [<options>]
 ## Authors
 * **Zishran Julbert Garces**
 
-See also the list of [contributors](https://github.com/superzish/mongover/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/zishone/mongover/contributors) who participated in this project.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/superzish/mongover/blob/master/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/zishone/mongover/blob/master/LICENSE) file for details.

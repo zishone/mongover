@@ -3,8 +3,6 @@ name: Publish
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   publish:
@@ -19,8 +17,6 @@ jobs:
           registry-url: https://registry.npmjs.org/ 
       - name: install
         run: npm ci
-      - name: lint
-        run: npm run lint
       - name: build
         run: npm run build
       # - name: publish docs

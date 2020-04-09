@@ -6,9 +6,9 @@ import {
   Interface,
 } from 'readline';
 import { DataSpec } from '../types/types';
-import { dotNotate } from './dot-notate';
-import { getLogger } from './get-logger';
-import { getProperty } from './get-property';
+import { dotNotate } from '../utils/dot-notate';
+import { getLogger } from '../utils/get-logger';
+import { getProperty } from '../utils/get-property';
 
 const logger = getLogger(__filename);
 
@@ -24,8 +24,8 @@ async function processDataArr(collection: Collection, dataSpec: DataSpec, dataAr
         try {
           await collection.insertOne(data);
         } catch (error) {
-          logger.warn('Can\'t insert Data: %o: %s', `${EJSON.stringify(data).substring(0, 60)}...`, '\n\t\t\t\tMessage:\t\t\t', error.message);
-          logger.cli('------- Can\'t insert Data:\t\t\t%o: %s', `${EJSON.stringify(data).substring(0, 60)}...`, '\n\t\t\t\tMessage:\t\t\t', error.message);
+          logger.warn('Can\'t insert Data: %o: %s', `${EJSON.stringify(data).substring(0, 60)}...`, '\nError: ', error.message);
+          logger.cli('------- Can\'t insert Data: %o: %s', `${EJSON.stringify(data).substring(0, 60)}...`, '\n------- Error: ', error.message);
         }
       } else {
         const filter: any = {};
@@ -51,8 +51,8 @@ async function processDataArr(collection: Collection, dataSpec: DataSpec, dataAr
             await collection.insertOne(data);
           }
         } catch (error) {
-          logger.warn('Can\'t upsert Data: %o%s', `${EJSON.stringify(data).substring(0, 60)}...`, '\n\t\t\t\tMessage:\t\t\t', error.message);
-          logger.cli('------- Can\'t upsert Data:\t\t\t%o: %s', `${EJSON.stringify(data).substring(0, 60)}...`, '\n\t\t\t\tMessage:\t\t\t', error.message);
+          logger.warn('Can\'t upsert Data: %o%s', `${EJSON.stringify(data).substring(0, 60)}...`, '\nError: ', error.message);
+          logger.cli('------- Can\'t upsert Data: %o: %s', `${EJSON.stringify(data).substring(0, 60)}...`, '\n------- Error: ', error.message);
         }
       }
     }
@@ -100,7 +100,7 @@ function processJsonl(collection: Collection, dataSpec: DataSpec, fileStream: In
 export async function importData(collection: Collection, dataSpec: DataSpec, dataPath: string): Promise<void> {
   try {
     logger.debug('Importing Data: %s', dataPath.replace(process.cwd(), '.'));
-    logger.cli('------- Importing Data:\t\t\t\t%s', dataPath.replace(process.cwd(), '.'));
+    logger.cli('------- Importing Data: %s', dataPath.replace(process.cwd(), '.'));
     const fileType = dataPath.split('.').pop();
     switch (fileType) {
       case 'jsonl':
@@ -118,7 +118,7 @@ export async function importData(collection: Collection, dataSpec: DataSpec, dat
     }
   } catch (error) {
     logger.error('Error importing Data: %s', dataPath.replace(process.cwd(), '.'));
-    logger.cli('------- Error importing Data:\t\t\t%s', dataPath.replace(process.cwd(), '.'));
+    logger.cli('------- Error importing Data: %s', dataPath.replace(process.cwd(), '.'));
     throw error;
   }
 }
