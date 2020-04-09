@@ -84,6 +84,8 @@ $ mongover <command> [<args>] [<options>]
       -e or --export            specifies if data from the MongoDB Server should also be exported, choose between 'jsonl', 'json' and 'no'. Defaults to 'no'.
 
       -q or --query             specifies a filter which data to be exported from the MongoDB Server.
+
+      -i or --infoCollection    specifies the collection name of the database information such as it's version. Defaults to '_mongover'.
      
 * **apply**: applies the current Mongover Specification to the MongoDB Server.
   

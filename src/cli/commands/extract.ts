@@ -34,7 +34,7 @@ export async function extract(options: MongoverOptions): Promise<void> {
         .collection(options.infoCollection)
         .findOne({});
       if (info) {
-        databaseSpecTemplate.version = info.options;
+        databaseSpecTemplate.version = info.version;
       }
       const collectionInfos = await db
         .listCollections({ name: { $ne: options.infoCollection } })
