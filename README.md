@@ -1,4 +1,4 @@
-# mongover [![NPM](https://img.shields.io/npm/v/mongover)](https://www.npmjs.com/package/mongover) [![Build Status](https://travis-ci.org/zishone/mongover.svg?branch=master)](https://travis-ci.org/zishone/mongover) [![Coverage Status](https://coveralls.io/repos/github/zishone/mongover/badge.svg?branch=master)](https://coveralls.io/github/zishone/mongover?branch=master) [![License](https://img.shields.io/npm/l/mongover)](https://github.com/zishone/mongover/blob/master/LICENSE)
+# mongover [![NPM](https://img.shields.io/npm/v/mongover)](https://www.npmjs.com/package/mongover) [![Build Status](https://github.com/zishone/mongover/workflows/Publish/badge.svg)](https://travis-ci.org/zishone/mongover) [![Coverage Status](https://coveralls.io/repos/github/zishone/mongover/badge.svg?branch=master)](https://coveralls.io/github/zishone/mongover?branch=master) [![License](https://img.shields.io/npm/l/mongover)](https://github.com/zishone/mongover/blob/master/LICENSE)
 A MongoDB Database Server Seeder and Migration Tool.
 
 ## Introduction
@@ -259,7 +259,7 @@ $ mongover <command> [<args>] [<options>]
 ## Authors
 * **Zishran Julbert Garces**
 
-See also the list of [contributors](https://github.com/superzish/mongover/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/zishone/mongover/contributors) who participated in this project.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/superzish/mongover/blob/master/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/zishone/mongover/blob/master/LICENSE) file for details.
