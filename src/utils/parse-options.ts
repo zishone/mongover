@@ -6,10 +6,10 @@ import { mongoverOptionsDefaults } from './constants';
 export function parseOptions(args: any): MongoverOptions {
   try {
     const mongoverOptions: MongoverOptions = mongoverOptionsDefaults;
-    if (args.specPath && args.specPath !== mongoverOptions.specPath) {
-      mongoverOptions.specPath = join(process.cwd(), args.specPath);
+    if (args.specPath) {
+      mongoverOptions.specPath = args.specPath;
     } else if (args._ && args._[0]) {
-      mongoverOptions.specPath = join(process.cwd(), args._[0]);
+      mongoverOptions.specPath = args._[0];
     }
     if (args.uri) {
       mongoverOptions.uri = args.uri;
@@ -53,7 +53,7 @@ export function parseOptions(args: any): MongoverOptions {
       mongoverOptions.infoCollection = args.infoCollection;
     }
 
-    if (mongoverOptions.alias.length !== mongoverOptions.dbs.length) {
+    if (mongoverOptions.alias!.length !== mongoverOptions.dbs!.length) {
       throw new Error('-d | --dbs and -a | --alias should have the same length.');
     }
     switch (mongoverOptions.format) {

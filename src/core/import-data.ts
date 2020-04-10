@@ -99,22 +99,25 @@ function processJsonl(collection: Collection, dataSpec: DataSpec, fileStream: In
 
 export async function importData(collection: Collection, dataSpec: DataSpec, dataPath: string): Promise<void> {
   try {
-    logger.debug('Importing Data: %s', dataPath.replace(process.cwd(), '.'));
-    logger.cli('------- Importing Data: %s', dataPath.replace(process.cwd(), '.'));
-    const fileType = dataPath.split('.').pop();
-    switch (fileType) {
-      case 'jsonl':
-        const fileStream = createInterface({ input: createReadStream(dataPath) });
-        await processJsonl(collection, dataSpec, fileStream);
-        break;
-      case 'json':
-      case 'js':
-      case 'ts':
-        const dataArr = require(dataPath);
-        await processDataArr(collection, dataSpec, dataArr);
-        break;
-      default:
-        throw new Error(`Unrecognized Export type: ${fileType}.`);
+    const filenameArr = dataPath.split('.');
+    const fileType = filenameArr.pop();
+    if (filenameArr.pop() !== 'd') {
+      logger.info('Importing Data: %s', dataPath.replace(process.cwd(), '.'));
+      logger.cli('------- Importing Data: %s', dataPath.replace(process.cwd(), '.'));
+      switch (fileType) {
+        case 'jsonl':
+          const fileStream = createInterface({ input: createReadStream(dataPath) });
+          await processJsonl(collection, dataSpec, fileStream);
+          break;
+        case 'json':
+        case 'js':
+        case 'ts':
+          const dataArr = require(dataPath);
+          await processDataArr(collection, dataSpec, dataArr);
+          break;
+        default:
+          throw new Error(`Unrecognized Export type: ${fileType}.`);
+      }
     }
   } catch (error) {
     logger.error('Error importing Data: %s', dataPath.replace(process.cwd(), '.'));

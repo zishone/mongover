@@ -15,7 +15,7 @@ export async function structureDatabase(client: MongoClient, databaseName: strin
       logger.cli('--- Dropping Database: %s%s', databaseSpec.alias || databaseName, appliedVersion ? `@${appliedVersion}` : '');
       await db.dropDatabase();
     }
-    logger.debug('Structuring Database: %s@%s', databaseName + (databaseSpec.alias ? ` as ${databaseSpec.alias}` : ''), databaseSpec.version);
+    logger.info('Structuring Database: %s@%s', databaseName + (databaseSpec.alias ? ` as ${databaseSpec.alias}` : ''), databaseSpec.version);
     logger.cli('--- Structuring Database: %s@%s', databaseName + (databaseSpec.alias ? ` as ${databaseSpec.alias}` : ''), databaseSpec.version);
     logger.info('Structured Database: %s@%s', databaseName + (databaseSpec.alias ? ` as ${databaseSpec.alias}` : ''), databaseSpec.version);
     return db;

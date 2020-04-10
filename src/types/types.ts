@@ -22,17 +22,17 @@ export interface DataSpec {
 }
 
 export interface MongoverOptions {
-  specPath: string;
-  uri: string;
-  dbs: string[];
-  collections: string[];
-  alias: string[];
-  export: string;
-  format: string;
-  query: any;
-  seedOnly: boolean;
-  migrateForce: boolean;
-  infoCollection: string;
+  specPath?: string;
+  uri?: string;
+  dbs?: string[];
+  collections?: string[];
+  alias?: string[];
+  export?: string;
+  format?: string;
+  query?: any;
+  seedOnly?: boolean;
+  migrateForce?: boolean;
+  infoCollection?: string;
 }
 
 export interface DatabaseSpec {

@@ -20,41 +20,42 @@ const logger = getLogger(__filename);
 
 export async function apply(options: MongoverOptions = parseOptions({})): Promise<void> {
   try {
-    logger.debug('Applying Mongover Specification: %s', options.specPath);
+    logger.info('Applying Mongover Specification: %s', options.specPath);
     options = parseOptions(options);
+    options.specPath! = join(process.cwd(), options.specPath!);
     const databases = [];
-    if (options.specPath.split('.').pop() === 'json') {
-      databases.push(getSpec(options.specPath));
-    } else if (lstatSync(options.specPath).isDirectory() && existsSync(join(options.specPath, 'db.spec.json'))) {
-      databases.push(getSpec(options.specPath));
+    if (options.specPath!.split('.').pop() === 'json') {
+      databases.push(getSpec(options.specPath!));
+    } else if (lstatSync(options.specPath!).isDirectory() && existsSync(join(options.specPath!, 'db.spec.json'))) {
+      databases.push(getSpec(options.specPath!));
     } else {
-      readdirSync(options.specPath)
-        .filter((dirent) => lstatSync(join(options.specPath, dirent)).isDirectory())
-        .forEach((dirent) => databases.push(getSpec(join(options.specPath, dirent))));
+      readdirSync(options.specPath!)
+        .filter((dirent) => lstatSync(join(options.specPath!, dirent)).isDirectory())
+        .forEach((dirent) => databases.push(getSpec(join(options.specPath!, dirent))));
     }
-    const client = await connectServer(options.uri, {
+    const client = await connectServer(options.uri!, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
     for (const database of databases) {
-      if (options.dbs.length === 0 || options.dbs.includes(database.name)) {
-        database.spec.alias = options.alias[options.dbs.indexOf(database.name)];
-        if (options.seedOnly) {
+      if (options.dbs!.length === 0 || options.dbs!.includes(database.name)) {
+        database.spec.alias = options.alias![options.dbs!.indexOf(database.name)];
+        if (options.seedOnly!) {
           database.spec.seedOnly = true;
         }
-        if (options.migrateForce) {
+        if (options.migrateForce!) {
           database.spec.migrateForce = true;
         }
         let versionCheck: any = {};
         if (database.spec.migrateForce) {
           versionCheck.higher = true;
         } else {
-          versionCheck = await compareVersion(client, database.name, options.infoCollection, database.spec);
+          versionCheck = await compareVersion(client, database.name, options.infoCollection!, database.spec);
         }
         if (versionCheck.higher) {
           const db = await structureDatabase(client, database.name, database.spec, versionCheck.version);
           for (const collectionName in database.spec.collections) {
-            if (options.collections.length === 0 || options.collections.includes(collectionName)) {
+            if (options.collections!.length === 0 || options.collections!.includes(collectionName)) {
               const collectionSpec = database.spec.collections[collectionName];
               const existingCollection = await db
                 .listCollections({ name: collectionName })
@@ -79,11 +80,11 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
             }
           }
           if (!database.spec.seedOnly || !versionCheck.version || database.spec.migrateForce) {
-            database.spec.infoCollection = options.infoCollection;
+            database.spec.infoCollection = options.infoCollection!;
             await versionDatabase(db, database.spec);
           }
         } else {
-          logger.debug('Skipping Database: %s is not higher than %s', `${database.spec.alias || database.name}@${database.spec.version}`, versionCheck.version ? `${database.spec.alias || database.name}@${versionCheck.version}` : 'what is applied');
+          logger.info('Skipping Database: %s is not higher than %s', `${database.spec.alias || database.name}@${database.spec.version}`, versionCheck.version ? `${database.spec.alias || database.name}@${versionCheck.version}` : 'what is applied');
           logger.cli('--- Skipping Database: %s is not higher than %s', `${database.spec.alias || database.name}@${database.spec.version}`, versionCheck.version ? `${database.spec.alias || database.name}@${versionCheck.version}` : 'what is applied');
         }
       }

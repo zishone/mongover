@@ -6,7 +6,7 @@ const logger = getLogger(__filename);
 
 export async function versionDatabase(db: Db, databaseSpec: DatabaseSpec): Promise<Db> {
   try {
-    logger.debug('Versioning Database: %s', `${db.databaseName}@${databaseSpec.version}`);
+    logger.info('Versioning Database: %s', `${db.databaseName}@${databaseSpec.version}`);
     logger.cli('--- Versioning Database: %s', `${db.databaseName}@${databaseSpec.version}`);
     const newMeta = { version: databaseSpec.version };
     const collection = db.collection(databaseSpec.infoCollection);

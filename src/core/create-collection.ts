@@ -21,7 +21,7 @@ export async function createCollection(db: Db, collectionName: string, collectio
     } else if (!existingCollection) {
       await db.createCollection(collectionName, collectionSpec.options);
     }
-    logger.debug('Creating Collection: %s', collectionName);
+    logger.info('Creating Collection: %s', collectionName);
     logger.cli('----- Creating Collection: %s', collectionName);
     logger.info('Created Collection: %s', collectionName);
     return collection;
