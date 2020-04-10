@@ -3,7 +3,10 @@ import {
   writeFileSync,
   writeJSONSync,
 } from 'fs-extra';
-import { join } from 'path';
+import {
+  isAbsolute,
+  join,
+} from 'path';
 import { MongoverOptions } from '../../types/types';
 import {
   collectionSpecTemplate,
@@ -17,6 +20,7 @@ const logger = getLogger(__filename);
 export async function init(options: MongoverOptions): Promise<void> {
   try {
     logger.cli('Initializing Mongover Specification: %s', options.specPath);
+    options.specPath! = isAbsolute(options.specPath!) ? options.specPath! : join(process.cwd(), options.specPath!);
     ensureDirSync(join(options.specPath!, 'dbName', 'data'));
     writeFileSync(join(options.specPath!, 'dbName', 'data', 'collectionName.jsonl'), dataSample);
     switch (options.format) {
