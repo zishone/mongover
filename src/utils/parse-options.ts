@@ -53,7 +53,7 @@ export function parseOptions(args: any): MongoverOptions {
       mongoverOptions.infoCollection = args.infoCollection;
     }
 
-    if (mongoverOptions.alias.length !== mongoverOptions.dbs.length) {
+    if (mongoverOptions.alias!.length !== mongoverOptions.dbs!.length) {
       throw new Error('-d | --dbs and -a | --alias should have the same length.');
     }
     switch (mongoverOptions.format) {

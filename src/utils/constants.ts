@@ -47,7 +47,7 @@ Usage:
 `.trim();
 
 export const mongoverOptionsDefaults: MongoverOptions = {
-  specPath: join(process.cwd(), 'mongover'),
+  specPath: 'database',
   uri: 'mongodb://127.0.0.1:27017/',
   dbs: [],
   alias: [],

@@ -17,11 +17,11 @@ const logger = getLogger(__filename);
 export async function extract(options: MongoverOptions): Promise<void> {
   try {
     logger.cli('Extracting Mongover Specification: %s', options.specPath);
-    const client = await connectServer(options.uri, { useNewUrlParser: true });
-    for (const dbName of options.dbs) {
+    const client = await connectServer(options.uri!, { useNewUrlParser: true });
+    for (const dbName of options.dbs!) {
       logger.cli('--- Extracting Database: %s', dbName);
       const db = client.db(dbName);
-      const databaseSpecPath = join(options.specPath, dbName);
+      const databaseSpecPath = join(options.specPath!, dbName);
       const collectionSpecPath = join(databaseSpecPath, 'collections');
       const dataPath = join(databaseSpecPath, 'data');
       ensureDirSync(dataPath);
@@ -31,7 +31,7 @@ export async function extract(options: MongoverOptions): Promise<void> {
         delete databaseSpecTemplate.collections;
       }
       const info = await db
-        .collection(options.infoCollection)
+        .collection(options.infoCollection!)
         .findOne({});
       if (info) {
         databaseSpecTemplate.version = info.version;
@@ -40,7 +40,7 @@ export async function extract(options: MongoverOptions): Promise<void> {
         .listCollections({ name: { $ne: options.infoCollection } })
         .toArray();
       for (const collectionInfo of collectionInfos) {
-        if (options.collections.length === 0 || options.collections.includes(collectionInfo.name)) {
+        if (options.collections!.length === 0 || options.collections!.includes(collectionInfo.name)) {
           logger.cli('----- Extracting Collection: %s', collectionInfo.name);
           const collection = db.collection(collectionInfo.name);
           collectionSpecTemplate.data.ignoreFields = [];
@@ -70,7 +70,7 @@ export async function extract(options: MongoverOptions): Promise<void> {
             databaseSpecTemplate.collections[collectionInfo.name] = collectionSpecTemplate;
           }
           if (options.export !== 'no') {
-            await exportData(collection, join(dataPath, collectionInfo.name), options.export, options.query);
+            await exportData(collection, join(dataPath, collectionInfo.name), options.export!, options.query);
           }
         }
       }

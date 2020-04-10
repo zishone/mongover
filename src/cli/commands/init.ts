@@ -17,20 +17,20 @@ const logger = getLogger(__filename);
 export async function init(options: MongoverOptions): Promise<void> {
   try {
     logger.cli('Initializing Mongover Specification: %s', options.specPath);
-    ensureDirSync(join(options.specPath, 'dbName', 'data'));
-    writeFileSync(join(options.specPath, 'dbName', 'data', 'collectionName.jsonl'), dataSample);
+    ensureDirSync(join(options.specPath!, 'dbName', 'data'));
+    writeFileSync(join(options.specPath!, 'dbName', 'data', 'collectionName.jsonl'), dataSample);
     switch (options.format) {
       case 'json':
-        writeJSONSync(join(options.specPath, 'dbName', 'db.spec.json'), {
+        writeJSONSync(join(options.specPath!, 'dbName', 'db.spec.json'), {
           ...databaseSpecTemplate,
           collections: { collectionName: collectionSpecTemplate },
         }, { spaces: 2 });
         break;
       case 'dir':
         delete databaseSpecTemplate.collections;
-        ensureDirSync(join(options.specPath, 'dbName', 'collections'));
-        writeJSONSync(join(options.specPath, 'dbName', 'db.spec.json'), databaseSpecTemplate, { spaces: 2 });
-        writeJSONSync(join(options.specPath, 'dbName', 'collections', 'collectionName.spec.json'), collectionSpecTemplate, { spaces: 2 });
+        ensureDirSync(join(options.specPath!, 'dbName', 'collections'));
+        writeJSONSync(join(options.specPath!, 'dbName', 'db.spec.json'), databaseSpecTemplate, { spaces: 2 });
+        writeJSONSync(join(options.specPath!, 'dbName', 'collections', 'collectionName.spec.json'), collectionSpecTemplate, { spaces: 2 });
         break;
       default:
         throw new Error(`Unrecognized format: ${options.format}.`);
