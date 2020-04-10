@@ -73,8 +73,8 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
                   }
                 }
               } else {
-                logger.info('Skipping Collection: %s exists', collectionName);
-                logger.cli('----- Skipping Collection: %s exists', collectionName);
+                logger.info('Skipping Collection: %s already exists', collectionName);
+                logger.cli('----- Skipping Collection: %s already exists', collectionName);
               }
             }
           }
@@ -83,8 +83,8 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
             await versionDatabase(db, database.spec);
           }
         } else {
-          logger.debug('Skipping Version: %s is not higher than what is applied', `${database.spec.alias || database.name}@${database.spec.version}`);
-          logger.cli('--- Skipping Version: %s is not higher than what is applied', `${database.spec.alias || database.name}@${database.spec.version}`);
+          logger.debug('Skipping Database: %s is not higher than %s', `${database.spec.alias || database.name}@${database.spec.version}`, versionCheck.version ? `${database.spec.alias || database.name}@${versionCheck.version}` : 'what is applied');
+          logger.cli('--- Skipping Database: %s is not higher than %s', `${database.spec.alias || database.name}@${database.spec.version}`, versionCheck.version ? `${database.spec.alias || database.name}@${versionCheck.version}` : 'what is applied');
         }
       }
     }
