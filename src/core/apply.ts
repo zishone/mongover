@@ -20,8 +20,9 @@ const logger = getLogger(__filename);
 
 export async function apply(options: MongoverOptions = parseOptions({})): Promise<void> {
   try {
-    logger.debug('Applying Mongover Specification: %s', options.specPath);
+    logger.info('Applying Mongover Specification: %s', options.specPath);
     options = parseOptions(options);
+    options.specPath = join(process.cwd(), options.specPath);
     const databases = [];
     if (options.specPath.split('.').pop() === 'json') {
       databases.push(getSpec(options.specPath));
@@ -83,7 +84,7 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
             await versionDatabase(db, database.spec);
           }
         } else {
-          logger.debug('Skipping Database: %s is not higher than %s', `${database.spec.alias || database.name}@${database.spec.version}`, versionCheck.version ? `${database.spec.alias || database.name}@${versionCheck.version}` : 'what is applied');
+          logger.info('Skipping Database: %s is not higher than %s', `${database.spec.alias || database.name}@${database.spec.version}`, versionCheck.version ? `${database.spec.alias || database.name}@${versionCheck.version}` : 'what is applied');
           logger.cli('--- Skipping Database: %s is not higher than %s', `${database.spec.alias || database.name}@${database.spec.version}`, versionCheck.version ? `${database.spec.alias || database.name}@${versionCheck.version}` : 'what is applied');
         }
       }

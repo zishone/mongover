@@ -10,7 +10,7 @@ export async function connectServer(uri: string, options: MongoClientOptions): P
   const loggableUri = uri.substring(0, uri.indexOf('://') + 3) +
     (uri.includes('@') ? uri.substring(uri.indexOf('@') + 1, uri.indexOf('?')) : uri.substring(uri.indexOf('://') + 3, uri.length));
   try {
-    logger.debug('Connecting to the Server: %s', loggableUri);
+    logger.info('Connecting to the Server: %s', loggableUri);
     logger.cli('- Connecting to the Server: %s', loggableUri);
     return await MongoClient.connect(uri, options);
   } catch (error) {

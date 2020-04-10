@@ -14,7 +14,7 @@ export async function buildIndex(collection: Collection, indexSpec: IndexSpec): 
       await collection.dropIndex(indexName);
     }
     try {
-      logger.debug('Building Index: %s', indexName);
+      logger.info('Building Index: %s', indexName);
       logger.cli('------- Building Index: %s', indexName);
       await collection.createIndex(indexSpec.keys, indexSpec.options);
     } catch (error) {
