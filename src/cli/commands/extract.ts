@@ -2,7 +2,10 @@ import {
   ensureDirSync,
   writeJSONSync,
 } from 'fs-extra';
-import { join } from 'path';
+import {
+  isAbsolute,
+  join,
+} from 'path';
 import { connectServer } from '../../core/connect-server';
 import { exportData } from '../../core/export-data';
 import { MongoverOptions } from '../../types/types';
@@ -17,6 +20,7 @@ const logger = getLogger(__filename);
 export async function extract(options: MongoverOptions): Promise<void> {
   try {
     logger.cli('Extracting Mongover Specification: %s', options.specPath);
+    options.specPath! = isAbsolute(options.specPath!) ? options.specPath! : join(process.cwd(), options.specPath!);
     const client = await connectServer(options.uri!, { useNewUrlParser: true });
     for (const dbName of options.dbs!) {
       logger.cli('--- Extracting Database: %s', dbName);

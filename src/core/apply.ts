@@ -3,7 +3,10 @@ import {
   lstatSync,
   readdirSync,
 } from 'fs-extra';
-import { join } from 'path';
+import {
+  isAbsolute,
+  join,
+} from 'path';
 import { MongoverOptions } from '../types/types';
 import { getLogger } from '../utils/get-logger';
 import { parseOptions } from '../utils/parse-options';
@@ -22,7 +25,7 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
   try {
     logger.info('Applying Mongover Specification: %s', options.specPath);
     options = parseOptions(options);
-    options.specPath! = join(process.cwd(), options.specPath!);
+    options.specPath! = isAbsolute(options.specPath!) ? options.specPath! : join(process.cwd(), options.specPath!);
     const databases = [];
     if (options.specPath!.split('.').pop() === 'json') {
       databases.push(getSpec(options.specPath!));
