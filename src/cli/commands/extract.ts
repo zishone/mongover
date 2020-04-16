@@ -30,18 +30,21 @@ export async function extract(options: MongoverOptions): Promise<void> {
       const dataPath = join(databaseSpecPath, 'data');
       ensureDirSync(dataPath);
       databaseSpecTemplate.alias = dbName;
+      if (options.info) {
+        databaseSpecTemplate.info = options.info;
+      }
       if (options.format === 'dir') {
         ensureDirSync(collectionSpecPath);
         delete databaseSpecTemplate.collections;
       }
       const info = await db
-        .collection(options.infoCollection!)
+        .collection(databaseSpecTemplate.info)
         .findOne({});
       if (info) {
         databaseSpecTemplate.version = info.version;
       }
       const collectionInfos = await db
-        .listCollections({ name: { $ne: options.infoCollection } })
+        .listCollections({ name: { $ne: databaseSpecTemplate.info } })
         .toArray();
       for (const collectionInfo of collectionInfos) {
         if (options.collections!.length === 0 || options.collections!.includes(collectionInfo.name)) {

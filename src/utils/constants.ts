@@ -28,7 +28,7 @@ Usage:
           -f or --format          specifies Mongover Specification format, choose between 'dir' and 'json'. Defaults to 'dir'.
           -e or --export          specifies if data from the MongoDB Server should also be exported, choose between 'jsonl', 'json' and 'no'. Defaults to 'no'.
           -q or --query           specifies a filter which data to be exported from the MongoDB Server.
-          -i or --infoCollection  specifies the collection name of the database information such as it's version. Defaults to '_mongover'.
+          -i or --info  specifies the collection name of the database information such as it's version. Defaults to '_info'.
 
     apply [<specPath>] [<options>]
       - applies the current Mongover Specification to the MongoDB Server.
@@ -43,7 +43,7 @@ Usage:
           -c or --collections     specifies which collections to apply. Defaults to all collections in specified databases.
           -s or --seedOnly        specifies if mongover should only seed the database instead of migrating it when it already exists.
           -m or --migrateForce    specifies if mongover should migrate the database even if the specified version is the same.
-          -i or --infoCollection  specifies the collection name of the database information such as it's version. Defaults to '_mongover'.
+          -i or --info  specifies the collection name of the database information such as it's version. Defaults to '_info'.
 `.trim();
 
 export const mongoverOptionsDefaults: MongoverOptions = {
@@ -57,13 +57,13 @@ export const mongoverOptionsDefaults: MongoverOptions = {
   export: 'no',
   seedOnly: false,
   migrateForce: false,
-  infoCollection: '_mongover',
+  info: '_info',
 };
 
 export const databaseSpecTemplate: DatabaseSpec = {
   seedOnly: false,
   migrateForce: false,
-  infoCollection: '_mongover',
+  info: '_info',
   dropFirst: false,
   alias: 'dbName',
   version: '1.0.0',

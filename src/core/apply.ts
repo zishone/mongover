@@ -49,11 +49,14 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
         if (options.migrateForce!) {
           database.spec.migrateForce = true;
         }
+        if (options.info) {
+          database.spec.info = options.info!;
+        }
         let versionCheck: any = {};
         if (database.spec.migrateForce) {
           versionCheck.higher = true;
         } else {
-          versionCheck = await compareVersion(client, database.name, options.infoCollection!, database.spec);
+          versionCheck = await compareVersion(client, database.name, database.spec);
         }
         if (versionCheck.higher) {
           const db = await structureDatabase(client, database.name, database.spec, versionCheck.version);
@@ -83,7 +86,6 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
             }
           }
           if (!database.spec.seedOnly || !versionCheck.version || database.spec.migrateForce) {
-            database.spec.infoCollection = options.infoCollection!;
             await versionDatabase(db, database.spec);
           }
         } else {

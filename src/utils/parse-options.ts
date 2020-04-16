@@ -49,8 +49,10 @@ export function parseOptions(args: any): MongoverOptions {
     if (args.migrateForce) {
       mongoverOptions.migrateForce = true;
     }
-    if (args.infoCollection) {
-      mongoverOptions.infoCollection = args.infoCollection;
+    if (args.info) {
+      mongoverOptions.info = args.info;
+    } else {
+      mongoverOptions.info = undefined;
     }
 
     if (mongoverOptions.alias!.length !== mongoverOptions.dbs!.length) {
