@@ -32,13 +32,13 @@ export interface MongoverOptions {
   query?: any;
   seedOnly?: boolean;
   migrateForce?: boolean;
-  infoCollection?: string;
+  info?: string;
 }
 
 export interface DatabaseSpec {
   seedOnly: boolean;
   migrateForce: boolean;
-  infoCollection: string;
+  info: string;
   dropFirst: boolean;
   alias: string | undefined;
   version: string;

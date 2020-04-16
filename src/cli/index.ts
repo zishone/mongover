@@ -22,7 +22,7 @@ async function mongover(args: string[]) {
         'alias',
         'dbs',
         'collections',
-        'infoCollection',
+        'info',
       ],
       boolean: [
         'seedOnly',
@@ -38,7 +38,7 @@ async function mongover(args: string[]) {
         a: 'alias',
         s: 'seedOnly',
         m: 'migrateForce',
-        i: 'infoCollection',
+        i: 'info',
       },
     });
     const options = parseOptions(parsedArgs);

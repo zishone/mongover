@@ -5,11 +5,11 @@ import { getLogger } from '../utils/get-logger';
 
 const logger = getLogger(__filename);
 
-export async function compareVersion(client: MongoClient, databaseName: string, infoCollection: string, databaseSpec: DatabaseSpec): Promise<any> {
+export async function compareVersion(client: MongoClient, databaseName: string, databaseSpec: DatabaseSpec): Promise<any> {
   try {
     const info = await client
       .db(databaseSpec.alias || databaseName)
-      .collection(infoCollection)
+      .collection(databaseSpec.info)
       .findOne({});
     if (info && satisfies(info.version, `>=${databaseSpec.version}`)) {
       return {
