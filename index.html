@@ -64,8 +64,8 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<a href="#mongover-a-hrefhttpswwwnpmjscompackagemongoverimg-srchttpsimgshieldsionpmvmongover-altnpma-a-hrefhttpstravis-ciorgzishonemongoverimg-srchttpsgithubcomzishonemongoverworkflowspublishbadgesvg-altbuild-statusa-a-hrefhttpscoverallsiogithubzishonemongoverbranchmasterimg-srchttpscoverallsioreposgithubzishonemongoverbadgesvgbranchmaster-altcoverage-statusa-a-hrefhttpsgithubcomzishonemongoverblobmasterlicenseimg-srchttpsimgshieldsionpmlmongover-altlicensea" id="mongover-a-hrefhttpswwwnpmjscompackagemongoverimg-srchttpsimgshieldsionpmvmongover-altnpma-a-hrefhttpstravis-ciorgzishonemongoverimg-srchttpsgithubcomzishonemongoverworkflowspublishbadgesvg-altbuild-statusa-a-hrefhttpscoverallsiogithubzishonemongoverbranchmasterimg-srchttpscoverallsioreposgithubzishonemongoverbadgesvgbranchmaster-altcoverage-statusa-a-hrefhttpsgithubcomzishonemongoverblobmasterlicenseimg-srchttpsimgshieldsionpmlmongover-altlicensea" style="color: inherit; text-decoration: none;">
-					<h1>mongover <a href="https://www.npmjs.com/package/mongover"><img src="https://img.shields.io/npm/v/mongover" alt="NPM"></a> <a href="https://travis-ci.org/zishone/mongover"><img src="https://github.com/zishone/mongover/workflows/Publish/badge.svg" alt="Build Status"></a> <a href="https://coveralls.io/github/zishone/mongover?branch=master"><img src="https://coveralls.io/repos/github/zishone/mongover/badge.svg?branch=master" alt="Coverage Status"></a> <a href="https://github.com/zishone/mongover/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/mongover" alt="License"></a></h1>
+				<a href="#mongover-a-hrefhttpswwwnpmjscompackagemongoverimg-srchttpsimgshieldsionpmvmongover-altnpma-a-hrefhttpsgithubcomzishonemongoveractionsqueryworkflow3aciimg-srchttpsgithubcomzishonemongoverworkflowscibadgesvg-altbuild-statusa-a-hrefhttpscoverallsiogithubzishonemongoverbranchmasterimg-srchttpscoverallsioreposgithubzishonemongoverbadgesvgbranchmaster-altcoverage-statusa-a-hrefhttpsgithubcomzishonemongoverblobmasterlicenseimg-srchttpsimgshieldsionpmlmongover-altlicensea" id="mongover-a-hrefhttpswwwnpmjscompackagemongoverimg-srchttpsimgshieldsionpmvmongover-altnpma-a-hrefhttpsgithubcomzishonemongoveractionsqueryworkflow3aciimg-srchttpsgithubcomzishonemongoverworkflowscibadgesvg-altbuild-statusa-a-hrefhttpscoverallsiogithubzishonemongoverbranchmasterimg-srchttpscoverallsioreposgithubzishonemongoverbadgesvgbranchmaster-altcoverage-statusa-a-hrefhttpsgithubcomzishonemongoverblobmasterlicenseimg-srchttpsimgshieldsionpmlmongover-altlicensea" style="color: inherit; text-decoration: none;">
+					<h1>mongover <a href="https://www.npmjs.com/package/mongover"><img src="https://img.shields.io/npm/v/mongover" alt="NPM"></a> <a href="https://github.com/zishone/mongover/actions?query=workflow%3ACI"><img src="https://github.com/zishone/mongover/workflows/CI/badge.svg" alt="Build Status"></a> <a href="https://coveralls.io/github/zishone/mongover?branch=master"><img src="https://coveralls.io/repos/github/zishone/mongover/badge.svg?branch=master" alt="Coverage Status"></a> <a href="https://github.com/zishone/mongover/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/mongover" alt="License"></a></h1>
 				</a>
 				<p>A MongoDB Database Server Seeder and Migration Tool.</p>
 				<a href="#introduction" id="introduction" style="color: inherit; text-decoration: none;">
@@ -164,7 +164,7 @@
 
 -q <span class="hljs-keyword">or</span> --query             specifies a filter which data <span class="hljs-keyword">to</span> be exported <span class="hljs-keyword">from</span> the MongoDB Server.
 
--i <span class="hljs-keyword">or</span> --infoCollection    specifies the collection name <span class="hljs-keyword">of</span> the database information such as <span class="hljs-literal">it</span><span class="hljs-string">'s version. Defaults to '</span>_mongover<span class="hljs-string">'.</span></code></pre></li>
+-i <span class="hljs-keyword">or</span> --info              specifies the collection name <span class="hljs-keyword">of</span> the database information such as <span class="hljs-literal">it</span><span class="hljs-string">'s version. Defaults to '</span>_info<span class="hljs-string">'.</span></code></pre></li>
 					<li><p><strong>apply</strong>: applies the current Mongover Specification to the MongoDB Server.</p>
 						<p><strong>SYNOPSIS</strong></p>
 						<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> mongover apply [&lt;specPath&gt;] [-u <span class="hljs-string">"&lt;uri&gt;"</span>] [-d &lt;dbName&gt;[,...] [-a &lt;<span class="hljs-built_in">alias</span>&gt;[,...]]] [-c &lt;collectionName&gt;[,...]] [-s]</span></code></pre>
@@ -182,7 +182,7 @@
 
 -m <span class="hljs-keyword">or</span> --migrateForce      specifies <span class="hljs-keyword">if</span> mongover should migrate the database even <span class="hljs-keyword">if</span> the specified version <span class="hljs-literal">is</span> the same.
 
--i <span class="hljs-keyword">or</span> --infoCollection    specifies the<span class="hljs-built_in"> collection</span><span class="hljs-built_in"> name</span> <span class="hljs-keyword">of</span> the database information such <span class="hljs-keyword">as</span> it<span class="hljs-string">'s version. Defaults to '</span>_mongover<span class="hljs-string">'.</span></code></pre></li>
+-i <span class="hljs-keyword">or</span> --info              specifies the<span class="hljs-built_in"> collection</span><span class="hljs-built_in"> name</span> <span class="hljs-keyword">of</span> the database information such <span class="hljs-keyword">as</span> it<span class="hljs-string">'s version. Defaults to '</span>_info<span class="hljs-string">'.</span></code></pre></li>
 					<li><p><strong>help</strong>: outputs Mongover usage.</p>
 						<p><strong>SYNOPSIS</strong></p>
 						<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> mongover <span class="hljs-built_in">help</span></span></code></pre>
@@ -211,7 +211,7 @@
 						<pre><code class="language-json5">  {
       &quot;seedOnly&quot;: false,                      // Specifies if existing database should be migrated or only seeded.
       &quot;migrateForce&quot;: false,                  // Specifies if mongover should migrate the database even if the specified version is the same.
-      &quot;infoCollection&quot;: &quot;_mongover&quot;,          // Specifies the collection name of the database information such as it&#39;s version. Defaults to &#39;_mongover&#39;.
+      &quot;info&quot;: &quot;_info&quot;,                        // Specifies the collection name of the database information such as it&#39;s version. Defaults to &#39;_info&#39;.
       &quot;dropFirst&quot;: false,                     // Specifies if existing database should be dropped before specification is applied.
       &quot;alias&quot;: &quot;dbName&quot;,                      // Alias/Name the database specification will be deployed as.
       &quot;version&quot;: &quot;1.0.0&quot;,                     // Specifies the version of the database, this will determine if the database needs to be migrated or not.
@@ -261,7 +261,7 @@
 					<li><strong>db.spec.json</strong><pre><code class="language-json5">  {
       &quot;seedOnly&quot;: false,                      // Specifies if existing database should be migrated or only seeded.
       &quot;migrateForce&quot;: false,                  // Specifies if mongover should migrate the database even if the specified version is the same.
-      &quot;infoCollection&quot;: &quot;_mongover&quot;,          // Specifies the collection name of the database information such as it&#39;s version. Defaults to &#39;_mongover&#39;.
+      &quot;info&quot;: &quot;_info&quot;,                        // Specifies the collection name of the database information such as it&#39;s version. Defaults to &#39;_info&#39;.
       &quot;dropFirst&quot;: false,                     // Specifies if existing database should be dropped before specification is applied.
       &quot;alias&quot;: &quot;dbName&quot;,                      // Alias/Name the database specification will be deployed as.
       &quot;version&quot;: &quot;1.0.0&quot;,                     // Specifies the version of the database, this will determine if the database needs to be migrated or not.
