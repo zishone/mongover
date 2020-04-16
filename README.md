@@ -85,7 +85,7 @@ $ mongover <command> [<args>] [<options>]
 
       -q or --query             specifies a filter which data to be exported from the MongoDB Server.
 
-      -i or --info    specifies the collection name of the database information such as it's version. Defaults to '_info'.
+      -i or --info              specifies the collection name of the database information such as it's version. Defaults to '_info'.
      
 * **apply**: applies the current Mongover Specification to the MongoDB Server.
   
@@ -113,7 +113,7 @@ $ mongover <command> [<args>] [<options>]
 
       -m or --migrateForce      specifies if mongover should migrate the database even if the specified version is the same.
 
-      -i or --info    specifies the collection name of the database information such as it's version. Defaults to '_info'.
+      -i or --info              specifies the collection name of the database information such as it's version. Defaults to '_info'.
 
 * **help**: outputs Mongover usage.
   
@@ -143,7 +143,7 @@ $ mongover <command> [<args>] [<options>]
     {
         "seedOnly": false,                      // Specifies if existing database should be migrated or only seeded.
         "migrateForce": false,                  // Specifies if mongover should migrate the database even if the specified version is the same.
-        "info": "_info",          // Specifies the collection name of the database information such as it's version. Defaults to '_info'.
+        "info": "_info",                        // Specifies the collection name of the database information such as it's version. Defaults to '_info'.
         "dropFirst": false,                     // Specifies if existing database should be dropped before specification is applied.
         "alias": "dbName",                      // Alias/Name the database specification will be deployed as.
         "version": "1.0.0",                     // Specifies the version of the database, this will determine if the database needs to be migrated or not.
@@ -194,7 +194,7 @@ $ mongover <command> [<args>] [<options>]
     {
         "seedOnly": false,                      // Specifies if existing database should be migrated or only seeded.
         "migrateForce": false,                  // Specifies if mongover should migrate the database even if the specified version is the same.
-        "info": "_info",          // Specifies the collection name of the database information such as it's version. Defaults to '_info'.
+        "info": "_info",                        // Specifies the collection name of the database information such as it's version. Defaults to '_info'.
         "dropFirst": false,                     // Specifies if existing database should be dropped before specification is applied.
         "alias": "dbName",                      // Alias/Name the database specification will be deployed as.
         "version": "1.0.0",                     // Specifies the version of the database, this will determine if the database needs to be migrated or not.
