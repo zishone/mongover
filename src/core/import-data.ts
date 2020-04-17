@@ -101,7 +101,7 @@ export async function importData(collection: Collection, dataSpec: DataSpec, dat
   try {
     const filenameArr = dataPath.split('.');
     const fileType = filenameArr.pop();
-    if (filenameArr.pop() !== 'd') {
+    if (filenameArr.pop() !== 'd' || fileType !== 'ts') {
       logger.info('Importing Data: %s', dataPath.replace(process.cwd(), '.'));
       logger.cli('------- Importing Data: %s', dataPath.replace(process.cwd(), '.'));
       switch (fileType) {
