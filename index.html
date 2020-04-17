@@ -92,7 +92,13 @@
 				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> options = {
   <span class="hljs-attr">specPath</span>: <span class="hljs-string">'./mongover'</span>,
   <span class="hljs-attr">uri</span>: <span class="hljs-string">'mongodb://127.0.0.1:27017/'</span>,
-  <span class="hljs-attr">seedOnly</span>: <span class="hljs-literal">false</span>
+  <span class="hljs-attr">dbs</span>: [],
+  <span class="hljs-attr">alias</span>: [],
+  <span class="hljs-attr">collections</span>: [],
+  <span class="hljs-attr">seedOnly</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">migrateForce</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">info</span>: <span class="hljs-string">'_info'</span>,
+  <span class="hljs-attr">socketTimeoutMS</span>: <span class="hljs-number">3600000</span>,
 };</code></pre>
 				<table>
 					<thead>
@@ -104,22 +110,58 @@
 						</tr>
 					</thead>
 					<tbody><tr>
-							<td>uri</td>
-							<td>string</td>
-							<td>MongoDB Server connection string.</td>
-							<td>mongodb://127.0.0.1:27017/</td>
-						</tr>
-						<tr>
 							<td>specPath</td>
 							<td>string</td>
 							<td>Path to Mongover Specification.</td>
-							<td>./mongover</td>
+							<td><code>./mongover</code></td>
+						</tr>
+						<tr>
+							<td>uri</td>
+							<td>string</td>
+							<td>MongoDB Server connection string.</td>
+							<td><code>mongodb://127.0.0.1:27017/</code></td>
+						</tr>
+						<tr>
+							<td>dbs</td>
+							<td>string[]</td>
+							<td>Specifies which databases to apply.</td>
+							<td><code>[] // all dbs in specPath</code></td>
+						</tr>
+						<tr>
+							<td>alias</td>
+							<td>string[]</td>
+							<td>Specifies the aliases of the specified databases to apply, a database will use the alias corresponding to its index.</td>
+							<td><code>[] // no aliases</code></td>
+						</tr>
+						<tr>
+							<td>collections</td>
+							<td>string[]</td>
+							<td>Specifies which collections to apply.</td>
+							<td><code>[] // all collections in specPath</code></td>
 						</tr>
 						<tr>
 							<td>seedOnly</td>
 							<td>boolean</td>
 							<td>Specifies if mongover should only seed instead of migrating existing database.</td>
-							<td>false</td>
+							<td><code>false</code></td>
+						</tr>
+						<tr>
+							<td>migrateForce</td>
+							<td>boolean</td>
+							<td>Specifies if mongover should migrate the database even if the specified version is lower or the same.</td>
+							<td><code>false</code></td>
+						</tr>
+						<tr>
+							<td>info</td>
+							<td>string</td>
+							<td>Specifies the collection name of the database information.</td>
+							<td><code>_info</code></td>
+						</tr>
+						<tr>
+							<td>socketTimeoutMS</td>
+							<td>number</td>
+							<td>Specifies how long a send or receive on a socket can take before timing out in milliseconds.</td>
+							<td><code>3600000</code></td>
 						</tr>
 				</tbody></table>
 				<a href="#3-apply-mongover-specification" id="3-apply-mongover-specification" style="color: inherit; text-decoration: none;">
@@ -149,7 +191,7 @@
 					<pre><code>-f <span class="hljs-literal">or</span> --format            specifies Mongover Specification format, choose between `dir` <span class="hljs-literal">and</span> `json`. Defaults to `dir`.</code></pre></li>
 					<li><p><strong>extract</strong>: extracts the Mongover Specification of an existing MongoDB Server and initializes a new Mongover Repository with it.</p>
 						<p><strong>SYNOPSIS</strong></p>
-						<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> mongover extract [&lt;specPath&gt;] [-u <span class="hljs-string">"&lt;uri&gt;"</span>] [-d &lt;dbName&gt;[,...] [-c &lt;collectionName&gt;[,...]]] [-f dir|-f json] [-e jsonl|-e json|-e no [-q <span class="hljs-string">"&lt;query&gt;"</span>]] </span></code></pre>
+						<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> mongover extract [&lt;specPath&gt;] [-u <span class="hljs-string">"&lt;uri&gt;"</span>] [-d &lt;dbName&gt;[,...] [-c &lt;collectionName&gt;[,...]]] [-f dir|-f json] [-e jsonl|-e json|-e no [-q <span class="hljs-string">"&lt;query&gt;"</span>]] [-i &lt;infoCollection&gt;] [--socketTimeoutMS &lt;milliseconds&gt;]</span></code></pre>
 						<p><strong>ARGUMENTS</strong></p>
 						<pre><code>&lt;specPath&gt;                path <span class="hljs-keyword">to</span> Mongover Specification. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">`./mongover`</span>.</code></pre><p><strong>OPTIONS</strong></p>
 						<pre><code>-u <span class="hljs-keyword">or</span> --uri               specifies the uri <span class="hljs-keyword">of</span> the running mongod <span class="hljs-keyword">or</span> mongos. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">'mongodb://127.0.0.1:27017/'</span>.
@@ -160,14 +202,16 @@
 
 -f <span class="hljs-keyword">or</span> --format            specifies Mongover Specification format, choose between <span class="hljs-string">'dir'</span> <span class="hljs-keyword">and</span> <span class="hljs-string">'json'</span>. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">'dir'</span>.
 
--e <span class="hljs-keyword">or</span> --<span class="hljs-keyword">export</span>            specifies <span class="hljs-keyword">if</span> data <span class="hljs-keyword">from</span> the MongoDB Server should also be exported, choose between <span class="hljs-string">'jsonl'</span>, <span class="hljs-string">'json'</span> <span class="hljs-keyword">and</span> <span class="hljs-string">'no'</span>. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">'no'</span>.
+-e <span class="hljs-keyword">or</span> --export            specifies <span class="hljs-keyword">if</span> data <span class="hljs-keyword">from</span> the MongoDB Server should also be exported, choose between <span class="hljs-string">'jsonl'</span>, <span class="hljs-string">'json'</span> <span class="hljs-keyword">and</span> <span class="hljs-string">'no'</span>. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">'no'</span>.
 
 -q <span class="hljs-keyword">or</span> --query             specifies a filter which data <span class="hljs-keyword">to</span> be exported <span class="hljs-keyword">from</span> the MongoDB Server.
 
--i <span class="hljs-keyword">or</span> --info              specifies the collection name <span class="hljs-keyword">of</span> the database information such as <span class="hljs-literal">it</span><span class="hljs-string">'s version. Defaults to '</span>_info<span class="hljs-string">'.</span></code></pre></li>
+-i <span class="hljs-keyword">or</span> --info              specifies the collection name <span class="hljs-keyword">of</span> the database information. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">'_info'</span>.
+
+--socketTimeoutMS         specifies how long a send <span class="hljs-keyword">or</span> receive <span class="hljs-keyword">on</span> a socket can <span class="hljs-keyword">take</span> before timing <span class="hljs-keyword">out</span> <span class="hljs-keyword">in</span> milliseconds. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">'3600000'</span>.</code></pre></li>
 					<li><p><strong>apply</strong>: applies the current Mongover Specification to the MongoDB Server.</p>
 						<p><strong>SYNOPSIS</strong></p>
-						<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> mongover apply [&lt;specPath&gt;] [-u <span class="hljs-string">"&lt;uri&gt;"</span>] [-d &lt;dbName&gt;[,...] [-a &lt;<span class="hljs-built_in">alias</span>&gt;[,...]]] [-c &lt;collectionName&gt;[,...]] [-s]</span></code></pre>
+						<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> mongover apply [&lt;specPath&gt;] [-u <span class="hljs-string">"&lt;uri&gt;"</span>] [-d &lt;dbName&gt;[,...] [-a &lt;<span class="hljs-built_in">alias</span>&gt;[,...]]] [-c &lt;collectionName&gt;[,...]] [-s] [-m] [-i &lt;infoCollection&gt;] [--socketTimeoutMS &lt;milliseconds&gt;]</span></code></pre>
 						<p><strong>ARGUMENTS</strong></p>
 						<pre><code>&lt;specPath&gt;                <span class="hljs-type">path</span> <span class="hljs-keyword">to</span> Mongover Specification. Defaults <span class="hljs-keyword">to</span> <span class="hljs-keyword">current</span> working directory.</code></pre><p><strong>OPTIONS</strong></p>
 						<pre><code>-u <span class="hljs-keyword">or</span> --uri               pecifies the uri <span class="hljs-keyword">of</span> the running mongod <span class="hljs-keyword">or</span> mongos. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">'mongodb://127.0.0.1:27017/'</span>.
@@ -180,9 +224,11 @@
 
 -s <span class="hljs-keyword">or</span> --seedOnly          specifies <span class="hljs-keyword">if</span> mongover should <span class="hljs-keyword">only</span> seed the database instead <span class="hljs-keyword">of</span> migrating it <span class="hljs-keyword">when</span> it already<span class="hljs-built_in"> exists</span>.
 
--m <span class="hljs-keyword">or</span> --migrateForce      specifies <span class="hljs-keyword">if</span> mongover should migrate the database even <span class="hljs-keyword">if</span> the specified version <span class="hljs-literal">is</span> the same.
+-m <span class="hljs-keyword">or</span> --migrateForce      specifies <span class="hljs-keyword">if</span> mongover should migrate the database even <span class="hljs-keyword">if</span> the specified version <span class="hljs-literal">is</span> lower <span class="hljs-keyword">or</span> the same.
 
--i <span class="hljs-keyword">or</span> --info              specifies the<span class="hljs-built_in"> collection</span><span class="hljs-built_in"> name</span> <span class="hljs-keyword">of</span> the database information such <span class="hljs-keyword">as</span> it<span class="hljs-string">'s version. Defaults to '</span>_info<span class="hljs-string">'.</span></code></pre></li>
+-i <span class="hljs-keyword">or</span> --info              specifies the<span class="hljs-built_in"> collection</span><span class="hljs-built_in"> name</span> <span class="hljs-keyword">of</span> the database information. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">'_info'</span>.
+
+--socketTimeoutMS         specifies how long a send <span class="hljs-keyword">or</span> receive on a socket can take before timing out <span class="hljs-keyword">in</span> milliseconds. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">'3600000'</span>.</code></pre></li>
 					<li><p><strong>help</strong>: outputs Mongover usage.</p>
 						<p><strong>SYNOPSIS</strong></p>
 						<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> mongover <span class="hljs-built_in">help</span></span></code></pre>
@@ -200,7 +246,7 @@
 				<pre><code>.
 ├── dbName/                           <span class="hljs-comment"># Database Directory</span>
 │   ├── data/             
-│   │   ├── collectionName.jsonl      <span class="hljs-comment"># Export file to be upserted to dbName.collectionName (alternatively `json|js`)</span>
+│   │   ├── collectionName.jsonl      <span class="hljs-comment"># Export/Import file to be upserted to dbName.collectionName (alternatively `json|js`)</span>
 │   │   └── <span class="hljs-string">...</span>
 │   ├── collections/
 │   │   ├── collectionName.spec.json  <span class="hljs-comment"># Collection Migration/Seeding Specification file</span>
@@ -211,7 +257,7 @@
 						<pre><code class="language-json5">  {
       &quot;seedOnly&quot;: false,                      // Specifies if existing database should be migrated or only seeded.
       &quot;migrateForce&quot;: false,                  // Specifies if mongover should migrate the database even if the specified version is the same.
-      &quot;info&quot;: &quot;_info&quot;,                        // Specifies the collection name of the database information such as it&#39;s version. Defaults to &#39;_info&#39;.
+      &quot;info&quot;: &quot;_info&quot;,                        // Specifies the collection name of the database information. Defaults to &#39;_info&#39;.
       &quot;dropFirst&quot;: false,                     // Specifies if existing database should be dropped before specification is applied.
       &quot;alias&quot;: &quot;dbName&quot;,                      // Alias/Name the database specification will be deployed as.
       &quot;version&quot;: &quot;1.0.0&quot;,                     // Specifies the version of the database, this will determine if the database needs to be migrated or not.
@@ -252,16 +298,16 @@
 					<h4>File Structure</h4>
 				</a>
 				<pre><code>.
-├── dbName/                           # Database Directory
+├── dbName/                           <span class="hljs-comment"># Database Directory</span>
 │   ├── data/             
-│   │   ├── collectionName.jsonl      # <span class="hljs-builtin-name">Export</span> file <span class="hljs-keyword">to</span> be upserted <span class="hljs-keyword">to</span> dbName.collectionName (alternatively `json|js`)
-│   │   └── <span class="hljs-built_in">..</span>.
-│   └── db.spec.json                  # Database Migration/Seeding Specification file
-└── <span class="hljs-built_in">..</span>.</code></pre><ul>
+│   │   ├── collectionName.jsonl      <span class="hljs-comment"># Export/Import file to be upserted to dbName.collectionName (alternatively `json|js`)</span>
+│   │   └── <span class="hljs-string">...</span>
+│   └── db.spec.json                  <span class="hljs-comment"># Database Migration/Seeding Specification file</span>
+└── <span class="hljs-string">...</span></code></pre><ul>
 					<li><strong>db.spec.json</strong><pre><code class="language-json5">  {
       &quot;seedOnly&quot;: false,                      // Specifies if existing database should be migrated or only seeded.
       &quot;migrateForce&quot;: false,                  // Specifies if mongover should migrate the database even if the specified version is the same.
-      &quot;info&quot;: &quot;_info&quot;,                        // Specifies the collection name of the database information such as it&#39;s version. Defaults to &#39;_info&#39;.
+      &quot;info&quot;: &quot;_info&quot;,                        // Specifies the collection name of the database information. Defaults to &#39;_info&#39;.
       &quot;dropFirst&quot;: false,                     // Specifies if existing database should be dropped before specification is applied.
       &quot;alias&quot;: &quot;dbName&quot;,                      // Alias/Name the database specification will be deployed as.
       &quot;version&quot;: &quot;1.0.0&quot;,                     // Specifies the version of the database, this will determine if the database needs to be migrated or not.
@@ -293,8 +339,8 @@
   }</code></pre>
 					</li>
 				</ul>
-				<a href="#data-export-file" id="data-export-file" style="color: inherit; text-decoration: none;">
-					<h2>Data Export File</h2>
+				<a href="#data-exportimport-file" id="data-exportimport-file" style="color: inherit; text-decoration: none;">
+					<h2>Data Export/Import File</h2>
 				</a>
 				<ul>
 					<li><p><strong>jsonl</strong></p>
@@ -321,6 +367,27 @@
   ];</code></pre>
 					</li>
 				</ul>
+				<a href="#multiple-exportimport-files-per-collection" id="multiple-exportimport-files-per-collection" style="color: inherit; text-decoration: none;">
+					<h3>Multiple Export/Import Files Per Collection</h3>
+				</a>
+				<p>To have multiple <code>json/js/jsonl</code> files in <code>dbName/data/</code> for one collection, follow this naming format:</p>
+				<pre><code>collectionName<span class="hljs-selector-class">.jsonl</span>
+collectionName.<span class="hljs-number">1</span><span class="hljs-selector-class">.jsonl</span>
+collectionName.<span class="hljs-number">2</span><span class="hljs-selector-class">.jsonl</span>
+collectionName<span class="hljs-selector-class">.foo</span><span class="hljs-selector-class">.jsonl</span>
+collectionName<span class="hljs-selector-class">.bar</span><span class="hljs-selector-class">.jsonl</span>
+
+collectionName<span class="hljs-selector-class">.json</span>
+collectionName.<span class="hljs-number">1</span><span class="hljs-selector-class">.json</span>
+collectionName.<span class="hljs-number">2</span><span class="hljs-selector-class">.json</span>
+collectionName<span class="hljs-selector-class">.foo</span><span class="hljs-selector-class">.json</span>
+collectionName<span class="hljs-selector-class">.bar</span><span class="hljs-selector-class">.json</span>
+
+collectionName<span class="hljs-selector-class">.js</span>
+collectionName.<span class="hljs-number">1</span><span class="hljs-selector-class">.js</span>
+collectionName.<span class="hljs-number">2</span><span class="hljs-selector-class">.js</span>
+collectionName<span class="hljs-selector-class">.foo</span><span class="hljs-selector-class">.js</span>
+collectionName<span class="hljs-selector-class">.bar</span><span class="hljs-selector-class">.js</span></code></pre>
 				<a href="#authors" id="authors" style="color: inherit; text-decoration: none;">
 					<h2>Authors</h2>
 				</a>
