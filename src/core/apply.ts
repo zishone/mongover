@@ -39,6 +39,7 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
     const client = await connectServer(options.uri!, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      socketTimeoutMS: 3600000,
     });
     for (const database of databases) {
       if (options.dbs!.length === 0 || options.dbs!.includes(database.name)) {
@@ -94,6 +95,7 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
         }
       }
     }
+    logger.info('Done applying Mongover Specification: %s', options.specPath!.replace(process.cwd(), '.'));
     await client.close();
   } catch (error) {
     logger.error('Error applying Mongover Specification to the Server: %O', error);
