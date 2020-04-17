@@ -63,6 +63,7 @@
   "keywords": [
     "mongover",
     "mongodb",
+    "migrate",
     "migration",
     "versioning",
     "database",
