@@ -21,7 +21,11 @@ export async function extract(options: MongoverOptions): Promise<void> {
   try {
     logger.cli('Extracting Mongover Specification: %s', options.specPath);
     options.specPath! = isAbsolute(options.specPath!) ? options.specPath! : join(process.cwd(), options.specPath!);
-    const client = await connectServer(options.uri!, { useNewUrlParser: true });
+    const client = await connectServer(options.uri!, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      socketTimeoutMS: options.socketTimeoutMS,
+    });
     for (const dbName of options.dbs!) {
       logger.cli('--- Extracting Database: %s', dbName);
       const db = client.db(dbName);

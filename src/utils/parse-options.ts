@@ -54,6 +54,11 @@ export function parseOptions(args: any): MongoverOptions {
     } else {
       mongoverOptions.info = undefined;
     }
+    if (typeof args.socketTimeoutMS === 'string') {
+      mongoverOptions.socketTimeoutMS = parseFloat(args.socketTimeoutMS);
+    } else if (typeof args.socketTimeoutMS === 'number') {
+      mongoverOptions.socketTimeoutMS = args.socketTimeoutMS;
+    }
 
     if (mongoverOptions.alias!.length !== mongoverOptions.dbs!.length) {
       throw new Error('-d | --dbs and -a | --alias should have the same length.');
