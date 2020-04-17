@@ -23,6 +23,7 @@ async function mongover(args: string[]) {
         'dbs',
         'collections',
         'info',
+        'socketTimeoutMS',
       ],
       boolean: [
         'seedOnly',

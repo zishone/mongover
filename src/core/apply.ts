@@ -39,7 +39,7 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
     const client = await connectServer(options.uri!, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      socketTimeoutMS: 3600000,
+      socketTimeoutMS: options.socketTimeoutMS,
     });
     for (const database of databases) {
       if (options.dbs!.length === 0 || options.dbs!.includes(database.name)) {

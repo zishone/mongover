@@ -33,6 +33,7 @@ export interface MongoverOptions {
   seedOnly?: boolean;
   migrateForce?: boolean;
   info?: string;
+  socketTimeoutMS?: number;
 }
 
 export interface DatabaseSpec {

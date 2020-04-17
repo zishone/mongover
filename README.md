@@ -25,6 +25,7 @@ const options = {
   seedOnly: false,
   migrateForce: false,
   info: '_info',
+  socketTimeoutMS: 3600000,
 };
 ```
 | MongoverOptions 	| Type    	| Description                                                                    	                                    | Default                    	        |
@@ -37,6 +38,7 @@ const options = {
 | seedOnly      	| boolean 	| Specifies if mongover should only seed instead of migrating existing database. 	                                    | `false`                      	        |
 | migrateForce      | boolean 	| Specifies if mongover should migrate the database even if the specified version is lower or the same.                 | `false`                      	        |
 | info      	    | string 	| Specifies the collection name of the database information. 	                                                        | `_info`                      	        |
+| socketTimeoutMS   | number 	| Specifies how long a send or receive on a socket can take before timing out in milliseconds.                          | `3600000`                      	        |
 
 
 #### 3. Apply Mongover Specification
@@ -75,7 +77,7 @@ $ mongover <command> [<args>] [<options>]
   **SYNOPSIS**
 
   ```shell
-  $ mongover extract [<specPath>] [-u "<uri>"] [-d <dbName>[,...] [-c <collectionName>[,...]]] [-f dir|-f json] [-e jsonl|-e json|-e no [-q "<query>"]] [-i <infoCollection>]
+  $ mongover extract [<specPath>] [-u "<uri>"] [-d <dbName>[,...] [-c <collectionName>[,...]]] [-f dir|-f json] [-e jsonl|-e json|-e no [-q "<query>"]] [-i <infoCollection>] [--socketTimeoutMS <milliseconds>]
   ```
 
   **ARGUMENTS**
@@ -97,13 +99,15 @@ $ mongover <command> [<args>] [<options>]
       -q or --query             specifies a filter which data to be exported from the MongoDB Server.
 
       -i or --info              specifies the collection name of the database information. Defaults to '_info'.
+
+      --socketTimeoutMS         specifies how long a send or receive on a socket can take before timing out in milliseconds. Defaults to '3600000'.
      
 * **apply**: applies the current Mongover Specification to the MongoDB Server.
   
   **SYNOPSIS**
 
   ```shell
-  $ mongover apply [<specPath>] [-u "<uri>"] [-d <dbName>[,...] [-a <alias>[,...]]] [-c <collectionName>[,...]] [-s] [-m] [-i <infoCollection>]
+  $ mongover apply [<specPath>] [-u "<uri>"] [-d <dbName>[,...] [-a <alias>[,...]]] [-c <collectionName>[,...]] [-s] [-m] [-i <infoCollection>] [--socketTimeoutMS <milliseconds>]
   ```
 
   **ARGUMENTS**
@@ -125,6 +129,8 @@ $ mongover <command> [<args>] [<options>]
       -m or --migrateForce      specifies if mongover should migrate the database even if the specified version is lower or the same.
 
       -i or --info              specifies the collection name of the database information. Defaults to '_info'.
+
+      --socketTimeoutMS         specifies how long a send or receive on a socket can take before timing out in milliseconds. Defaults to '3600000'.
 
 * **help**: outputs Mongover usage.
   
