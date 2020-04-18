@@ -28,8 +28,8 @@ async function processDataArr(collection: Collection, dataSpec: DataSpec, dataAr
         }
       } else {
         const filter: any = {};
-        const unset: any = {};
         const rename: any = {};
+        const unset: any = {};
         const dottedData: any = dotNotate(data);
         for (const upsertField of dataSpec.identifierFields) {
           filter[upsertField] = getProperty(upsertField, data);
@@ -41,22 +41,24 @@ async function processDataArr(collection: Collection, dataSpec: DataSpec, dataAr
             }
           }
         }
-        for (const unsetField of dataSpec.unsetFields) {
-          unset[unsetField] = '';
-        }
         for (const renameField of dataSpec.renameFields) {
           rename[renameField.from] = renameField.to;
+        }
+        for (const unsetField of dataSpec.unsetFields) {
+          unset[unsetField] = '';
         }
         const count = await collection.countDocuments(filter, { limit: 1 });
         try {
           if (count > 0) {
             delete dottedData._id;
             if (Object.keys(dottedData).length > 0) {
-              await collection.updateMany(filter, {
-                $set: dottedData,
-                $unset: unset,
-                $rename: rename,
-              });
+              await collection.updateMany(filter, { $set: dottedData });
+            }
+            if (Object.keys(rename).length > 0) {
+              await collection.updateMany(filter, { $rename: rename });
+            }
+            if (Object.keys(unset).length > 0) {
+              await collection.updateMany(filter, { $unset: unset });
             }
           } else {
             await collection.insertOne(data);

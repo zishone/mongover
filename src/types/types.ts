@@ -18,14 +18,14 @@ export interface CollectionSpec {
 }
 
 export interface DataSpec {
+  preserveUnderscoreId: boolean;
   identifierFields: string[];
   ignoreFields: string[];
-  preserveUnderscoreId: boolean;
-  unsetFields: string[];
   renameFields: Array<{
     from: string;
     to: string;
   }>;
+  unsetFields: string[];
 }
 
 export interface MongoverOptions {

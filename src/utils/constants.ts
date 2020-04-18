@@ -90,11 +90,11 @@ export const collectionSpecTemplate = {
     preserveUnderscoreId: true,
     identifierFields: [ '_id' ],
     ignoreFields: [ 'fieldName' ],
-    unsetFields: [ 'fieldName' ],
     renameFields: [{
       from: 'fieldName',
       to: 'newFieldName',
     }],
+    unsetFields: [ 'fieldName' ],
   },
 };
 
