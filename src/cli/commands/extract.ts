@@ -56,6 +56,8 @@ export async function extract(options: MongoverOptions): Promise<void> {
           const collection = db.collection(collectionInfo.name);
           collectionSpecTemplate.data.ignoreFields = [];
           collectionSpecTemplate.data.upsertFields = [];
+          collectionSpecTemplate.data.unsetFields = [];
+          collectionSpecTemplate.data.renameFields = [];
           collectionSpecTemplate.options = collectionInfo.options;
           collectionSpecTemplate.indexes = [];
           const indexInfos = await collection

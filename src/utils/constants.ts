@@ -87,6 +87,11 @@ export const collectionSpecTemplate = {
     preservePrimaryKey: true,
     upsertFields: [ 'fieldName' ],
     ignoreFields: [ 'fieldName' ],
+    unsetFields: [ 'fieldName' ],
+    renameFields: [{
+      from: 'fieldName',
+      to: 'newFieldName',
+    }],
   },
 };
 

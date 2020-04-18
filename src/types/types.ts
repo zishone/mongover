@@ -19,6 +19,11 @@ export interface DataSpec {
   upsertFields: string[];
   ignoreFields: string[];
   preservePrimaryKey: boolean;
+  unsetFields: string[];
+  renameFields: Array<{
+    from: string;
+    to: string;
+  }>;
 }
 
 export interface MongoverOptions {
