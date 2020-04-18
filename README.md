@@ -229,39 +229,41 @@ $ mongover <command> [<args>] [<options>]
         "alias": "dbName", // Alias/Name the database specification will be deployed as.
         "version": "1.0.0", // Specifies the version of the database, this will determine if the database needs to be migrated or not.
         "collections": {
-            "drop": false, // Specifies if collection should just be dropped.
-            "recreate": false, // Specifies if the Collection should be dropped before specification is applied.
-            "recreateIndexes": false, // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
-            "options": {}, // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
-            "indexes": [
-                {
-                    "drop": false, // Specifies if index should just be dropped.
-                    "recreate": false, // Specifies if Index with same name should  be dropped before specification is applied.
-                    "keys": { // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
-                        "fieldName": 1        
-                    },
-                    "options": { // Create Index Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createIndex
-                        "name": "fieldName_1"
-                    }
-                }
-            ],
-            "data": {
-                "preserveUnderscoreId": true, // Specifies if _id from export file should be preserved when applied.
-                "identifierFields": [ // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
-                    "_id" 
-                ],
-                "ignoreFields": [ // Specify fields to be ignored when updating existing documents.
-                    "fieldName"
-                ],
-                "unsetFields": [ // Specify fields to be unset when updating existing documents.
-                    "fieldName"
-                ],
-                "renameFields": [ // Specify fields to be renamed when updating existing documents.
+            "collectionName": {
+                "drop": false, // Specifies if collection should just be dropped.
+                "recreate": false, // Specifies if the Collection should be dropped before specification is applied.
+                "recreateIndexes": false, // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
+                "options": {}, // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
+                "indexes": [
                     {
-                        "from": "fieldName",
-                        "to": "newFieldName",
+                        "drop": false, // Specifies if index should just be dropped.
+                        "recreate": false, // Specifies if Index with same name should  be dropped before specification is applied.
+                        "keys": { // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
+                            "fieldName": 1        
+                        },
+                        "options": { // Create Index Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createIndex
+                            "name": "fieldName_1"
+                        }
                     }
-                ]
+                ],
+                "data": {
+                    "preserveUnderscoreId": true, // Specifies if _id from export file should be preserved when applied.
+                    "identifierFields": [ // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
+                        "_id" 
+                    ],
+                    "ignoreFields": [ // Specify fields to be ignored when updating existing documents.
+                        "fieldName"
+                    ],
+                    "unsetFields": [ // Specify fields to be unset when updating existing documents.
+                        "fieldName"
+                    ],
+                    "renameFields": [ // Specify fields to be renamed when updating existing documents.
+                        {
+                            "from": "fieldName",
+                            "to": "newFieldName",
+                        }
+                    ]
+                }
             }
         }
     }

@@ -9,13 +9,13 @@ import {
 } from 'path';
 import { MongoverOptions } from '../types/types';
 import { getLogger } from '../utils/get-logger';
+import { getSpec } from '../utils/get-spec';
 import { parseOptions } from '../utils/parse-options';
 import { applyCollection } from './apply-collection';
 import { applyDatabase } from './apply-database';
 import { applyIndex } from './apply-index';
 import { compareVersion } from './compare-version';
 import { connectServer } from './connect-server';
-import { getSpec } from './get-spec';
 import { importData } from './import-data';
 import { versionDatabase } from './version-database';
 
@@ -34,7 +34,11 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
     } else {
       readdirSync(options.specPath!)
         .filter((dirent) => lstatSync(join(options.specPath!, dirent)).isDirectory())
-        .forEach((dirent) => databases.push(getSpec(join(options.specPath!, dirent))));
+        .forEach((dirent) => {
+          if (dirent.charAt(0) !== '.') {
+            databases.push(getSpec(join(options.specPath!, dirent)));
+          }
+        });
     }
     const client = await connectServer(options.uri!, {
       useNewUrlParser: true,
