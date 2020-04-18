@@ -63,21 +63,24 @@ export const mongoverOptionsDefaults: MongoverOptions = {
 };
 
 export const databaseSpecTemplate: DatabaseSpec = {
+  drop: false,
   seedOnly: false,
   migrateForce: false,
-  info: '_info',
   recreate: false,
+  info: '_info',
   alias: 'dbName',
   version: '1.0.0',
   collections: {},
 };
 
 export const collectionSpecTemplate = {
+  drop: false,
   recreate: false,
   recreateIndexes: false,
   options: {},
   indexes: [
     {
+      drop: false,
       recreate: false,
       keys: { fieldName: 1 },
       options: {},

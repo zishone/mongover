@@ -28,17 +28,17 @@ const options = {
   socketTimeoutMS: 3600000,
 };
 ```
-| MongoverOptions 	| Type    	| Description                                                                    	                                    | Default                    	        |
-|---------------	|---------	|-------------------------------------------------------------------------------------------------------------------	|-----------------------------------	|
-| specPath 	        | string  	| Path to Mongover Specification.                                                	                                    | `./mongover`                 	        |
-| uri      	        | string  	| MongoDB Server connection string.                                              	                                    | `mongodb://127.0.0.1:27017/` 	        |
-| dbs      	        | string[] 	| Specifies which databases to apply. 	                                                                                | `[] // all dbs in specPath`           |
-| alias      	    | string[] 	| Specifies the aliases of the specified databases to apply, a database will use the alias corresponding to its index.  | `[] // no aliases`     	            |
-| collections      	| string[] 	| Specifies which collections to apply. 	                                                                            | `[] // all collections in specPath `  |
-| seedOnly      	| boolean 	| Specifies if mongover should only seed instead of migrating existing database. 	                                    | `false`                      	        |
-| migrateForce      | boolean 	| Specifies if mongover should migrate the database even if the specified version is lower or the same.                 | `false`                      	        |
-| info      	    | string 	| Specifies the collection name of the database information. 	                                                        | `_info`                      	        |
-| socketTimeoutMS   | number 	| Specifies how long a send or receive on a socket can take before timing out in milliseconds.                          | `3600000`                      	        |
+| MongoverOptions 	| Default                    	        | Type    	| Description                                                                    	                                    |
+|---------------	|-----------------------------------	|---------	|-------------------------------------------------------------------------------------------------------------------	|
+| specPath 	        | `./mongover`                 	        | string  	| Path to Mongover Specification.                                                	                                    |
+| uri      	        | `mongodb://127.0.0.1:27017/` 	        | string  	| MongoDB Server connection string.                                              	                                    |
+| dbs      	        | `[] // all dbs in specPath`           | string[] 	| Specifies which databases to apply. 	                                                                                |
+| alias      	    | `[] // no aliases`     	            | string[] 	| Specifies the aliases of the specified databases to apply, a database will use the alias corresponding to its index.  |
+| collections      	| `[] // all collections in specPath `  | string[] 	| Specifies which collections to apply. 	                                                                            |
+| seedOnly      	| `false`                      	        | boolean 	| Specifies if mongover should only seed instead of migrating existing database. 	                                    |
+| migrateForce      | `false`                      	        | boolean 	| Specifies if mongover should migrate the database even if the specified version is lower or the same.                 |
+| info      	    | `_info`                      	        | string 	| Specifies the collection name of the database information. 	                                                        |
+| socketTimeoutMS   | `3600000`                      	    | number 	| Specifies how long a send or receive on a socket can take before timing out in milliseconds.                          |
 
 
 #### 3. Apply Mongover Specification
@@ -158,44 +158,47 @@ $ mongover <command> [<args>] [<options>]
 * **db.spec.json**
     ```json5
     {
-        "seedOnly": false,                      // Specifies if existing database should be migrated or only seeded.
-        "migrateForce": false,                  // Specifies if mongover should migrate the database even if the specified version is the same.
-        "info": "_info",                        // Specifies the collection name of the database information. Defaults to '_info'.
-        "recreate": false,                     // Specifies if existing database should be dropped before specification is applied.
-        "alias": "dbName",                      // Alias/Name the database specification will be deployed as.
-        "version": "1.0.0",                     // Specifies the version of the database, this will determine if the database needs to be migrated or not.
+        "drop": false, // Specifies if database should just be dropped.
+        "seedOnly": false, // Specifies if existing database should be migrated or only seeded.
+        "migrateForce": false, // Specifies if mongover should migrate the database even if the specified version is the same.
+        "info": "_info", // Specifies the collection name of the database information.
+        "recreate": false, // Specifies if existing database should be dropped before specification is applied.
+        "alias": "dbName", // Alias/Name the database specification will be deployed as.
+        "version": "1.0.0", // Specifies the version of the database, this will determine if the database needs to be migrated or not.
     }
     ```
 
 * **collectionName.spec.json**
     ```json5
     {
-        "recreate": false,                     // Specifies if the Collection should be dropped before specification is applied.
-        "recreateIndexes": false,              // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
-        "options": {},                          // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
+        "drop": false, // Specifies if collection should just be dropped.
+        "recreate": false, // Specifies if the Collection should be dropped before specification is applied.
+        "recreateIndexes": false, // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
+        "options": {}, // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
         "indexes": [
             {
-                "recreate": false,             // Specifies if Index with same name should  be dropped before specification is applied.
-                "keys": {                       // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
+                "drop": false,  // Specifies if index should just be dropped.
+                "recreate": false, // Specifies if Index with same name should be dropped before specification is applied.
+                "keys": { // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
                     "fieldName": 1        
                 },
-                "options": {                    // Create Index Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createIndex
+                "options": { // Create Index Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createIndex
                     "name": "fieldName_1"
                 }
             }
         ],
         "data": {
-            "preserveUnderscoreId": true,         // Specifies if _id from export file should be preserved when applied.
-            "identifierFields": [                   // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
-                "_id" 
+            "preserveUnderscoreId": true, // Specifies if _id from export file should be preserved when applied.
+            "identifierFields": [ // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
+                "fieldName" 
             ],
-            "ignoreFields": [                   // Specify fields to be ignored when updating existing documents.
+            "ignoreFields": [ // Specify fields to be ignored when updating existing documents.
                 "fieldName"
             ],
-            "unsetFields": [                   // Specify fields to be unset when updating existing documents.
+            "unsetFields": [ // Specify fields to be unset when updating existing documents.
                 "fieldName"
             ],
-            "renameFields": [                   // Specify fields to be renamed when updating existing documents.
+            "renameFields": [ // Specify fields to be renamed when updating existing documents.
                 {
                     "from": "fieldName",
                     "to": "newFieldName",
@@ -218,39 +221,42 @@ $ mongover <command> [<args>] [<options>]
 * **db.spec.json**
     ```json5
     {
-        "seedOnly": false,                      // Specifies if existing database should be migrated or only seeded.
-        "migrateForce": false,                  // Specifies if mongover should migrate the database even if the specified version is the same.
-        "info": "_info",                        // Specifies the collection name of the database information. Defaults to '_info'.
-        "recreate": false,                     // Specifies if existing database should be dropped before specification is applied.
-        "alias": "dbName",                      // Alias/Name the database specification will be deployed as.
-        "version": "1.0.0",                     // Specifies the version of the database, this will determine if the database needs to be migrated or not.
+        "drop": false, // Specifies if database should just be dropped.
+        "seedOnly": false, // Specifies if existing database should be migrated or only seeded.
+        "migrateForce": false, // Specifies if mongover should migrate the database even if the specified version is the same.
+        "info": "_info",  // Specifies the collection name of the database information.
+        "recreate": false, // Specifies if existing database should be dropped before specification is applied.
+        "alias": "dbName", // Alias/Name the database specification will be deployed as.
+        "version": "1.0.0", // Specifies the version of the database, this will determine if the database needs to be migrated or not.
         "collections": {
-            "recreate": false,                 // Specifies if the Collection should be dropped before specification is applied.
-            "recreateIndexes": false,          // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
-            "options": {},                      // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
+            "drop": false, // Specifies if collection should just be dropped.
+            "recreate": false, // Specifies if the Collection should be dropped before specification is applied.
+            "recreateIndexes": false, // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
+            "options": {}, // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
             "indexes": [
                 {
-                    "recreate": false,         // Specifies if Index with same name should  be dropped before specification is applied.
-                    "keys": {                   // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
+                    "drop": false, // Specifies if index should just be dropped.
+                    "recreate": false, // Specifies if Index with same name should  be dropped before specification is applied.
+                    "keys": { // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
                         "fieldName": 1        
                     },
-                    "options": {                // Create Index Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createIndex
+                    "options": { // Create Index Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createIndex
                         "name": "fieldName_1"
                     }
                 }
             ],
             "data": {
-                "preserveUnderscoreId": true,     // Specifies if _id from export file should be preserved when applied.
-                "identifierFields": [               // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
+                "preserveUnderscoreId": true, // Specifies if _id from export file should be preserved when applied.
+                "identifierFields": [ // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
                     "_id" 
                 ],
-                "ignoreFields": [               // Specify fields to be ignored when updating existing documents.
+                "ignoreFields": [ // Specify fields to be ignored when updating existing documents.
                     "fieldName"
                 ],
-                "unsetFields": [                 // Specify fields to be unset when updating existing documents.
+                "unsetFields": [ // Specify fields to be unset when updating existing documents.
                     "fieldName"
                 ],
-                "renameFields": [                 // Specify fields to be renamed when updating existing documents.
+                "renameFields": [ // Specify fields to be renamed when updating existing documents.
                     {
                         "from": "fieldName",
                         "to": "newFieldName",

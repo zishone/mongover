@@ -7,10 +7,10 @@ import { getLogger } from '../utils/get-logger';
 
 const logger = getLogger(__filename);
 
-export async function createCollection(db: Db, collectionName: string, collectionSpec: CollectionSpec, existingCollection: any): Promise<Collection> {
+export async function applyCollection(db: Db, collectionName: string, collectionSpec: CollectionSpec, existingCollection: any): Promise<Collection> {
   try {
     const collection = db.collection(collectionName);
-    if (existingCollection && collectionSpec.recreate) {
+    if (existingCollection && (collectionSpec.recreate || collectionSpec.drop)) {
       logger.info('Dropping Collection: %s', collectionName);
       logger.cli('----- Dropping Collection: %s', collectionName);
       await collection.drop();
@@ -18,16 +18,20 @@ export async function createCollection(db: Db, collectionName: string, collectio
     } else if (existingCollection && collectionSpec.recreateIndexes) {
       logger.info('Dropping all Indexes in Collection: %s', collectionName);
       await collection.dropIndexes();
-    } else if (!existingCollection) {
+    } else if (!existingCollection && !collectionSpec.drop) {
       await db.createCollection(collectionName, collectionSpec.options);
     }
-    logger.info('Creating Collection: %s', collectionName);
-    logger.cli('----- Creating Collection: %s', collectionName);
-    logger.info('Created Collection: %s', collectionName);
+    if (collectionSpec.drop) {
+      logger.info('Dropped Collection: %s', collectionName);
+    } else {
+      logger.info('Creating Collection: %s', collectionName);
+      logger.cli('----- Creating Collection: %s', collectionName);
+      logger.info('Created Collection: %s', collectionName);
+    }
     return collection;
   } catch (error) {
-    logger.error('Error creating Collection: %s', collectionName);
-    logger.cli('----- Error creating Collection: %s', collectionName);
+    logger.error('Error applying Collection: %s', collectionName);
+    logger.cli('----- Error applying Collection: %s', collectionName);
     throw error;
   }
 }

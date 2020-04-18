@@ -10,13 +10,13 @@ import {
 import { MongoverOptions } from '../types/types';
 import { getLogger } from '../utils/get-logger';
 import { parseOptions } from '../utils/parse-options';
-import { buildIndex } from './build-index';
+import { applyCollection } from './apply-collection';
+import { applyDatabase } from './apply-database';
+import { applyIndex } from './apply-index';
 import { compareVersion } from './compare-version';
 import { connectServer } from './connect-server';
-import { createCollection } from './create-collection';
 import { getSpec } from './get-spec';
 import { importData } from './import-data';
-import { structureDatabase } from './structure-database';
 import { versionDatabase } from './version-database';
 
 const logger = getLogger(__filename);
@@ -60,34 +60,38 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
           versionCheck = await compareVersion(client, database.name, database.spec);
         }
         if (versionCheck.higher) {
-          const db = await structureDatabase(client, database.name, database.spec, versionCheck.version);
-          for (const collectionName in database.spec.collections) {
-            if (options.collections!.length === 0 || options.collections!.includes(collectionName)) {
-              const collectionSpec = database.spec.collections[collectionName];
-              const existingCollection = await db
-                .listCollections({ name: collectionName })
-                .toArray();
-              if (!existingCollection[0] || !database.spec.seedOnly) {
-                const collection = await createCollection(db, collectionName, collectionSpec, existingCollection[0]);
-                for (const indexSpec of collectionSpec.indexes) {
-                  await buildIndex(collection, indexSpec);
-                }
-                const dataPath = database.dataPath;
-                if (existsSync(dataPath)) {
-                  for (const dataFile of readdirSync(dataPath)) {
-                    if (dataFile.split('.')[0] === collectionName) {
-                      await importData(collection, collectionSpec.data, join(dataPath, dataFile));
+          const db = await applyDatabase(client, database.name, database.spec, versionCheck.version);
+          if (!database.spec.drop) {
+            for (const collectionName in database.spec.collections) {
+              if (options.collections!.length === 0 || options.collections!.includes(collectionName)) {
+                const collectionSpec = database.spec.collections[collectionName];
+                const existingCollection = await db
+                  .listCollections({ name: collectionName })
+                  .toArray();
+                if (!existingCollection[0] || !database.spec.seedOnly) {
+                  const collection = await applyCollection(db, collectionName, collectionSpec, existingCollection[0]);
+                  if (!collectionSpec.drop) {
+                    for (const indexSpec of collectionSpec.indexes) {
+                      await applyIndex(collection, indexSpec);
+                    }
+                    const dataPath = database.dataPath;
+                    if (existsSync(dataPath)) {
+                      for (const dataFile of readdirSync(dataPath)) {
+                        if (dataFile.split('.')[0] === collectionName) {
+                          await importData(collection, collectionSpec.data, join(dataPath, dataFile));
+                        }
+                      }
                     }
                   }
+                } else {
+                  logger.info('Skipping Collection: %s already exists', collectionName);
+                  logger.cli('----- Skipping Collection: %s already exists', collectionName);
                 }
-              } else {
-                logger.info('Skipping Collection: %s already exists', collectionName);
-                logger.cli('----- Skipping Collection: %s already exists', collectionName);
               }
             }
-          }
-          if (!database.spec.seedOnly || !versionCheck.version || database.spec.migrateForce) {
-            await versionDatabase(db, database.spec);
+            if (!database.spec.seedOnly || !versionCheck.version || database.spec.migrateForce) {
+              await versionDatabase(db, database.spec);
+            }
           }
         } else {
           logger.info('Skipping Database: %s is not higher than %s', `${database.spec.alias || database.name}@${database.spec.version}`, versionCheck.version ? `${database.spec.alias || database.name}@${versionCheck.version}` : 'what is applied');

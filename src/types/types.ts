@@ -7,12 +7,14 @@ export interface IndexSpec {
   keys: object;
   options: IndexOptions;
   recreate: boolean;
+  drop: boolean;
 }
 
 export interface CollectionSpec {
   options: CollectionCreateOptions;
   recreateIndexes: boolean;
   recreate: boolean;
+  drop: boolean;
 }
 
 export interface DataSpec {
@@ -49,4 +51,5 @@ export interface DatabaseSpec {
   alias: string | undefined;
   version: string;
   collections: any;
+  drop: boolean;
 }
