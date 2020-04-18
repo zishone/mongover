@@ -16,10 +16,10 @@ async function processDataArr(collection: Collection, dataSpec: DataSpec, dataAr
   try {
     for (let data of dataArr) {
       data = EJSON.parse(EJSON.stringify(data), { relaxed: true });
-      if (!dataSpec.preservePrimaryKey) {
+      if (!dataSpec.preserveUnderscoreId) {
         delete data._id;
       }
-      if (dataSpec.upsertFields.length === 0) {
+      if (dataSpec.identifierFields.length === 0) {
         try {
           await collection.insertOne(data);
         } catch (error) {
@@ -31,7 +31,7 @@ async function processDataArr(collection: Collection, dataSpec: DataSpec, dataAr
         const unset: any = {};
         const rename: any = {};
         const dottedData: any = dotNotate(data);
-        for (const upsertField of dataSpec.upsertFields) {
+        for (const upsertField of dataSpec.identifierFields) {
           filter[upsertField] = getProperty(upsertField, data);
         }
         for (const ignoreField of dataSpec.ignoreFields) {

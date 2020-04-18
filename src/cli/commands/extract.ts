@@ -55,7 +55,7 @@ export async function extract(options: MongoverOptions): Promise<void> {
           logger.cli('----- Extracting Collection: %s', collectionInfo.name);
           const collection = db.collection(collectionInfo.name);
           collectionSpecTemplate.data.ignoreFields = [];
-          collectionSpecTemplate.data.upsertFields = [];
+          collectionSpecTemplate.data.identifierFields = [];
           collectionSpecTemplate.data.unsetFields = [];
           collectionSpecTemplate.data.renameFields = [];
           collectionSpecTemplate.options = collectionInfo.options;

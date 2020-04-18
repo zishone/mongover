@@ -84,8 +84,8 @@ export const collectionSpecTemplate = {
     },
   ],
   data: {
-    preservePrimaryKey: true,
-    upsertFields: [ 'fieldName' ],
+    preserveUnderscoreId: true,
+    identifierFields: [ '_id' ],
     ignoreFields: [ 'fieldName' ],
     unsetFields: [ 'fieldName' ],
     renameFields: [{

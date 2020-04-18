@@ -16,9 +16,9 @@ export interface CollectionSpec {
 }
 
 export interface DataSpec {
-  upsertFields: string[];
+  identifierFields: string[];
   ignoreFields: string[];
-  preservePrimaryKey: boolean;
+  preserveUnderscoreId: boolean;
   unsetFields: string[];
   renameFields: Array<{
     from: string;
