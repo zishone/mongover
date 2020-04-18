@@ -66,19 +66,19 @@ export const databaseSpecTemplate: DatabaseSpec = {
   seedOnly: false,
   migrateForce: false,
   info: '_info',
-  dropFirst: false,
+  recreate: false,
   alias: 'dbName',
   version: '1.0.0',
   collections: {},
 };
 
 export const collectionSpecTemplate = {
-  dropFirst: false,
-  dropIndexesFirst: false,
+  recreate: false,
+  recreateIndexes: false,
   options: {},
   indexes: [
     {
-      dropFirst: false,
+      recreate: false,
       keys: { fieldName: 1 },
       options: {},
     },

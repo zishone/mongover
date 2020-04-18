@@ -10,12 +10,12 @@ const logger = getLogger(__filename);
 export async function createCollection(db: Db, collectionName: string, collectionSpec: CollectionSpec, existingCollection: any): Promise<Collection> {
   try {
     const collection = db.collection(collectionName);
-    if (existingCollection && collectionSpec.dropFirst) {
+    if (existingCollection && collectionSpec.recreate) {
       logger.info('Dropping Collection: %s', collectionName);
       logger.cli('----- Dropping Collection: %s', collectionName);
       await collection.drop();
       await db.createCollection(collectionName, collectionSpec.options);
-    } else if (existingCollection && collectionSpec.dropIndexesFirst) {
+    } else if (existingCollection && collectionSpec.recreateIndexes) {
       logger.info('Dropping all Indexes in Collection: %s', collectionName);
       await collection.dropIndexes();
     } else if (!existingCollection) {

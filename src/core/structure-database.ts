@@ -10,7 +10,7 @@ const logger = getLogger(__filename);
 export async function structureDatabase(client: MongoClient, databaseName: string, databaseSpec: DatabaseSpec, appliedVersion?: string): Promise<Db> {
   try {
     const db = client.db(databaseSpec.alias || databaseName);
-    if (databaseSpec.dropFirst && !databaseSpec.seedOnly) {
+    if (databaseSpec.recreate && !databaseSpec.seedOnly) {
       logger.info('Dropping Database: %s%s', databaseSpec.alias || databaseName, appliedVersion ? `@${appliedVersion}` : '');
       logger.cli('--- Dropping Database: %s%s', databaseSpec.alias || databaseName, appliedVersion ? `@${appliedVersion}` : '');
       await db.dropDatabase();

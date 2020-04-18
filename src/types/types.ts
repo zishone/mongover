@@ -6,13 +6,13 @@ import {
 export interface IndexSpec {
   keys: object;
   options: IndexOptions;
-  dropFirst: boolean;
+  recreate: boolean;
 }
 
 export interface CollectionSpec {
   options: CollectionCreateOptions;
-  dropIndexesFirst: boolean;
-  dropFirst: boolean;
+  recreateIndexes: boolean;
+  recreate: boolean;
 }
 
 export interface DataSpec {
@@ -45,7 +45,7 @@ export interface DatabaseSpec {
   seedOnly: boolean;
   migrateForce: boolean;
   info: string;
-  dropFirst: boolean;
+  recreate: boolean;
   alias: string | undefined;
   version: string;
   collections: any;

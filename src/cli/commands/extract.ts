@@ -71,7 +71,7 @@ export async function extract(options: MongoverOptions): Promise<void> {
               delete indexOptions.v;
               delete indexOptions.ns;
               collectionSpecTemplate.indexes.push({
-                dropFirst: false,
+                recreate: false,
                 keys: indexInfo.key,
                 options: indexOptions,
               });

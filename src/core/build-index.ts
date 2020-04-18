@@ -8,7 +8,7 @@ export async function buildIndex(collection: Collection, indexSpec: IndexSpec): 
   const indexName = indexSpec.options.name || JSON.stringify(indexSpec.keys).replace(/[:,]/g, '_').replace(/[{}"]/g, '');
   try {
     const existing = await collection.indexExists(indexName);
-    if (existing && indexSpec.dropFirst) {
+    if (existing && indexSpec.recreate) {
       logger.info('Dropping Index: %s', indexName);
       logger.cli('------- Dropping Index: %s', indexName);
       await collection.dropIndex(indexName);

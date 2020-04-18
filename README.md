@@ -161,7 +161,7 @@ $ mongover <command> [<args>] [<options>]
         "seedOnly": false,                      // Specifies if existing database should be migrated or only seeded.
         "migrateForce": false,                  // Specifies if mongover should migrate the database even if the specified version is the same.
         "info": "_info",                        // Specifies the collection name of the database information. Defaults to '_info'.
-        "dropFirst": false,                     // Specifies if existing database should be dropped before specification is applied.
+        "recreate": false,                     // Specifies if existing database should be dropped before specification is applied.
         "alias": "dbName",                      // Alias/Name the database specification will be deployed as.
         "version": "1.0.0",                     // Specifies the version of the database, this will determine if the database needs to be migrated or not.
     }
@@ -170,12 +170,12 @@ $ mongover <command> [<args>] [<options>]
 * **collectionName.spec.json**
     ```json5
     {
-        "dropFirst": false,                     // Specifies if the Collection should be dropped before specification is applied.
-        "dropIndexesFirst": false,              // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
+        "recreate": false,                     // Specifies if the Collection should be dropped before specification is applied.
+        "recreateIndexes": false,              // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
         "options": {},                          // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
         "indexes": [
             {
-                "dropFirst": false,             // Specifies if Index with same name should  be dropped before specification is applied.
+                "recreate": false,             // Specifies if Index with same name should  be dropped before specification is applied.
                 "keys": {                       // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
                     "fieldName": 1        
                 },
@@ -221,16 +221,16 @@ $ mongover <command> [<args>] [<options>]
         "seedOnly": false,                      // Specifies if existing database should be migrated or only seeded.
         "migrateForce": false,                  // Specifies if mongover should migrate the database even if the specified version is the same.
         "info": "_info",                        // Specifies the collection name of the database information. Defaults to '_info'.
-        "dropFirst": false,                     // Specifies if existing database should be dropped before specification is applied.
+        "recreate": false,                     // Specifies if existing database should be dropped before specification is applied.
         "alias": "dbName",                      // Alias/Name the database specification will be deployed as.
         "version": "1.0.0",                     // Specifies the version of the database, this will determine if the database needs to be migrated or not.
         "collections": {
-            "dropFirst": false,                 // Specifies if the Collection should be dropped before specification is applied.
-            "dropIndexesFirst": false,          // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
+            "recreate": false,                 // Specifies if the Collection should be dropped before specification is applied.
+            "recreateIndexes": false,          // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
             "options": {},                      // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
             "indexes": [
                 {
-                    "dropFirst": false,         // Specifies if Index with same name should  be dropped before specification is applied.
+                    "recreate": false,         // Specifies if Index with same name should  be dropped before specification is applied.
                     "keys": {                   // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
                         "fieldName": 1        
                     },
