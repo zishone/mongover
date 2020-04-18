@@ -191,6 +191,15 @@ $ mongover <command> [<args>] [<options>]
             ],
             "ignoreFields": [                   // Specify fields to be ignored when updating existing documents.
                 "fieldName"
+            ],
+            "unsetFields": [                   // Specify fields to be unset when updating existing documents.
+                "fieldName"
+            ],
+            "renameFields": [                   // Specify fields to be renamed when updating existing documents.
+                {
+                    "from": "fieldName",
+                    "to": "newFieldName",
+                }
             ]
         }
     }
@@ -237,6 +246,15 @@ $ mongover <command> [<args>] [<options>]
                 ],
                 "ignoreFields": [               // Specify fields to be ignored when updating existing documents.
                     "fieldName"
+                ],
+                "unsetFields": [                 // Specify fields to be unset when updating existing documents.
+                    "fieldName"
+                ],
+                "renameFields": [                 // Specify fields to be renamed when updating existing documents.
+                    {
+                        "from": "fieldName",
+                        "to": "newFieldName",
+                    }
                 ]
             }
         }
