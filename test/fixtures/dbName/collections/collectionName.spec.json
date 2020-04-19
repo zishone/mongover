@@ -1,0 +1,34 @@
+{
+  "drop": false,
+  "recreate": false,
+  "recreateIndexes": false,
+  "options": {},
+  "indexes": [
+    {
+      "drop": false,
+      "recreate": false,
+      "keys": {
+        "fieldName": 1
+      },
+      "options": {}
+    }
+  ],
+  "data": {
+    "preserveUnderscoreId": true,
+    "identifierFields": [
+      "_id"
+    ],
+    "ignoreFields": [
+      "fieldName"
+    ],
+    "renameFields": [
+      {
+        "from": "fieldName",
+        "to": "newFieldName"
+      }
+    ],
+    "unsetFields": [
+      "fieldName"
+    ]
+  }
+}

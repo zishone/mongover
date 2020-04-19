@@ -16,11 +16,10 @@ async function processDataArr(collection: Collection, dataSpec: DataSpec, dataAr
   try {
     for (let data of dataArr) {
       data = EJSON.parse(EJSON.stringify(data), { relaxed: true });
-
-      if (!dataSpec.preservePrimaryKey) {
+      if (!dataSpec.preserveUnderscoreId) {
         delete data._id;
       }
-      if (dataSpec.upsertFields.length === 0) {
+      if (dataSpec.identifierFields.length === 0) {
         try {
           await collection.insertOne(data);
         } catch (error) {
@@ -29,8 +28,10 @@ async function processDataArr(collection: Collection, dataSpec: DataSpec, dataAr
         }
       } else {
         const filter: any = {};
+        const rename: any = {};
+        const unset: any = {};
         const dottedData: any = dotNotate(data);
-        for (const upsertField of dataSpec.upsertFields) {
+        for (const upsertField of dataSpec.identifierFields) {
           filter[upsertField] = getProperty(upsertField, data);
         }
         for (const ignoreField of dataSpec.ignoreFields) {
@@ -40,12 +41,24 @@ async function processDataArr(collection: Collection, dataSpec: DataSpec, dataAr
             }
           }
         }
+        for (const renameField of dataSpec.renameFields) {
+          rename[renameField.from] = renameField.to;
+        }
+        for (const unsetField of dataSpec.unsetFields) {
+          unset[unsetField] = '';
+        }
         const count = await collection.countDocuments(filter, { limit: 1 });
         try {
           if (count > 0) {
             delete dottedData._id;
             if (Object.keys(dottedData).length > 0) {
               await collection.updateMany(filter, { $set: dottedData });
+            }
+            if (Object.keys(rename).length > 0) {
+              await collection.updateMany(filter, { $rename: rename });
+            }
+            if (Object.keys(unset).length > 0) {
+              await collection.updateMany(filter, { $unset: unset });
             }
           } else {
             await collection.insertOne(data);
@@ -112,7 +125,8 @@ export async function importData(collection: Collection, dataSpec: DataSpec, dat
         case 'json':
         case 'js':
         case 'ts':
-          const dataArr = require(dataPath);
+          const data = require(dataPath);
+          const dataArr = Array.isArray(data) ? data : [ data ];
           await processDataArr(collection, dataSpec, dataArr);
           break;
         default:
