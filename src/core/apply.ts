@@ -17,7 +17,7 @@ import { applyIndex } from './apply-index';
 import { compareVersion } from './compare-version';
 import { connectServer } from './connect-server';
 import { importData } from './import-data';
-import { versionDatabase } from './version-database';
+import { applyInfo } from './apply-info';
 
 const logger = getLogger(__filename);
 
@@ -94,7 +94,7 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
               }
             }
             if (!database.spec.seedOnly || !versionCheck.version || database.spec.migrateForce) {
-              await versionDatabase(db, database.spec);
+              await applyInfo(db, database.spec);
             }
           }
         } else {

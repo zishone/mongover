@@ -4,10 +4,10 @@ import { getLogger } from '../utils/get-logger';
 
 const logger = getLogger(__filename);
 
-export async function versionDatabase(db: Db, databaseSpec: DatabaseSpec): Promise<Db> {
+export async function applyInfo(db: Db, databaseSpec: DatabaseSpec): Promise<Db> {
   try {
-    logger.info('Versioning Database: %s', `${db.databaseName}@${databaseSpec.version}`);
-    logger.cli('--- Versioning Database: %s', `${db.databaseName}@${databaseSpec.version}`);
+    logger.info('Applying Database Info: %s', `${db.databaseName}@${databaseSpec.version}`);
+    logger.cli('--- Applying Database Info: %s', `${db.databaseName}@${databaseSpec.version}`);
     const newMeta = { version: databaseSpec.version };
     const collection = db.collection(databaseSpec.info);
     const currentMeta = await collection.findOne({});
@@ -18,11 +18,11 @@ export async function versionDatabase(db: Db, databaseSpec: DatabaseSpec): Promi
       await collection.deleteOne({ _id: currentMeta._id });
       await collection.insertOne(newMeta);
     }
-    logger.info('Versioned Database: %s', `${db.databaseName}@${databaseSpec.version}`);
+    logger.info('Applied Database Info: %s', `${db.databaseName}@${databaseSpec.version}`);
     return db;
   } catch (error) {
-    logger.error('Error versioning Database: %s', `${db.databaseName}@${databaseSpec.version}`);
-    logger.cli('--- Error versioning Database: %s', `${db.databaseName}@${databaseSpec.version}`);
+    logger.error('Error applying Database Info: %s', `${db.databaseName}@${databaseSpec.version}`);
+    logger.cli('--- Error applying Database Info: %s', `${db.databaseName}@${databaseSpec.version}`);
     throw error;
   }
 }
