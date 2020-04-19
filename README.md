@@ -17,7 +17,7 @@ const { apply } = require('mongover');
 #### 2. Define MongoverOptions
 ```javascript
 const options = {
-  specPath: './mongover',
+  specPath: './database',
   uri: 'mongodb://127.0.0.1:27017/',
   dbs: [],
   alias: [],
@@ -30,7 +30,7 @@ const options = {
 ```
 | MongoverOptions 	| Default                    	        | Type    	| Description                                                                    	                                    |
 |---------------	|-----------------------------------	|---------	|-------------------------------------------------------------------------------------------------------------------	|
-| specPath 	        | `./mongover`                 	        | string  	| Path to Mongover Specification.                                                	                                    |
+| specPath 	        | `./database`                 	        | string  	| Path to Mongover Specification.                                                	                                    |
 | uri      	        | `mongodb://127.0.0.1:27017/` 	        | string  	| MongoDB Server connection string.                                              	                                    |
 | dbs      	        | `[] // all dbs in specPath`           | string[] 	| Specifies which databases to apply. 	                                                                                |
 | alias      	    | `[] // no aliases`     	            | string[] 	| Specifies the aliases of the specified databases to apply, a database will use the alias corresponding to its index.  |
@@ -66,7 +66,7 @@ $ mongover <command> [<args>] [<options>]
 
   **ARGUMENTS**
 
-      <specPath>                path to Mongover Specification. Defaults to `./mongover`.
+      <specPath>                path to Mongover Specification. Defaults to `./database`.
 
   **OPTIONS**
 
@@ -82,7 +82,7 @@ $ mongover <command> [<args>] [<options>]
 
   **ARGUMENTS**
 
-      <specPath>                path to Mongover Specification. Defaults to `./mongover`.
+      <specPath>                path to Mongover Specification. Defaults to `./database`.
 
   **OPTIONS**
 
