@@ -14,18 +14,20 @@ export async function applyCollection(db: Db, collectionName: string, collection
       logger.info('Dropping Collection: %s', collectionName);
       logger.cli('----- Dropping Collection: %s', collectionName);
       await collection.drop();
-      await db.createCollection(collectionName, collectionSpec.options);
+      existingCollection = false;
     } else if (existingCollection && collectionSpec.recreateIndexes) {
-      logger.info('Dropping all Indexes in Collection: %s', collectionName);
+      logger.info('Dropping Indexes in Collection: %s', collectionName);
+      logger.cli('----- Dropping Indexes in Collection: %s', collectionName);
       await collection.dropIndexes();
-    } else if (!existingCollection && !collectionSpec.drop) {
-      await db.createCollection(collectionName, collectionSpec.options);
     }
     if (collectionSpec.drop) {
       logger.info('Dropped Collection: %s', collectionName);
     } else {
       logger.info('Creating Collection: %s', collectionName);
       logger.cli('----- Creating Collection: %s', collectionName);
+      if (!existingCollection) {
+        await db.createCollection(collectionName, collectionSpec.options);
+      }
       logger.info('Created Collection: %s', collectionName);
     }
     return collection;

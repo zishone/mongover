@@ -11,12 +11,12 @@ export async function applyDatabase(client: MongoClient, databaseName: string, d
   try {
     const db = client.db(databaseSpec.alias || databaseName);
     if ((databaseSpec.drop || databaseSpec.recreate) && !databaseSpec.seedOnly) {
-      logger.info('Dropping Database: %s%s', databaseSpec.alias || databaseName, appliedVersion ? `@${appliedVersion}` : '');
-      logger.cli('--- Dropping Database: %s%s', databaseSpec.alias || databaseName, appliedVersion ? `@${appliedVersion}` : '');
+      logger.info('Dropping Database: %s', databaseSpec.alias || databaseName);
+      logger.cli('--- Dropping Database: %s', databaseSpec.alias || databaseName);
       await db.dropDatabase();
     }
     if (databaseSpec.drop) {
-      logger.info('Dropped Database: %s@%s', databaseName + (databaseSpec.alias ? ` as ${databaseSpec.alias}` : ''), databaseSpec.version);
+      logger.info('Dropped Database: %s', databaseSpec.alias || databaseName);
     } else {
       logger.info('Structuring Database: %s@%s', databaseName + (databaseSpec.alias ? ` as ${databaseSpec.alias}` : ''), databaseSpec.version);
       logger.cli('--- Structuring Database: %s@%s', databaseName + (databaseSpec.alias ? ` as ${databaseSpec.alias}` : ''), databaseSpec.version);

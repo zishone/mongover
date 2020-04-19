@@ -14,10 +14,10 @@ import { parseOptions } from '../utils/parse-options';
 import { applyCollection } from './apply-collection';
 import { applyDatabase } from './apply-database';
 import { applyIndex } from './apply-index';
+import { applyInfo } from './apply-info';
 import { compareVersion } from './compare-version';
 import { connectServer } from './connect-server';
 import { importData } from './import-data';
-import { applyInfo } from './apply-info';
 
 const logger = getLogger(__filename);
 
