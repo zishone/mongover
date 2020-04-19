@@ -63,30 +63,38 @@ export const mongoverOptionsDefaults: MongoverOptions = {
 };
 
 export const databaseSpecTemplate: DatabaseSpec = {
+  drop: false,
   seedOnly: false,
   migrateForce: false,
+  recreate: false,
   info: '_info',
-  dropFirst: false,
   alias: 'dbName',
   version: '1.0.0',
   collections: {},
 };
 
 export const collectionSpecTemplate = {
-  dropFirst: false,
-  dropIndexesFirst: false,
+  drop: false,
+  recreate: false,
+  recreateIndexes: false,
   options: {},
   indexes: [
     {
-      dropFirst: false,
+      drop: false,
+      recreate: false,
       keys: { fieldName: 1 },
       options: {},
     },
   ],
   data: {
-    preservePrimaryKey: true,
-    upsertFields: [ 'fieldName' ],
+    preserveUnderscoreId: true,
+    identifierFields: [ '_id' ],
     ignoreFields: [ 'fieldName' ],
+    renameFields: [{
+      from: 'fieldName',
+      to: 'newFieldName',
+    }],
+    unsetFields: [ 'fieldName' ],
   },
 };
 
