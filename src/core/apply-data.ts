@@ -28,11 +28,9 @@ async function processDataArr(collection: Collection, dataSpec: DataSpec, dataAr
         }
       } else {
         const filter: any = {};
-        const rename: any = {};
-        const unset: any = {};
         const dottedData: any = dotNotate(data);
-        for (const upsertField of dataSpec.identifierFields) {
-          filter[upsertField] = getProperty(upsertField, data);
+        for (const identifierField of dataSpec.identifierFields) {
+          filter[identifierField] = getProperty(identifierField, data);
         }
         for (const ignoreField of dataSpec.ignoreFields) {
           for (const dottedKey in dottedData) {
@@ -41,24 +39,12 @@ async function processDataArr(collection: Collection, dataSpec: DataSpec, dataAr
             }
           }
         }
-        for (const renameField of dataSpec.renameFields) {
-          rename[renameField.from] = renameField.to;
-        }
-        for (const unsetField of dataSpec.unsetFields) {
-          unset[unsetField] = '';
-        }
         const count = await collection.countDocuments(filter, { limit: 1 });
         try {
           if (count > 0) {
             delete dottedData._id;
             if (Object.keys(dottedData).length > 0) {
               await collection.updateMany(filter, { $set: dottedData });
-            }
-            if (Object.keys(rename).length > 0) {
-              await collection.updateMany(filter, { $rename: rename });
-            }
-            if (Object.keys(unset).length > 0) {
-              await collection.updateMany(filter, { $unset: unset });
             }
           } else {
             await collection.insertOne(data);
@@ -110,7 +96,7 @@ function processJsonl(collection: Collection, dataSpec: DataSpec, fileStream: In
   }
 }
 
-export async function importData(collection: Collection, dataSpec: DataSpec, dataPath: string): Promise<void> {
+export async function applyData(collection: Collection, dataSpec: DataSpec, dataPath: string): Promise<void> {
   try {
     const filenameArr = dataPath.split('.');
     const fileType = filenameArr.pop();
@@ -132,10 +118,29 @@ export async function importData(collection: Collection, dataSpec: DataSpec, dat
         default:
           throw new Error(`Unrecognized Export type: ${fileType}.`);
       }
+      const rename: any = {};
+      for (const renameField of dataSpec.renameFields) {
+        logger.info('Renaming Field: %s to %s', renameField.from, renameField.to);
+        logger.cli('------- Renaming Field: %s to %s', renameField.from, renameField.to);
+        rename[renameField.from] = renameField.to;
+      }
+      if (Object.keys(rename).length > 0) {
+        await collection.updateMany({}, { $rename: rename });
+      }
+      const unset: any = {};
+      for (const unsetField of dataSpec.unsetFields) {
+        logger.info('Unsetting Field: %s', unsetField);
+        logger.cli('------- Unsetting Field: %s', unsetField);
+        unset[unsetField] = '';
+      }
+      if (Object.keys(unset).length > 0) {
+        await collection.updateMany({}, { $unset: unset });
+      }
+      logger.info('Applied Data: %s', 'upsert/rename/unset');
     }
   } catch (error) {
-    logger.error('Error importing Data: %s', dataPath.replace(process.cwd(), '.'));
-    logger.cli('------- Error importing Data: %s', dataPath.replace(process.cwd(), '.'));
+    logger.error('Error applying Data: %s', dataPath.replace(process.cwd(), '.'));
+    logger.cli('------- Error applying Data: %s', dataPath.replace(process.cwd(), '.'));
     throw error;
   }
 }

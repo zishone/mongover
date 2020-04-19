@@ -17,7 +17,7 @@ import { applyIndex } from './apply-index';
 import { applyInfo } from './apply-info';
 import { compareVersion } from './compare-version';
 import { connectServer } from './connect-server';
-import { importData } from './import-data';
+import { applyData } from './apply-data';
 
 const logger = getLogger(__filename);
 
@@ -82,7 +82,7 @@ export async function apply(options: MongoverOptions = parseOptions({})): Promis
                     if (existsSync(dataPath)) {
                       for (const dataFile of readdirSync(dataPath)) {
                         if (dataFile.split('.')[0] === collectionName) {
-                          await importData(collection, collectionSpec.data, join(dataPath, dataFile));
+                          await applyData(collection, collectionSpec.data, join(dataPath, dataFile));
                         }
                       }
                     }
