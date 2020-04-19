@@ -12,12 +12,12 @@ import { getLogger } from '../utils/get-logger';
 import { getSpec } from '../utils/get-spec';
 import { parseOptions } from '../utils/parse-options';
 import { applyCollection } from './apply-collection';
+import { applyData } from './apply-data';
 import { applyDatabase } from './apply-database';
 import { applyIndex } from './apply-index';
 import { applyInfo } from './apply-info';
 import { compareVersion } from './compare-version';
 import { connectServer } from './connect-server';
-import { applyData } from './apply-data';
 
 const logger = getLogger(__filename);
 
