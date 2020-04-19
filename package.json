@@ -1,6 +1,6 @@
 {
   "name": "mongover",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A MongoDB Server Database Migration Tool",
   "main": "dist/index.js",
   "types": "dist/types/index.d.ts",
@@ -67,6 +67,8 @@
   "keywords": [
     "mongover",
     "mongodb",
+    "mongo",
+    "db",
     "migrate",
     "migration",
     "versioning",
