@@ -84,9 +84,10 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_types_.dataspec.html#ignorefields" class="tsd-kind-icon">ignore<wbr>Fields</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_types_.dataspec.html#preserveprimarykey" class="tsd-kind-icon">preserve<wbr>Primary<wbr>Key</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_types_.dataspec.html#upsertfields" class="tsd-kind-icon">upsert<wbr>Fields</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_types_.dataspec.html#delete" class="tsd-kind-icon">delete</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_types_.dataspec.html#rename" class="tsd-kind-icon">rename</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_types_.dataspec.html#unset" class="tsd-kind-icon">unset</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_types_.dataspec.html#upsert" class="tsd-kind-icon">upsert</a></li>
 							</ul>
 						</section>
 					</div>
@@ -95,34 +96,58 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="ignorefields" class="tsd-anchor"></a>
-					<h3>ignore<wbr>Fields</h3>
-					<div class="tsd-signature tsd-kind-icon">ignore<wbr>Fields<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
+					<a name="delete" class="tsd-anchor"></a>
+					<h3>delete</h3>
+					<div class="tsd-signature tsd-kind-icon">delete<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/types/types.ts#L20">types/types.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/types/types.ts#L30">types/types.ts:30</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="preserveprimarykey" class="tsd-anchor"></a>
-					<h3>preserve<wbr>Primary<wbr>Key</h3>
-					<div class="tsd-signature tsd-kind-icon">preserve<wbr>Primary<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<a name="rename" class="tsd-anchor"></a>
+					<h3>rename</h3>
+					<div class="tsd-signature tsd-kind-icon">rename<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/types/types.ts#L21">types/types.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/types/types.ts#L28">types/types.ts:28</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="upsertfields" class="tsd-anchor"></a>
-					<h3>upsert<wbr>Fields</h3>
-					<div class="tsd-signature tsd-kind-icon">upsert<wbr>Fields<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
+					<a name="unset" class="tsd-anchor"></a>
+					<h3>unset</h3>
+					<div class="tsd-signature tsd-kind-icon">unset<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/types/types.ts#L19">types/types.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/types/types.ts#L29">types/types.ts:29</a></li>
 						</ul>
 					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="upsert" class="tsd-anchor"></a>
+					<h3>upsert</h3>
+					<div class="tsd-signature tsd-kind-icon">upsert<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/types/types.ts#L23">types/types.ts:23</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5>identifiers<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5>ignore<wbr>Fields<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5>preserve_<wbr>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></h5>
+							</li>
+						</ul>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -148,7 +173,19 @@
 						<a href="../modules/_core_apply_.html">"core/apply"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_core_build_index_.html">"core/build-<wbr>index"</a>
+						<a href="../modules/_core_apply_collection_.html">"core/apply-<wbr>collection"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_core_apply_data_.html">"core/apply-<wbr>data"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_core_apply_database_.html">"core/apply-<wbr>database"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_core_apply_index_.html">"core/apply-<wbr>index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_core_apply_info_.html">"core/apply-<wbr>info"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_core_compare_version_.html">"core/compare-<wbr>version"</a>
@@ -157,22 +194,7 @@
 						<a href="../modules/_core_connect_server_.html">"core/connect-<wbr>server"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_core_create_collection_.html">"core/create-<wbr>collection"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
 						<a href="../modules/_core_export_data_.html">"core/export-<wbr>data"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_core_get_spec_.html">"core/get-<wbr>spec"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_core_import_data_.html">"core/import-<wbr>data"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_core_structure_database_.html">"core/structure-<wbr>database"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_core_version_database_.html">"core/version-<wbr>database"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_index_.html">"index"</a>
@@ -193,6 +215,9 @@
 						<a href="../modules/_utils_get_property_.html">"utils/get-<wbr>property"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="../modules/_utils_get_spec_.html">"utils/get-<wbr>spec"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_utils_parse_options_.html">"utils/parse-<wbr>options"</a>
 					</li>
 				</ul>
@@ -208,13 +233,16 @@
 						<a href="_types_types_.dataspec.html" class="tsd-kind-icon">Data<wbr>Spec</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_types_types_.dataspec.html#ignorefields" class="tsd-kind-icon">ignore<wbr>Fields</a>
+								<a href="_types_types_.dataspec.html#delete" class="tsd-kind-icon">delete</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_types_types_.dataspec.html#preserveprimarykey" class="tsd-kind-icon">preserve<wbr>Primary<wbr>Key</a>
+								<a href="_types_types_.dataspec.html#rename" class="tsd-kind-icon">rename</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_types_types_.dataspec.html#upsertfields" class="tsd-kind-icon">upsert<wbr>Fields</a>
+								<a href="_types_types_.dataspec.html#unset" class="tsd-kind-icon">unset</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_types_types_.dataspec.html#upsert" class="tsd-kind-icon">upsert</a>
 							</li>
 						</ul>
 					</li>

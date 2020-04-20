@@ -97,7 +97,7 @@
 					<div class="tsd-signature tsd-kind-icon">data<wbr>Sample<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"{&quot;_id&quot;:{&quot;$oid&quot;:&quot;aaaaaaaaaaaaaaaaaaaaaaaa&quot;},&quot;fieldName&quot;: 1}"</span><span class="tsd-signature-symbol"> =&nbsp;&quot;{&quot;_id&quot;:{&quot;$oid&quot;:&quot;aaaaaaaaaaaaaaaaaaaaaaaa&quot;},&quot;fieldName&quot;: 1}&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L93">utils/constants.ts:93</a></li>
+							<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L105">utils/constants.ts:105</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -107,7 +107,7 @@
 					<div class="tsd-signature tsd-kind-icon">usage<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&#x60;Usage:mongover &lt;command&gt; [&lt;args&gt;] [&lt;options&gt;]Commands:init [&lt;specPath&gt;] [&lt;options&gt;]- initializes a new Mongover Specification.SYNOPSIS$ mongover init [&lt;specPath&gt;] [-f dir|-f json]ARGUMENTS&lt;specPath&gt;              path to mongover specification. Defaults to current working directory.OPTIONS-f or --format          specifies Mongover Specification format, choose between &#x27;dir&#x27; and &#x27;json&#x27;. Defaults to &#x27;dir&#x27;.extract [&lt;specPath&gt;] [&lt;options&gt;]- Extracts the Mongover Specification of an existing MongoDB Server and initializes a new Mongover Specification with it.SYNOPSIS$ mongover extract [&lt;specPath&gt;] [-u &quot;&lt;uri&gt;&quot;] [-d &lt;dbName&gt;[,...] [-c &lt;collectionName&gt;[,...]]] [-f dir|-f json] [-e jsonl|-e json|-e no [-q &quot;&lt;query&gt;&quot;]] [-i &lt;infoCollection&gt;] [--socketTimeoutMS &lt;milliseconds&gt;]ARGUMENTS&lt;specPath&gt;              path to mongover specification. Defaults to current working directory.OPTIONS-u or --uri             specifies the uri of the running mongod or mongos. Defaults to &#x27;mongodb://127.0.0.1:27017/&#x27;.-d or --dbs             specifies which databases are to be extracted.-c or --collections     specifies which collections are to be extracted. Defaults to all collections in specified databases.-f or --format          specifies Mongover Specification format, choose between &#x27;dir&#x27; and &#x27;json&#x27;. Defaults to &#x27;dir&#x27;.-e or --export          specifies if data from the MongoDB Server should also be exported, choose between &#x27;jsonl&#x27;, &#x27;json&#x27; and &#x27;no&#x27;. Defaults to &#x27;no&#x27;.-q or --query           specifies a filter which data to be exported from the MongoDB Server.-i or --info            specifies the collection name of the database information. Defaults to &#x27;_info&#x27;.--socketTimeoutMS       specifies how long a send or receive on a socket can take before timing out in milliseconds. Defaults to &#x27;3600000&#x27;.apply [&lt;specPath&gt;] [&lt;options&gt;]- applies the current Mongover Specification to the MongoDB Server.SYNOPSIS$ mongover apply [&lt;specPath&gt;] [-u &quot;&lt;uri&gt;&quot;] [-d &lt;dbName&gt;[,...] [-a &lt;alias&gt;[,...]]] [-c &lt;collectionName&gt;[,...]] [-s] [-m] [-i &lt;infoCollection&gt;] [--socketTimeoutMS &lt;milliseconds&gt;]ARGUMENTS&lt;specPath&gt;              path to mongover specification. Defaults to current working directory.OPTIONS-u or --uri             specifies the uri of the running mongod or mongos. Defaults to &#x27;mongodb://127.0.0.1:27017/&#x27;.-d or --dbs             specifies which databases to apply. Defaults to all databases in the Mongover Specification.-a or --alias           specifies the aliases of the specified databases to apply, a database will use the alias corresponding to its index separated by commas.-c or --collections     specifies which collections to apply. Defaults to all collections in specified databases.-s or --seedOnly        specifies if mongover should only seed the database instead of migrating it when it already exists.-m or --migrateForce    specifies if mongover should migrate the database even if the specified version is lower or the same.-i or --info            specifies the collection name of the database information. Defaults to &#x27;_info&#x27;.--socketTimeoutMS       specifies how long a send or receive on a socket can take before timing out in milliseconds.&#x60;.trim()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L3">utils/constants.ts:3</a></li>
+							<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L7">utils/constants.ts:7</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -120,36 +120,26 @@
 					<div class="tsd-signature tsd-kind-icon">collection<wbr>Spec<wbr>Template<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L75">utils/constants.ts:75</a></li>
+							<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L80">utils/constants.ts:80</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="collectionspectemplate.dropfirst" class="tsd-anchor"></a>
-						<h3>drop<wbr>First</h3>
-						<div class="tsd-signature tsd-kind-icon">drop<wbr>First<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
+						<a name="collectionspectemplate.drop" class="tsd-anchor"></a>
+						<h3>drop</h3>
+						<div class="tsd-signature tsd-kind-icon">drop<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L76">utils/constants.ts:76</a></li>
-							</ul>
-						</aside>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="collectionspectemplate.dropindexesfirst" class="tsd-anchor"></a>
-						<h3>drop<wbr>Indexes<wbr>First</h3>
-						<div class="tsd-signature tsd-kind-icon">drop<wbr>Indexes<wbr>First<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L77">utils/constants.ts:77</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L81">utils/constants.ts:81</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="collectionspectemplate.indexes" class="tsd-anchor"></a>
 						<h3>indexes</h3>
-						<div class="tsd-signature tsd-kind-icon">indexes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[{dropFirst: false,keys: { fieldName: 1 },options: {},},]</span></div>
+						<div class="tsd-signature tsd-kind-icon">indexes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[{drop: false,recreate: false,keys: { fieldName: 1 },options: {},},]</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L79">utils/constants.ts:79</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L85">utils/constants.ts:85</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -159,7 +149,7 @@
 						<div class="tsd-signature tsd-kind-icon">options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L78">utils/constants.ts:78</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L84">utils/constants.ts:84</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-type-declaration">
@@ -168,44 +158,134 @@
 							</ul>
 						</div>
 					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="collectionspectemplate.recreate" class="tsd-anchor"></a>
+						<h3>recreate</h3>
+						<div class="tsd-signature tsd-kind-icon">recreate<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L82">utils/constants.ts:82</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="collectionspectemplate.recreateindexes" class="tsd-anchor"></a>
+						<h3>recreate<wbr>Indexes</h3>
+						<div class="tsd-signature tsd-kind-icon">recreate<wbr>Indexes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L83">utils/constants.ts:83</a></li>
+							</ul>
+						</aside>
+					</section>
 					<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-object-literal">
 						<a name="collectionspectemplate.data" class="tsd-anchor"></a>
 						<h3>data</h3>
 						<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L86">utils/constants.ts:86</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L93">utils/constants.ts:93</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-							<a name="collectionspectemplate.data.ignorefields" class="tsd-anchor"></a>
-							<h3>ignore<wbr>Fields</h3>
-							<div class="tsd-signature tsd-kind-icon">ignore<wbr>Fields<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[ &#x27;fieldName&#x27; ]</span></div>
+							<a name="collectionspectemplate.data.unset" class="tsd-anchor"></a>
+							<h3>unset</h3>
+							<div class="tsd-signature tsd-kind-icon">unset<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[&#x27;fieldName&#x27;]</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L89">utils/constants.ts:89</a></li>
+									<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L100">utils/constants.ts:100</a></li>
 								</ul>
 							</aside>
 						</section>
-						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-							<a name="collectionspectemplate.data.preserveprimarykey" class="tsd-anchor"></a>
-							<h3>preserve<wbr>Primary<wbr>Key</h3>
-							<div class="tsd-signature tsd-kind-icon">preserve<wbr>Primary<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;true</span></div>
+						<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-object-literal">
+							<a name="collectionspectemplate.data.delete" class="tsd-anchor"></a>
+							<h3>delete</h3>
+							<div class="tsd-signature tsd-kind-icon">delete<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L87">utils/constants.ts:87</a></li>
+									<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L101">utils/constants.ts:101</a></li>
 								</ul>
 							</aside>
+							<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-object-literal">
+								<a name="collectionspectemplate.data.delete.fieldname" class="tsd-anchor"></a>
+								<h3>field<wbr>Name</h3>
+								<div class="tsd-signature tsd-kind-icon">field<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+								<aside class="tsd-sources">
+									<ul>
+										<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L101">utils/constants.ts:101</a></li>
+									</ul>
+								</aside>
+								<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+									<a name="collectionspectemplate.data.delete.fieldname._oid" class="tsd-anchor"></a>
+									<h3>$oid</h3>
+									<div class="tsd-signature tsd-kind-icon">$oid<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;aaaaaaaaaaaaaaaaaaaaaaaa&quot;</span></div>
+									<aside class="tsd-sources">
+										<ul>
+											<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L101">utils/constants.ts:101</a></li>
+										</ul>
+									</aside>
+								</section>
+							</section>
 						</section>
-						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-							<a name="collectionspectemplate.data.upsertfields" class="tsd-anchor"></a>
-							<h3>upsert<wbr>Fields</h3>
-							<div class="tsd-signature tsd-kind-icon">upsert<wbr>Fields<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[ &#x27;fieldName&#x27; ]</span></div>
+						<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-object-literal">
+							<a name="collectionspectemplate.data.rename" class="tsd-anchor"></a>
+							<h3>rename</h3>
+							<div class="tsd-signature tsd-kind-icon">rename<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L88">utils/constants.ts:88</a></li>
+									<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L99">utils/constants.ts:99</a></li>
 								</ul>
 							</aside>
+							<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+								<a name="collectionspectemplate.data.rename.fieldname-1" class="tsd-anchor"></a>
+								<h3>field<wbr>Name</h3>
+								<div class="tsd-signature tsd-kind-icon">field<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;newFieldName&quot;</span></div>
+								<aside class="tsd-sources">
+									<ul>
+										<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L99">utils/constants.ts:99</a></li>
+									</ul>
+								</aside>
+							</section>
+						</section>
+						<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-object-literal">
+							<a name="collectionspectemplate.data.upsert" class="tsd-anchor"></a>
+							<h3>upsert</h3>
+							<div class="tsd-signature tsd-kind-icon">upsert<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L94">utils/constants.ts:94</a></li>
+								</ul>
+							</aside>
+							<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+								<a name="collectionspectemplate.data.upsert.identifiers" class="tsd-anchor"></a>
+								<h3>identifiers</h3>
+								<div class="tsd-signature tsd-kind-icon">identifiers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[&#x27;_id&#x27;]</span></div>
+								<aside class="tsd-sources">
+									<ul>
+										<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L96">utils/constants.ts:96</a></li>
+									</ul>
+								</aside>
+							</section>
+							<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+								<a name="collectionspectemplate.data.upsert.ignorefields" class="tsd-anchor"></a>
+								<h3>ignore<wbr>Fields</h3>
+								<div class="tsd-signature tsd-kind-icon">ignore<wbr>Fields<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[&#x27;fieldName&#x27;]</span></div>
+								<aside class="tsd-sources">
+									<ul>
+										<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L97">utils/constants.ts:97</a></li>
+									</ul>
+								</aside>
+							</section>
+							<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+								<a name="collectionspectemplate.data.upsert.preserve_id" class="tsd-anchor"></a>
+								<h3>preserve_<wbr>id</h3>
+								<div class="tsd-signature tsd-kind-icon">preserve_<wbr>id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> =&nbsp;true</span></div>
+								<aside class="tsd-sources">
+									<ul>
+										<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L95">utils/constants.ts:95</a></li>
+									</ul>
+								</aside>
+							</section>
 						</section>
 					</section>
 				</section>
@@ -215,7 +295,7 @@
 					<div class="tsd-signature tsd-kind-icon">database<wbr>Spec<wbr>Template<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L65">utils/constants.ts:65</a></li>
+							<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L69">utils/constants.ts:69</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -224,7 +304,7 @@
 						<div class="tsd-signature tsd-kind-icon">alias<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;dbName&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L70">utils/constants.ts:70</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L75">utils/constants.ts:75</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -234,7 +314,7 @@
 						<div class="tsd-signature tsd-kind-icon">collections<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L72">utils/constants.ts:72</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L77">utils/constants.ts:77</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-type-declaration">
@@ -244,12 +324,12 @@
 						</div>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="databasespectemplate.dropfirst-1" class="tsd-anchor"></a>
-						<h3>drop<wbr>First</h3>
-						<div class="tsd-signature tsd-kind-icon">drop<wbr>First<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
+						<a name="databasespectemplate.drop-1" class="tsd-anchor"></a>
+						<h3>drop</h3>
+						<div class="tsd-signature tsd-kind-icon">drop<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L69">utils/constants.ts:69</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L70">utils/constants.ts:70</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -259,7 +339,7 @@
 						<div class="tsd-signature tsd-kind-icon">info<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;_info&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L68">utils/constants.ts:68</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L74">utils/constants.ts:74</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -269,7 +349,17 @@
 						<div class="tsd-signature tsd-kind-icon">migrate<wbr>Force<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L67">utils/constants.ts:67</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L72">utils/constants.ts:72</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="databasespectemplate.recreate-1" class="tsd-anchor"></a>
+						<h3>recreate</h3>
+						<div class="tsd-signature tsd-kind-icon">recreate<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L73">utils/constants.ts:73</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -279,7 +369,7 @@
 						<div class="tsd-signature tsd-kind-icon">seed<wbr>Only<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L66">utils/constants.ts:66</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L71">utils/constants.ts:71</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -289,7 +379,7 @@
 						<div class="tsd-signature tsd-kind-icon">version<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;1.0.0&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L71">utils/constants.ts:71</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L76">utils/constants.ts:76</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -300,7 +390,7 @@
 					<div class="tsd-signature tsd-kind-icon">exit<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L95">utils/constants.ts:95</a></li>
+							<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L107">utils/constants.ts:107</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -309,7 +399,7 @@
 						<div class="tsd-signature tsd-kind-icon">error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;1</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L97">utils/constants.ts:97</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L109">utils/constants.ts:109</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -319,7 +409,7 @@
 						<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L96">utils/constants.ts:96</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L108">utils/constants.ts:108</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -330,7 +420,7 @@
 					<div class="tsd-signature tsd-kind-icon">mongover<wbr>Options<wbr>Defaults<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L50">utils/constants.ts:50</a></li>
+							<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L54">utils/constants.ts:54</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -339,7 +429,7 @@
 						<div class="tsd-signature tsd-kind-icon">alias<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L54">utils/constants.ts:54</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L58">utils/constants.ts:58</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -349,7 +439,7 @@
 						<div class="tsd-signature tsd-kind-icon">collections<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L55">utils/constants.ts:55</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L59">utils/constants.ts:59</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -359,7 +449,7 @@
 						<div class="tsd-signature tsd-kind-icon">dbs<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L53">utils/constants.ts:53</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L57">utils/constants.ts:57</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -369,7 +459,7 @@
 						<div class="tsd-signature tsd-kind-icon">export<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;no&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L58">utils/constants.ts:58</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L62">utils/constants.ts:62</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -379,7 +469,7 @@
 						<div class="tsd-signature tsd-kind-icon">format<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;dir&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L57">utils/constants.ts:57</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L61">utils/constants.ts:61</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -389,7 +479,7 @@
 						<div class="tsd-signature tsd-kind-icon">info<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;_info&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L61">utils/constants.ts:61</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L65">utils/constants.ts:65</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -399,7 +489,7 @@
 						<div class="tsd-signature tsd-kind-icon">migrate<wbr>Force<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L60">utils/constants.ts:60</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L64">utils/constants.ts:64</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -409,7 +499,7 @@
 						<div class="tsd-signature tsd-kind-icon">query<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L56">utils/constants.ts:56</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L60">utils/constants.ts:60</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-type-declaration">
@@ -424,7 +514,7 @@
 						<div class="tsd-signature tsd-kind-icon">seed<wbr>Only<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L59">utils/constants.ts:59</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L63">utils/constants.ts:63</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -434,7 +524,7 @@
 						<div class="tsd-signature tsd-kind-icon">socket<wbr>TimeoutMS<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;3600000</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L62">utils/constants.ts:62</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L66">utils/constants.ts:66</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -444,7 +534,7 @@
 						<div class="tsd-signature tsd-kind-icon">spec<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;database&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L51">utils/constants.ts:51</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L55">utils/constants.ts:55</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -454,7 +544,7 @@
 						<div class="tsd-signature tsd-kind-icon">uri<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;mongodb://127.0.0.1:27017/&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/utils/constants.ts#L52">utils/constants.ts:52</a></li>
+								<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/utils/constants.ts#L56">utils/constants.ts:56</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -483,7 +573,19 @@
 						<a href="_core_apply_.html">"core/apply"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_core_build_index_.html">"core/build-<wbr>index"</a>
+						<a href="_core_apply_collection_.html">"core/apply-<wbr>collection"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_core_apply_data_.html">"core/apply-<wbr>data"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_core_apply_database_.html">"core/apply-<wbr>database"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_core_apply_index_.html">"core/apply-<wbr>index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_core_apply_info_.html">"core/apply-<wbr>info"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_core_compare_version_.html">"core/compare-<wbr>version"</a>
@@ -492,22 +594,7 @@
 						<a href="_core_connect_server_.html">"core/connect-<wbr>server"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_core_create_collection_.html">"core/create-<wbr>collection"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
 						<a href="_core_export_data_.html">"core/export-<wbr>data"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_core_get_spec_.html">"core/get-<wbr>spec"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_core_import_data_.html">"core/import-<wbr>data"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_core_structure_database_.html">"core/structure-<wbr>database"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_core_version_database_.html">"core/version-<wbr>database"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_index_.html">"index"</a>
@@ -526,6 +613,9 @@
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_utils_get_property_.html">"utils/get-<wbr>property"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_utils_get_spec_.html">"utils/get-<wbr>spec"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_utils_parse_options_.html">"utils/parse-<wbr>options"</a>

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;core/create-collection&quot; | mongover</title>
+	<title>&quot;core/apply-collection&quot; | mongover</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_core_create_collection_.html">&quot;core/create-collection&quot;</a>
+					<a href="_core_apply_collection_.html">&quot;core/apply-collection&quot;</a>
 				</li>
 			</ul>
-			<h1>External module &quot;core/create-collection&quot;</h1>
+			<h1>External module &quot;core/apply-collection&quot;</h1>
 		</div>
 	</div>
 </header>
@@ -73,13 +73,13 @@
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_core_create_collection_.html#logger" class="tsd-kind-icon">logger</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_core_apply_collection_.html#logger" class="tsd-kind-icon">logger</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_core_create_collection_.html#createcollection" class="tsd-kind-icon">create<wbr>Collection</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_core_apply_collection_.html#applycollection" class="tsd-kind-icon">apply<wbr>Collection</a></li>
 							</ul>
 						</section>
 					</div>
@@ -93,7 +93,7 @@
 					<div class="tsd-signature tsd-kind-icon">logger<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_utils_get_logger_.logger.html" class="tsd-signature-type">Logger</a><span class="tsd-signature-symbol"> =&nbsp;getLogger(__filename)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/core/create-collection.ts#L8">core/create-collection.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/core/apply-collection.ts#L8">core/apply-collection.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -101,16 +101,16 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="createcollection" class="tsd-anchor"></a>
-					<h3>create<wbr>Collection</h3>
+					<a name="applycollection" class="tsd-anchor"></a>
+					<h3>apply<wbr>Collection</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">create<wbr>Collection<span class="tsd-signature-symbol">(</span>db<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Db</span>, collectionName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, collectionSpec<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_types_.collectionspec.html" class="tsd-signature-type">CollectionSpec</a>, existingCollection<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Collection</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">apply<wbr>Collection<span class="tsd-signature-symbol">(</span>db<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Db</span>, collectionName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, collectionSpec<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_types_.collectionspec.html" class="tsd-signature-type">CollectionSpec</a>, existingCollection<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Collection</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zishone/mongover/blob/d1ad583/src/core/create-collection.ts#L10">core/create-collection.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/zishone/mongover/blob/71a10ef/src/core/apply-collection.ts#L10">core/apply-collection.ts:10</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -155,8 +155,20 @@
 					<li class=" tsd-kind-external-module">
 						<a href="_core_apply_.html">"core/apply"</a>
 					</li>
+					<li class="current tsd-kind-external-module">
+						<a href="_core_apply_collection_.html">"core/apply-<wbr>collection"</a>
+					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_core_build_index_.html">"core/build-<wbr>index"</a>
+						<a href="_core_apply_data_.html">"core/apply-<wbr>data"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_core_apply_database_.html">"core/apply-<wbr>database"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_core_apply_index_.html">"core/apply-<wbr>index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_core_apply_info_.html">"core/apply-<wbr>info"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_core_compare_version_.html">"core/compare-<wbr>version"</a>
@@ -164,23 +176,8 @@
 					<li class=" tsd-kind-external-module">
 						<a href="_core_connect_server_.html">"core/connect-<wbr>server"</a>
 					</li>
-					<li class="current tsd-kind-external-module">
-						<a href="_core_create_collection_.html">"core/create-<wbr>collection"</a>
-					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_core_export_data_.html">"core/export-<wbr>data"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_core_get_spec_.html">"core/get-<wbr>spec"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_core_import_data_.html">"core/import-<wbr>data"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_core_structure_database_.html">"core/structure-<wbr>database"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_core_version_database_.html">"core/version-<wbr>database"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_index_.html">"index"</a>
@@ -201,6 +198,9 @@
 						<a href="_utils_get_property_.html">"utils/get-<wbr>property"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="_utils_get_spec_.html">"utils/get-<wbr>spec"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="_utils_parse_options_.html">"utils/parse-<wbr>options"</a>
 					</li>
 				</ul>
@@ -208,10 +208,10 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_core_create_collection_.html#logger" class="tsd-kind-icon">logger</a>
+						<a href="_core_apply_collection_.html#logger" class="tsd-kind-icon">logger</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_core_create_collection_.html#createcollection" class="tsd-kind-icon">create<wbr>Collection</a>
+						<a href="_core_apply_collection_.html#applycollection" class="tsd-kind-icon">apply<wbr>Collection</a>
 					</li>
 				</ul>
 			</nav>

@@ -90,7 +90,7 @@
 					<h4>2. Define MongoverOptions</h4>
 				</a>
 				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> options = {
-  <span class="hljs-attr">specPath</span>: <span class="hljs-string">'./mongover'</span>,
+  <span class="hljs-attr">specPath</span>: <span class="hljs-string">'./database'</span>,
   <span class="hljs-attr">uri</span>: <span class="hljs-string">'mongodb://127.0.0.1:27017/'</span>,
   <span class="hljs-attr">dbs</span>: [],
   <span class="hljs-attr">alias</span>: [],
@@ -104,64 +104,64 @@
 					<thead>
 						<tr>
 							<th>MongoverOptions</th>
+							<th>Default</th>
 							<th>Type</th>
 							<th>Description</th>
-							<th>Default</th>
 						</tr>
 					</thead>
 					<tbody><tr>
 							<td>specPath</td>
+							<td><code>./database</code></td>
 							<td>string</td>
 							<td>Path to Mongover Specification.</td>
-							<td><code>./mongover</code></td>
 						</tr>
 						<tr>
 							<td>uri</td>
+							<td><code>mongodb://127.0.0.1:27017/</code></td>
 							<td>string</td>
 							<td>MongoDB Server connection string.</td>
-							<td><code>mongodb://127.0.0.1:27017/</code></td>
 						</tr>
 						<tr>
 							<td>dbs</td>
+							<td><code>[] // all dbs in specPath</code></td>
 							<td>string[]</td>
 							<td>Specifies which databases to apply.</td>
-							<td><code>[] // all dbs in specPath</code></td>
 						</tr>
 						<tr>
 							<td>alias</td>
+							<td><code>[] // no aliases</code></td>
 							<td>string[]</td>
 							<td>Specifies the aliases of the specified databases to apply, a database will use the alias corresponding to its index.</td>
-							<td><code>[] // no aliases</code></td>
 						</tr>
 						<tr>
 							<td>collections</td>
+							<td><code>[] // all collections in specPath</code></td>
 							<td>string[]</td>
 							<td>Specifies which collections to apply.</td>
-							<td><code>[] // all collections in specPath</code></td>
 						</tr>
 						<tr>
 							<td>seedOnly</td>
+							<td><code>false</code></td>
 							<td>boolean</td>
 							<td>Specifies if mongover should only seed instead of migrating existing database.</td>
-							<td><code>false</code></td>
 						</tr>
 						<tr>
 							<td>migrateForce</td>
+							<td><code>false</code></td>
 							<td>boolean</td>
 							<td>Specifies if mongover should migrate the database even if the specified version is lower or the same.</td>
-							<td><code>false</code></td>
 						</tr>
 						<tr>
 							<td>info</td>
+							<td><code>_info</code></td>
 							<td>string</td>
 							<td>Specifies the collection name of the database information.</td>
-							<td><code>_info</code></td>
 						</tr>
 						<tr>
 							<td>socketTimeoutMS</td>
+							<td><code>3600000</code></td>
 							<td>number</td>
 							<td>Specifies how long a send or receive on a socket can take before timing out in milliseconds.</td>
-							<td><code>3600000</code></td>
 						</tr>
 				</tbody></table>
 				<a href="#3-apply-mongover-specification" id="3-apply-mongover-specification" style="color: inherit; text-decoration: none;">
@@ -187,13 +187,13 @@
 						<p><strong>SYNOPSIS</strong></p>
 						<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> mongover init [&lt;specPath&gt;] [-f dir|-f json]</span></code></pre>
 						<p><strong>ARGUMENTS</strong></p>
-						<pre><code>&lt;specPath&gt;                path <span class="hljs-keyword">to</span> Mongover Specification. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">`./mongover`</span>.</code></pre><p><strong>OPTIONS</strong></p>
+						<pre><code>&lt;specPath&gt;                <span class="hljs-type">path</span> <span class="hljs-keyword">to</span> Mongover Specification. Defaults <span class="hljs-keyword">to</span> `./<span class="hljs-keyword">database</span>`.</code></pre><p><strong>OPTIONS</strong></p>
 					<pre><code>-f <span class="hljs-literal">or</span> --format            specifies Mongover Specification format, choose between `dir` <span class="hljs-literal">and</span> `json`. Defaults to `dir`.</code></pre></li>
 					<li><p><strong>extract</strong>: extracts the Mongover Specification of an existing MongoDB Server and initializes a new Mongover Repository with it.</p>
 						<p><strong>SYNOPSIS</strong></p>
 						<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> mongover extract [&lt;specPath&gt;] [-u <span class="hljs-string">"&lt;uri&gt;"</span>] [-d &lt;dbName&gt;[,...] [-c &lt;collectionName&gt;[,...]]] [-f dir|-f json] [-e jsonl|-e json|-e no [-q <span class="hljs-string">"&lt;query&gt;"</span>]] [-i &lt;infoCollection&gt;] [--socketTimeoutMS &lt;milliseconds&gt;]</span></code></pre>
 						<p><strong>ARGUMENTS</strong></p>
-						<pre><code>&lt;specPath&gt;                path <span class="hljs-keyword">to</span> Mongover Specification. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">`./mongover`</span>.</code></pre><p><strong>OPTIONS</strong></p>
+						<pre><code>&lt;specPath&gt;                <span class="hljs-type">path</span> <span class="hljs-keyword">to</span> Mongover Specification. Defaults <span class="hljs-keyword">to</span> `./<span class="hljs-keyword">database</span>`.</code></pre><p><strong>OPTIONS</strong></p>
 						<pre><code>-u <span class="hljs-keyword">or</span> --uri               specifies the uri <span class="hljs-keyword">of</span> the running mongod <span class="hljs-keyword">or</span> mongos. Defaults <span class="hljs-keyword">to</span> <span class="hljs-string">'mongodb://127.0.0.1:27017/'</span>.
 
 -d <span class="hljs-keyword">or</span> --dbs               specifies which databases are <span class="hljs-keyword">to</span> be extracted.
@@ -255,38 +255,54 @@
 └── <span class="hljs-string">...</span></code></pre><ul>
 					<li><p><strong>db.spec.json</strong></p>
 						<pre><code class="language-json5">  {
-      &quot;seedOnly&quot;: false,                      // Specifies if existing database should be migrated or only seeded.
-      &quot;migrateForce&quot;: false,                  // Specifies if mongover should migrate the database even if the specified version is the same.
-      &quot;info&quot;: &quot;_info&quot;,                        // Specifies the collection name of the database information. Defaults to &#39;_info&#39;.
-      &quot;dropFirst&quot;: false,                     // Specifies if existing database should be dropped before specification is applied.
-      &quot;alias&quot;: &quot;dbName&quot;,                      // Alias/Name the database specification will be deployed as.
-      &quot;version&quot;: &quot;1.0.0&quot;,                     // Specifies the version of the database, this will determine if the database needs to be migrated or not.
+      &quot;drop&quot;: false, // Specifies if database should just be dropped.
+      &quot;seedOnly&quot;: false, // Specifies if existing database should be migrated or only seeded.
+      &quot;migrateForce&quot;: false, // Specifies if mongover should migrate the database even if the specified version is the same.
+      &quot;info&quot;: &quot;_info&quot;, // Specifies the collection name of the database information.
+      &quot;recreate&quot;: false, // Specifies if existing database should be dropped before specification is applied.
+      &quot;alias&quot;: &quot;dbName&quot;, // Alias/Name the database specification will be deployed as.
+      &quot;version&quot;: &quot;1.0.0&quot;, // Specifies the version of the database, this will determine if the database needs to be migrated or not.
   }</code></pre>
 					</li>
 					<li><p><strong>collectionName.spec.json</strong></p>
 						<pre><code class="language-json5">  {
-      &quot;dropFirst&quot;: false,                     // Specifies if the Collection should be dropped before specification is applied.
-      &quot;dropIndexesFirst&quot;: false,              // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
-      &quot;options&quot;: {},                          // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
+      &quot;drop&quot;: false, // Specifies if collection should just be dropped.
+      &quot;recreate&quot;: false, // Specifies if the Collection should be dropped before specification is applied.
+      &quot;recreateIndexes&quot;: false, // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
+      &quot;options&quot;: {}, // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
       &quot;indexes&quot;: [
           {
-              &quot;dropFirst&quot;: false,             // Specifies if Index with same name should  be dropped before specification is applied.
-              &quot;keys&quot;: {                       // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
+              &quot;drop&quot;: false,  // Specifies if index should just be dropped.
+              &quot;recreate&quot;: false, // Specifies if Index with same name should be dropped before specification is applied.
+              &quot;keys&quot;: { // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
                   &quot;fieldName&quot;: 1        
               },
-              &quot;options&quot;: {                    // Create Index Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createIndex
+              &quot;options&quot;: { // Create Index Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createIndex
                   &quot;name&quot;: &quot;fieldName_1&quot;
               }
           }
       ],
       &quot;data&quot;: {
-          &quot;preservePrimaryKey&quot;: true,         // Specifies if _id from export file should be preserved when applied.
-          &quot;upsertFields&quot;: [                   // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
-              &quot;fieldName&quot; 
-          ],
-          &quot;ignoreFields&quot;: [                   // Specify fields to be ignored when updating existing documents.
+          &quot;upsert&quot;: {
+              &quot;preserve_id&quot;: true, // Specifies if _id from export file should be preserved when applied.
+              &quot;identifierFields&quot;: [ // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
+                  &quot;fieldName&quot; 
+              ],
+              &quot;ignoreFields&quot;: [ // Specify fields to be ignored when updating existing documents.
+                  &quot;fieldName&quot;
+              ],
+          },
+          &quot;rename&quot;: { // Specify fields to be renamed when updating existing documents.
+              &quot;fieldName&quot;: &quot;newFieldName&quot;
+          },
+          &quot;unset&quot;: [ // Specify fields to be unset when updating existing documents.
               &quot;fieldName&quot;
-          ]
+          ],
+          &quot;delete&quot;: { // Filter for deleteMany, leave empty if there is nothing to delete. Filter should be in EJSON format.
+              &quot;fieldName&quot;: {
+                  &quot;$oid&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaa&quot;
+              }
+          }
       }
   }</code></pre>
 					</li>
@@ -305,35 +321,53 @@
 │   └── db.spec.json                  <span class="hljs-comment"># Database Migration/Seeding Specification file</span>
 └── <span class="hljs-string">...</span></code></pre><ul>
 					<li><strong>db.spec.json</strong><pre><code class="language-json5">  {
-      &quot;seedOnly&quot;: false,                      // Specifies if existing database should be migrated or only seeded.
-      &quot;migrateForce&quot;: false,                  // Specifies if mongover should migrate the database even if the specified version is the same.
-      &quot;info&quot;: &quot;_info&quot;,                        // Specifies the collection name of the database information. Defaults to &#39;_info&#39;.
-      &quot;dropFirst&quot;: false,                     // Specifies if existing database should be dropped before specification is applied.
-      &quot;alias&quot;: &quot;dbName&quot;,                      // Alias/Name the database specification will be deployed as.
-      &quot;version&quot;: &quot;1.0.0&quot;,                     // Specifies the version of the database, this will determine if the database needs to be migrated or not.
+      &quot;drop&quot;: false, // Specifies if database should just be dropped.
+      &quot;seedOnly&quot;: false, // Specifies if existing database should be migrated or only seeded.
+      &quot;migrateForce&quot;: false, // Specifies if mongover should migrate the database even if the specified version is the same.
+      &quot;info&quot;: &quot;_info&quot;,  // Specifies the collection name of the database information.
+      &quot;recreate&quot;: false, // Specifies if existing database should be dropped before specification is applied.
+      &quot;alias&quot;: &quot;dbName&quot;, // Alias/Name the database specification will be deployed as.
+      &quot;version&quot;: &quot;1.0.0&quot;, // Specifies the version of the database, this will determine if the database needs to be migrated or not.
       &quot;collections&quot;: {
-          &quot;dropFirst&quot;: false,                 // Specifies if the Collection should be dropped before specification is applied.
-          &quot;dropIndexesFirst&quot;: false,          // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
-          &quot;options&quot;: {},                      // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
-          &quot;indexes&quot;: [
-              {
-                  &quot;dropFirst&quot;: false,         // Specifies if Index with same name should  be dropped before specification is applied.
-                  &quot;keys&quot;: {                   // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
-                      &quot;fieldName&quot;: 1        
+          &quot;collectionName&quot;: {
+              &quot;drop&quot;: false, // Specifies if collection should just be dropped.
+              &quot;recreate&quot;: false, // Specifies if the Collection should be dropped before specification is applied.
+              &quot;recreateIndexes&quot;: false, // Specifies if all the Indexes of the Collection should be dropped before specification is applied.
+              &quot;options&quot;: {}, // Create Collection Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createCollection
+              &quot;indexes&quot;: [
+                  {
+                      &quot;drop&quot;: false, // Specifies if index should just be dropped.
+                      &quot;recreate&quot;: false, // Specifies if Index with same name should  be dropped before specification is applied.
+                      &quot;keys&quot;: { // Specify keys to be indexed. See: https://docs.mongodb.com/manual/indexes/#index-types
+                          &quot;fieldName&quot;: 1        
+                      },
+                      &quot;options&quot;: { // Create Index Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createIndex
+                          &quot;name&quot;: &quot;fieldName_1&quot;
+                      }
+                  }
+              ],
+              &quot;data&quot;: {
+                  &quot;upsert&quot;: {
+                      &quot;preserve_id&quot;: true, // Specifies if _id from export file should be preserved when applied.
+                      &quot;identifierFields&quot;: [ // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
+                          &quot;fieldName&quot; 
+                      ],
+                      &quot;ignoreFields&quot;: [ // Specify fields to be ignored when updating existing documents.
+                          &quot;fieldName&quot;
+                      ],
                   },
-                  &quot;options&quot;: {                // Create Index Options. See: http://mongodb.github.io/node-mongodb-native/3.2/api/Db.html#createIndex
-                      &quot;name&quot;: &quot;fieldName_1&quot;
+                  &quot;rename&quot;: { // Specify fields to be renamed when updating existing documents.
+                      &quot;fieldName&quot;: &quot;newFieldName&quot;
+                  },
+                  &quot;unset&quot;: [ // Specify fields to be unset when updating existing documents.
+                      &quot;fieldName&quot;
+                  ],
+                  &quot;delete&quot;: { // Filter for deleteMany, leave empty if there is nothing to delete. Filter should be in EJSON format.
+                      &quot;fieldName&quot;: {
+                          &quot;$oid&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaa&quot;
+                      }
                   }
               }
-          ],
-          &quot;data&quot;: {
-              &quot;preservePrimaryKey&quot;: true,     // Specifies if _id from export file should be preserved when applied.
-              &quot;upsertFields&quot;: [               // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
-                  &quot;fieldName&quot; 
-              ],
-              &quot;ignoreFields&quot;: [               // Specify fields to be ignored when updating existing documents.
-                  &quot;fieldName&quot;
-              ]
           }
       }
   }</code></pre>
@@ -423,7 +457,19 @@ collectionName<span class="hljs-selector-class">.bar</span><span class="hljs-sel
 						<a href="modules/_core_apply_.html">"core/apply"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_core_build_index_.html">"core/build-<wbr>index"</a>
+						<a href="modules/_core_apply_collection_.html">"core/apply-<wbr>collection"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_core_apply_data_.html">"core/apply-<wbr>data"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_core_apply_database_.html">"core/apply-<wbr>database"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_core_apply_index_.html">"core/apply-<wbr>index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_core_apply_info_.html">"core/apply-<wbr>info"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_core_compare_version_.html">"core/compare-<wbr>version"</a>
@@ -432,22 +478,7 @@ collectionName<span class="hljs-selector-class">.bar</span><span class="hljs-sel
 						<a href="modules/_core_connect_server_.html">"core/connect-<wbr>server"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_core_create_collection_.html">"core/create-<wbr>collection"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
 						<a href="modules/_core_export_data_.html">"core/export-<wbr>data"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_core_get_spec_.html">"core/get-<wbr>spec"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_core_import_data_.html">"core/import-<wbr>data"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_core_structure_database_.html">"core/structure-<wbr>database"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_core_version_database_.html">"core/version-<wbr>database"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_index_.html">"index"</a>
@@ -466,6 +497,9 @@ collectionName<span class="hljs-selector-class">.bar</span><span class="hljs-sel
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_utils_get_property_.html">"utils/get-<wbr>property"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_utils_get_spec_.html">"utils/get-<wbr>spec"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_utils_parse_options_.html">"utils/parse-<wbr>options"</a>
