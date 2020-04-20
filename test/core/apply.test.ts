@@ -46,6 +46,8 @@ describe('index', () => {
                   .resolves(),
                 deleteOne: stub()
                   .resolves(),
+                deleteMany: stub()
+                  .resolves(),
               }),
             createCollection: stub()
               .resolves(),

@@ -188,22 +188,26 @@ $ mongover <command> [<args>] [<options>]
             }
         ],
         "data": {
-            "preserveUnderscoreId": true, // Specifies if _id from export file should be preserved when applied.
-            "identifierFields": [ // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
-                "fieldName" 
-            ],
-            "ignoreFields": [ // Specify fields to be ignored when updating existing documents.
+            "upsert": {
+                "preserve_id": true, // Specifies if _id from export file should be preserved when applied.
+                "identifierFields": [ // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
+                    "fieldName" 
+                ],
+                "ignoreFields": [ // Specify fields to be ignored when updating existing documents.
+                    "fieldName"
+                ],
+            },
+            "rename": { // Specify fields to be renamed when updating existing documents.
+                "fieldName": "newFieldName"
+            },
+            "unset": [ // Specify fields to be unset when updating existing documents.
                 "fieldName"
             ],
-            "renameFields": [ // Specify fields to be renamed when updating existing documents.
-                {
-                    "from": "fieldName",
-                    "to": "newFieldName",
+            "delete": { // Filter for deleteMany, leave empty if there is nothing to delete. Filter should be in EJSON format.
+                "fieldName": {
+                    "$oid": "aaaaaaaaaaaaaaaaaaaaaaaa"
                 }
-            ],
-            "unsetFields": [ // Specify fields to be unset when updating existing documents.
-                "fieldName"
-            ]
+            }
         }
     }
     ```
@@ -247,22 +251,26 @@ $ mongover <command> [<args>] [<options>]
                     }
                 ],
                 "data": {
-                    "preserveUnderscoreId": true, // Specifies if _id from export file should be preserved when applied.
-                    "identifierFields": [ // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
-                        "_id" 
-                    ],
-                    "ignoreFields": [ // Specify fields to be ignored when updating existing documents.
+                    "upsert": {
+                        "preserve_id": true, // Specifies if _id from export file should be preserved when applied.
+                        "identifierFields": [ // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
+                            "fieldName" 
+                        ],
+                        "ignoreFields": [ // Specify fields to be ignored when updating existing documents.
+                            "fieldName"
+                        ],
+                    },
+                    "rename": { // Specify fields to be renamed when updating existing documents.
+                        "fieldName": "newFieldName"
+                    },
+                    "unset": [ // Specify fields to be unset when updating existing documents.
                         "fieldName"
                     ],
-                    "renameFields": [ // Specify fields to be renamed when updating existing documents.
-                        {
-                            "from": "fieldName",
-                            "to": "newFieldName",
+                    "delete": { // Filter for deleteMany, leave empty if there is nothing to delete. Filter should be in EJSON format.
+                        "fieldName": {
+                            "$oid": "aaaaaaaaaaaaaaaaaaaaaaaa"
                         }
-                    ],
-                    "unsetFields": [ // Specify fields to be unset when updating existing documents.
-                        "fieldName"
-                    ]
+                    }
                 }
             }
         }

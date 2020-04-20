@@ -15,17 +15,19 @@ export interface CollectionSpec {
   recreateIndexes: boolean;
   recreate: boolean;
   drop: boolean;
+  indexes?: IndexSpec[];
+  data?: DataSpec;
 }
 
 export interface DataSpec {
-  preserveUnderscoreId: boolean;
-  identifierFields: string[];
-  ignoreFields: string[];
-  renameFields: Array<{
-    from: string;
-    to: string;
-  }>;
-  unsetFields: string[];
+  upsert: {
+    preserve_id: boolean;
+    identifiers: string[];
+    ignoreFields: string[];
+  };
+  rename: any;
+  unset: string[];
+  delete: any;
 }
 
 export interface MongoverOptions {
