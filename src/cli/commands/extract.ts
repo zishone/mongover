@@ -54,10 +54,11 @@ export async function extract(options: MongoverOptions): Promise<void> {
         if (options.collections!.length === 0 || options.collections!.includes(collectionInfo.name)) {
           logger.cli('----- Extracting Collection: %s', collectionInfo.name);
           const collection = db.collection(collectionInfo.name);
-          collectionSpecTemplate.data.ignoreFields = [];
-          collectionSpecTemplate.data.identifierFields = [];
-          collectionSpecTemplate.data.unsetFields = [];
-          collectionSpecTemplate.data.renameFields = [];
+          collectionSpecTemplate.data!.upsert.ignoreFields = [];
+          collectionSpecTemplate.data!.upsert.identifiers = [];
+          collectionSpecTemplate.data!.unset = [];
+          collectionSpecTemplate.data!.rename = {};
+          collectionSpecTemplate.data!.delete = {};
           collectionSpecTemplate.options = collectionInfo.options;
           collectionSpecTemplate.indexes = [];
           const indexInfos = await collection

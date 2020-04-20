@@ -14,21 +14,23 @@
     }
   ],
   "data": {
-    "preserveUnderscoreId": true,
-    "identifierFields": [
-      "_id"
-    ],
-    "ignoreFields": [
+    "upsert": {
+      "preserve_Id": true,
+      "identifiers": [
+        "_id"
+      ],
+      "ignoreFields": [
+        "fieldName"
+      ]
+    },
+    "rename": {
+      "fieldName": "newFieldName"
+    },
+    "unset": [
       "fieldName"
     ],
-    "renameFields": [
-      {
-        "from": "fieldName",
-        "to": "newFieldName"
-      }
-    ],
-    "unsetFields": [
-      "fieldName"
-    ]
+    "delete": {
+      "fieldName": 1
+    }
   }
 }

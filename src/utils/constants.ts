@@ -1,4 +1,8 @@
-import { DatabaseSpec, MongoverOptions } from '../types/types';
+import {
+  CollectionSpec,
+  DatabaseSpec,
+  MongoverOptions,
+} from '../types/types';
 
 export const usage = `
 Usage:
@@ -73,7 +77,7 @@ export const databaseSpecTemplate: DatabaseSpec = {
   collections: {},
 };
 
-export const collectionSpecTemplate = {
+export const collectionSpecTemplate: CollectionSpec = {
   drop: false,
   recreate: false,
   recreateIndexes: false,
@@ -87,14 +91,14 @@ export const collectionSpecTemplate = {
     },
   ],
   data: {
-    preserveUnderscoreId: true,
-    identifierFields: [ '_id' ],
-    ignoreFields: [ 'fieldName' ],
-    renameFields: [{
-      from: 'fieldName',
-      to: 'newFieldName',
-    }],
-    unsetFields: [ 'fieldName' ],
+    upsert: {
+      preserve_id: true,
+      identifiers: ['_id'],
+      ignoreFields: ['fieldName'],
+    },
+    rename: { fieldName: 'newFieldName' },
+    unset: ['fieldName'],
+    delete: { fieldName: { $oid: 'aaaaaaaaaaaaaaaaaaaaaaaa' } },
   },
 };
 
