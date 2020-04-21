@@ -15,20 +15,22 @@ export async function applyCollection(db: Db, collectionName: string, collection
       logger.cli('----- Dropping Collection: %s', collectionName);
       await collection.drop();
       existingCollection = false;
-    } else if (existingCollection && collectionSpec.recreateIndexes) {
-      logger.info('Dropping Indexes in Collection: %s', collectionName);
-      logger.cli('----- Dropping Indexes in Collection: %s', collectionName);
-      await collection.dropIndexes();
     }
     if (collectionSpec.drop) {
       logger.info('Dropped Collection: %s', collectionName);
-    } else {
+    } else if (!existingCollection) {
       logger.info('Creating Collection: %s', collectionName);
       logger.cli('----- Creating Collection: %s', collectionName);
-      if (!existingCollection) {
-        await db.createCollection(collectionName, collectionSpec.options);
-      }
+      await db.createCollection(collectionName, collectionSpec.options);
       logger.info('Created Collection: %s', collectionName);
+    } else {
+      logger.info('Using Existing Collection: %s', collectionName);
+      logger.cli('----- Using Existing Collection: %s', collectionName);
+    }
+    if (existingCollection && collectionSpec.recreateIndexes) {
+      logger.info('Dropping Indexes: %s', 'All');
+      logger.cli('------- Dropping Indexes: %s', 'All');
+      await collection.dropIndexes();
     }
     return collection;
   } catch (error) {

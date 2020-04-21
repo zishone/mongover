@@ -98,7 +98,6 @@ function processJsonl(collection: Collection, dataSpec: DataSpec, fileStream: In
 
 export async function applyData(collection: Collection, dataSpec: DataSpec, dataPath: string): Promise<void> {
   try {
-    const actions: string[] = [];
     const filenameArr = dataPath.split('.');
     const fileType = filenameArr.pop();
     if (filenameArr.pop() !== 'd' || fileType !== 'ts') {
@@ -119,7 +118,6 @@ export async function applyData(collection: Collection, dataSpec: DataSpec, data
         default:
           throw new Error(`Unrecognized Export type: ${fileType}.`);
       }
-      actions.push('Upsert');
     }
     for (const fieldName in dataSpec.rename) {
       if (dataSpec.rename.hasOwnProperty(fieldName)) {
@@ -129,7 +127,6 @@ export async function applyData(collection: Collection, dataSpec: DataSpec, data
     }
     if (Object.keys(dataSpec.rename).length > 0) {
       await collection.updateMany({}, { $rename: dataSpec.rename });
-      actions.push('Rename');
     }
     const unset: any = {};
     for (const unsetField of dataSpec.unset) {
@@ -139,16 +136,13 @@ export async function applyData(collection: Collection, dataSpec: DataSpec, data
     }
     if (Object.keys(unset).length > 0) {
       await collection.updateMany({}, { $unset: unset });
-      actions.push('Unset');
     }
     const deleteFilter = EJSON.parse(EJSON.stringify(dataSpec.delete), { relaxed: true });
     if (Object.keys(deleteFilter).length > 0) {
       logger.info('Deleting Data: %o', deleteFilter);
       logger.cli('------- Deleting Data: %o', deleteFilter);
       await collection.deleteMany(deleteFilter);
-      actions.push('Delete');
     }
-    logger.info('Applied Data: %s', actions.join(', '));
   } catch (error) {
     logger.error('Error applying Data: %s', dataPath.replace(process.cwd(), '.'));
     logger.cli('------- Error applying Data: %s', dataPath.replace(process.cwd(), '.'));

@@ -190,7 +190,7 @@ $ mongover <command> [<args>] [<options>]
         "data": {
             "upsert": {
                 "preserve_id": true, // Specifies if _id from export file should be preserved when applied.
-                "identifierFields": [ // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
+                "identifiers": [ // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
                     "fieldName" 
                 ],
                 "ignoreFields": [ // Specify fields to be ignored when updating existing documents.
@@ -253,7 +253,7 @@ $ mongover <command> [<args>] [<options>]
                 "data": {
                     "upsert": {
                         "preserve_id": true, // Specifies if _id from export file should be preserved when applied.
-                        "identifierFields": [ // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
+                        "identifiers": [ // Specify fields to be used to check if a document exists in the collection and used as filter to update the document.
                             "fieldName" 
                         ],
                         "ignoreFields": [ // Specify fields to be ignored when updating existing documents.
